@@ -1,6 +1,10 @@
 # SmartEduDownloader - 国家中小学智慧教育平台教材解析下载工具
 
-SmartEduDownloader 可以解析国家中小学智慧教育平台教材的文档地址。
+SmartEduDownloader 可以解析下载国家中小学智慧教育平台教材的文档地址，支持批量下载，需要.Net Framwork 4.0以上版本支持。
+
+MD5 Hash
+SmartEduDownloader-1.0.24081.0-x86.7z D0E175C2271E5AAD46225F7C25008FD6
+SmartEduDownloader-1.0.24081.0-x64.7z 5F9A82D85649D52D45D1719561A70379
 
 下载地址 [https://github.com/cjhdevact/SmartEduDownloader/releases](https://github.com/cjhdevact/SmartEduDownloader/releases)
 
