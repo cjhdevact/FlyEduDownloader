@@ -12,6 +12,7 @@ Public Class MainForm
 
     Public MyArch As String
     Public Const AppBuildTime As String = "20240824"
+    Public Const AppBuildChannel As String = "O"
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         If Environment.Is64BitProcess = True Then
@@ -19,7 +20,7 @@ Public Class MainForm
         Else
             MyArch = "x86"
         End If
-        Me.Text = "SmartEduDownloader " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MyArch
+        Me.Text = "SmartEduDownloader " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MyArch & " " & AppBuildChannel
         DownloadClient.Timeout = 30000
         DownBookLink = ""
         DownBookName = ""

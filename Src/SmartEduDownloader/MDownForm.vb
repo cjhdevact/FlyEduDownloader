@@ -6,7 +6,7 @@ Public Class MDownForm
     Public DownloadClient As New WebClientPro
     Dim DownLinks() As String
     Dim dline As Integer
-    Dim lgtmp As String
+    'Dim lgtmp As String
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         TextBox2.Text = ""
     End Sub
@@ -23,7 +23,7 @@ Public Class MDownForm
         CheckBox1.Checked = True
         DownloadClient.Timeout = 30000
         'AddHandler DownloadClient.DownloadProgressChanged, AddressOf DownloadClient_DownloadProgressChanged
-        'AddHandler DownloadClient.DownloadFileCompleted, AddressOf DownloadClient_DownloadFileCompleted
+        AddHandler DownloadClient.DownloadFileCompleted, AddressOf DownloadClient_DownloadFileCompleted
         FolderBrowserDialog1.SelectedPath = Application.StartupPath & "\BookDownloads"
         Label3.Text = "当前下载目录：" & FolderBrowserDialog1.SelectedPath
     End Sub
@@ -56,7 +56,11 @@ Public Class MDownForm
                 If InStr(DownLinks(i), "basic.smartedu.cn") > 0 Then Call smartedudown(DownLinks(i))
             End If
         Next
-        TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "**************下载完成**************" & vbCrLf & TextBox2.Text
+        If mld = 1 Then
+            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "**************全部开始下载**************" & vbCrLf & TextBox2.Text
+        Else
+            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "**************下载完成**************" & vbCrLf & TextBox2.Text
+        End If
         TextBox1.Enabled = True
         Button1.Enabled = True
         Button2.Enabled = True
@@ -94,7 +98,7 @@ Public Class MDownForm
             Dim DownBookLinkPri As String = CStr((BookItemsObject(1)("ti_storages"))(0))
             Dim DownBookLink As String = Replace(DownBookLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
 
-            lgtmp = TextBox2.Text
+            'lgtmp = TextBox2.Text
 
             Dim BookNameObject As JObject = BookInfoObject("global_title")
             Dim DownBookName As String = CStr(BookNameObject("zh-CN"))
@@ -119,7 +123,10 @@ Public Class MDownForm
 
             'DownloadClient.DownloadFileAsync(New Uri(DownBookLink), (fn))
             If mld = 1 Then
-                DownloadClient.DownloadFileAsync(New Uri(DownBookLink), fn)
+                Dim DownloadClient1 As New WebClientPro
+                DownloadClient1.Timeout = 30000
+                AddHandler DownloadClient1.DownloadFileCompleted, AddressOf DownloadClient_DownloadFileCompleted
+                DownloadClient1.DownloadFileAsync(New Uri(DownBookLink), fn)
             Else
                 DownloadClient.DownloadFile(New Uri(DownBookLink), fn)
             End If
@@ -132,18 +139,18 @@ Public Class MDownForm
     '    TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "正在下载第" & dline & "个 " & e.ProgressPercentage & "% 已经下载 " & Int(e.BytesReceived / 1024 / 1024).ToString & " MB，共 " & Int(e.TotalBytesToReceive / 1024 / 1024).ToString & " MB" & vbCrLf & TextBox2.Text
     'End Sub
 
-    'Private Sub DownloadClient_DownloadFileCompleted(ByVal sender As System.Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
-    '    If e.Error IsNot Nothing Then
-    '        TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个" & e.Error.Message & vbCrLf & TextBox2.Text
-    '        lgtmp = ""
-    '    ElseIf e.Cancelled = True Then
-    '        TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个下载已被取消" & vbCrLf & TextBox2.Text
-    '        lgtmp = ""
-    '    Else
-    '        TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个下载完成！" & vbCrLf & TextBox2.Text
-    '        lgtmp = ""
-    '    End If
-    'End Sub
+    Private Sub DownloadClient_DownloadFileCompleted(ByVal sender As System.Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
+        If e.Error IsNot Nothing Then
+            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个" & e.Error.Message & vbCrLf & TextBox2.Text
+            'lgtmp = ""
+        ElseIf e.Cancelled = True Then
+            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个下载已被取消" & vbCrLf & TextBox2.Text
+            'lgtmp = ""
+        Else
+            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个下载完成！" & vbCrLf & TextBox2.Text
+            'lgtmp = ""
+        End If
+    End Sub
 
     Private Sub DownFormvb_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyClass.FormClosing
         If st = 1 Then
