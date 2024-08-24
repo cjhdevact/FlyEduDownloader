@@ -34,7 +34,7 @@ Public Class MDownForm
     End Sub
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        st = 0
+        st = 1
         TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "**************开始下载**************" & vbCrLf & TextBox2.Text
         TextBox1.Enabled = False
         Button1.Enabled = False
@@ -63,7 +63,7 @@ Public Class MDownForm
         Button3.Enabled = True
         Button4.Enabled = True
         CheckBox1.Enabled = True
-        st = 1
+        st = 0
     End Sub
 
     Sub smartedudown(ByVal BookLink As String)
@@ -147,9 +147,9 @@ Public Class MDownForm
 
     Private Sub DownFormvb_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyClass.FormClosing
         If st = 1 Then
-            e.Cancel = False
-        Else
             e.Cancel = True
+        Else
+            e.Cancel = False
         End If
     End Sub
 
