@@ -42,10 +42,6 @@ SmartEduDownloader 可以解析下载国家中小学智慧教育平台教材的�
 
 `https://basic.smartedu.cn/tchMaterial/detail?contentType=assets_document&contentId=bdc00134-465d-454b-a541-dcd0cec4d86e&catalogType=tchMaterial&subCatalog=tchMaterial` 
 
-## 致谢
-
-[AnyTextbookDownloader](https://gitlab.com/xiaoyangtech1/AnyTextbookDownloader) - 提供了教材下载思路
-
 ------------
 
 
