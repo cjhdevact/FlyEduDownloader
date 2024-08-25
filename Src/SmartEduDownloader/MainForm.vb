@@ -8,19 +8,26 @@ Public Class MainForm
     Dim DownBookLink As String
     Dim DownBookImgLink As String
     Dim DownBookName As String
+
+    Public DownloadMode As Integer
+
     Public DownloadClient As New WebClientPro
 
+    Public XNdAuth As String
+
     Public MyArch As String
-    Public Const AppBuildTime As String = "20240824"
+    Public Const AppBuildTime As String = "20240825"
     Public Const AppBuildChannel As String = "O"
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Dim disi As Graphics = Me.CreateGraphics()
+        TextBox2.Height = disi.DpiX * 0.01 * 135
         If Environment.Is64BitProcess = True Then
             MyArch = "x64"
         Else
             MyArch = "x86"
         End If
-        Me.Text = "SmartEduDownloader " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MyArch & " " & AppBuildChannel
+
         DownloadClient.Timeout = 30000
         DownBookLink = ""
         DownBookName = ""
@@ -28,6 +35,23 @@ Public Class MainForm
         AddHandler DownloadClient.DownloadProgressChanged, AddressOf DownloadClient_DownloadProgressChanged
         AddHandler DownloadClient.DownloadFileCompleted, AddressOf DownloadClient_DownloadFileCompleted
         'AddHandler DownloadClient.DownloadDataCompleted, AddressOf DownloadClient_DownloadFileCompleted
+
+        If Command.ToLower = "/loginmode" Then
+            Me.Text = "SmartEduDownloader " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （登录下载模式）"
+            DownloadMode = 0
+            sxam.Visible = True
+            logmm.Text = "使用免登录模式下载(&L)"
+            Label3.Visible = True
+            SetXaForm.Button4.Text = "退出"
+            SetXaForm.StartPosition = FormStartPosition.CenterScreen
+            SetXaForm.ShowDialog()
+        Else
+            Me.Text = "SmartEduDownloader " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （免登录下载模式）"
+            DownloadMode = 1
+            sxam.Visible = False
+            logmm.Text = "使用登录模式下载(&L)"
+            Label3.Visible = False
+        End If
     End Sub
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         'Dim a As Integer
@@ -94,16 +118,25 @@ Public Class MainForm
             Dim BookItemsObject As JArray = BookInfoObject("ti_items")
 
             Dim BookDownLinkPri As String = CStr((BookItemsObject(1)("ti_storages"))(0)) & vbCrLf & CStr((BookItemsObject(1)("ti_storages"))(1)) & vbCrLf & CStr((BookItemsObject(1)("ti_storages"))(2))
-            Dim BookDownLink As String = Replace(BookDownLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
+            If DownloadMode = 1 Then
+                Dim BookDownLink As String = Replace(BookDownLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
+                TextBox2.Text = BookDownLink
+            Else
+                TextBox2.Text = BookDownLinkPri
+            End If
+
 
             Dim DownBookLinkPri As String = CStr((BookItemsObject(1)("ti_storages"))(0))
-            DownBookLink = Replace(DownBookLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
+            If DownloadMode = 1 Then
+                DownBookLink = Replace(DownBookLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
+            Else
+                DownBookLink = DownBookLinkPri
+            End If
+
 
             'Dim BookPreviewLinkPri As String = CStr((BookItemsObject(3)("ti_storages"))(0))
             'DownBookImgLink = Replace(BookPreviewLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
             DownBookImgLink = CStr(((BookInfoObject("custom_properties"))("thumbnails"))(0))
-
-            TextBox2.Text = BookDownLink
 
             BookNameLabel.Text = "书籍名称：" & DownBookName
             BookIDLabel.Text = "书籍ID：" & BookIDGet
@@ -183,6 +216,9 @@ Public Class MainForm
             'DownFormvb.Button1.Visible = False
             DownFormvb.st = 0
             DownFormvb.ProgressBar1.Value = 0
+            If DownloadMode = 0 Then
+                DownloadClient.Headers.Set("x-nd-auth", XNdAuth)
+            End If
             Try
                 DownloadClient.DownloadFileAsync(New Uri(DownBookLink), SaveFileDialog1.FileName)
             Catch ex As Exception
@@ -260,10 +296,6 @@ Public Class MainForm
         End If
     End Sub
 
-    Private Sub aboutm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles aboutm.Click
-        AboutForm.ShowDialog()
-    End Sub
-
     Private Sub readmm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles readmm.Click
         MGetForm.Show()
     End Sub
@@ -273,10 +305,44 @@ Public Class MainForm
     End Sub
 
     Private Sub hlpdocm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles hlpdocm.Click
-        System.Diagnostics.Process.Start("https://cjhdevact.github.io/otherprojects/SmartEduDownloader/Help/index.html")
+        If DownloadMode = 1 Then
+            System.Diagnostics.Process.Start("https://cjhdevact.github.io/otherprojects/SmartEduDownloader/Help/index.html")
+        Else
+            System.Diagnostics.Process.Start("https://cjhdevact.github.io/otherprojects/SmartEduDownloader/Help/login.html")
+        End If
     End Sub
 
     Private Sub ofpm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ofpm.Click
         System.Diagnostics.Process.Start("https://cjhdevact.github.io/otherprojects/SmartEduDownloader/index.html")
+    End Sub
+
+    Private Sub logmm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles logmm.Click
+        If DownloadMode = 1 Then
+            System.Diagnostics.Process.Start(Application.ExecutablePath, "/loginmode")
+            Me.Close()
+        Else
+            System.Diagnostics.Process.Start(Application.ExecutablePath)
+            Me.Close()
+        End If
+    End Sub
+
+    Private Sub aboutm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles aboutm.Click
+        AboutForm.ShowDialog()
+    End Sub
+
+    Private Sub sxam_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles sxam.Click
+        SetXaForm.ShowDialog()
+    End Sub
+
+    Private Sub dllinm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dllinm.Click
+        DownLinkForm.Show()
+    End Sub
+
+    Private Sub txtcnvm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtcnvm.Click
+        TextCnv.Show()
+    End Sub
+
+    Private Sub txtspm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtspm.Click
+        TextSp.Show()
     End Sub
 End Class

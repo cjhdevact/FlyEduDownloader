@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class MDownForm
+Partial Class DownLinkForm
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。
@@ -22,20 +22,21 @@ Partial Class MDownForm
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MDownForm))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DownLinkForm))
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
@@ -79,9 +80,9 @@ Partial Class MDownForm
         Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.TextBox1, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.TextBox2, 0, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label3, 0, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel1, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label3, 0, 3)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
@@ -125,17 +126,6 @@ Partial Class MDownForm
         Me.TextBox2.TabIndex = 2
         Me.TextBox2.WordWrap = False
         '
-        'Label3
-        '
-        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label3.Location = New System.Drawing.Point(4, 393)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(957, 40)
-        Me.Label3.TabIndex = 5
-        Me.Label3.Text = "当前下载目录："
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -145,7 +135,7 @@ Partial Class MDownForm
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(957, 40)
         Me.Label1.TabIndex = 3
-        Me.Label1.Text = "国家中小学智慧教育平台教材页面链接：（将教材页面链接粘贴至下方即可，换行为一条地址）"
+        Me.Label1.Text = "请输入链接：（换行为一条地址）"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'FlowLayoutPanel1
@@ -155,6 +145,7 @@ Partial Class MDownForm
         Me.FlowLayoutPanel1.Controls.Add(Me.Button3)
         Me.FlowLayoutPanel1.Controls.Add(Me.Button4)
         Me.FlowLayoutPanel1.Controls.Add(Me.CheckBox1)
+        Me.FlowLayoutPanel1.Controls.Add(Me.CheckBox2)
         Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 333)
@@ -194,11 +185,35 @@ Partial Class MDownForm
         Me.CheckBox1.Text = "使用多线程下载"
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label3.Location = New System.Drawing.Point(3, 393)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(959, 40)
+        Me.Label3.TabIndex = 6
+        Me.Label3.Text = "当前下载目录："
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'FolderBrowserDialog1
         '
         Me.FolderBrowserDialog1.Description = "请选择电子书下载目录："
         '
-        'MDownForm
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Checked = True
+        Me.CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox2.Location = New System.Drawing.Point(94, 15)
+        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(4, 15, 4, 4)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(168, 27)
+        Me.CheckBox2.TabIndex = 7
+        Me.CheckBox2.Text = "文件命名添加时间"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'DownLinkForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
@@ -209,9 +224,9 @@ Partial Class MDownForm
         Me.ForeColor = System.Drawing.Color.Black
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
-        Me.Name = "MDownForm"
+        Me.Name = "DownLinkForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "批量下载"
+        Me.Text = "批量下载链接"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.FlowLayoutPanel1.ResumeLayout(False)
@@ -227,9 +242,10 @@ Partial Class MDownForm
     Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
 End Class

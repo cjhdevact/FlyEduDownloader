@@ -12,6 +12,19 @@ SmartEduDownloader 可以解析下载国家中小学智慧教育平台教材的�
 
 使用教程 [https://cjhdevact.github.io/otherprojects/SmartEduDownloader/Help/index.html](https://cjhdevact.github.io/otherprojects/SmartEduDownloader/Help/index.html)
 
+## 功能说明
+
+本程序支持的功能有：
+
+ [x] 获取智慧教育平台电子教材信息以及下载链接
+
+ [x] 免登录下载智慧教育平台电子教材
+ 
+ [x] 登录下载智慧教育平台电子教材
+ 
+ [x] 批量解析和下载智慧教育平台电子教材链接
+ 
+ [x] 其他一些小工具（如文本处理，批量下载文件（可以使用X-Nd-Auth标头批量下载获取到的教材PDF文件链接）...）
 
 ## 程序截图
 

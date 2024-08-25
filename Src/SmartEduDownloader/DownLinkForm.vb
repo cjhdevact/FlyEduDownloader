@@ -1,6 +1,6 @@
 ﻿Imports Newtonsoft.Json.Linq
 
-Public Class MDownForm
+Public Class DownLinkForm
     Dim st As Integer
     Dim mld As Integer
     Public DownloadClient As New WebClientPro
@@ -17,7 +17,7 @@ Public Class MDownForm
         End If
     End Sub
 
-    Private Sub MDownForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub DownLinkForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         st = 0
         mld = 1
         CheckBox1.Checked = True
@@ -58,10 +58,8 @@ Public Class MDownForm
             TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "正在处理第" & i + 1 & "行链接。" & vbCrLf & TextBox2.Text
             If DownLinks(i) = "" Then
                 Exit Sub
-            ElseIf Not InStr(DownLinks(i), "basic.smartedu.cn") > 0 Then
-                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "错误：不支持下载当前链接。" & vbCrLf & TextBox2.Text
             Else
-                If InStr(DownLinks(i), "basic.smartedu.cn") > 0 Then Call smartedudown(DownLinks(i))
+                Call smartedudown(DownLinks(i))
             End If
         Next
         If mld = 1 Then
@@ -79,57 +77,33 @@ Public Class MDownForm
     End Sub
 
     Sub smartedudown(ByVal BookLink As String)
-        Dim k As Integer
-        k = InStr(BookLink, "contentId=")
-        If k <= 0 Then
-            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "错误：链接解析失败。无法获取BookID。" & vbCrLf & TextBox2.Text
-            Exit Sub
-        End If
-        k = k + 9
-        Dim bookid As String = BookLink.Substring(k, 36) '截取从索引k开始，长度为36的子字符串
-        If Len(bookid) < 36 Then
-            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "错误：链接解析失败。无法获取BookID。" & vbCrLf & TextBox2.Text
-            Exit Sub
-        End If
-        Dim booknameurl As String
-        booknameurl = "https://s-file-1.ykt.cbern.com.cn/zxx/ndrv2/resources/tch_material/details/" & bookid & ".json"
-        Dim bookinforeq As String
-
-        bookinforeq = MainForm.GetSource(booknameurl)
-        If bookinforeq = "" Then
-            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "错误：获取电子书信息失败。" & vbCrLf & TextBox2.Text
-            Exit Sub
-        End If
         Try
-            Dim BookInfoObject As JObject = JObject.Parse(bookinforeq)
-            Dim BookItemsObject As JArray = BookInfoObject("ti_items")
-            Dim DownBookLinkPri As String = CStr((BookItemsObject(1)("ti_storages"))(0))
-            Dim DownBookLink As String
-            If MainForm.DownloadMode = 1 Then
-                DownBookLink = Replace(DownBookLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
-            Else
-                DownBookLink = DownBookLinkPri
-            End If
-
-
-            'lgtmp = TextBox2.Text
-
-            Dim BookNameObject As JObject = BookInfoObject("global_title")
-            Dim DownBookName As String = CStr(BookNameObject("zh-CN"))
-            Dim BookIDGet As String = BookInfoObject("id")
-
             If System.IO.Directory.Exists(FolderBrowserDialog1.SelectedPath) = False Then
                 IO.Directory.CreateDirectory(FolderBrowserDialog1.SelectedPath)
             End If
 
             Dim fn As String
-            fn = FolderBrowserDialog1.SelectedPath & "\" & DownBookName & "_" & BookIDGet & "_" & Format(Now, "yyyy-MM-dd-HH-mm-ss")
+            Dim fn2() As String
 
-            If (fn & ".pdf").Length > 260 Then
-                fn = fn.Substring(0, 260 - 4)
+            If BookLink.Substring(BookLink.Length - 1, 1) = "/" Then
+                fn2(0) = ""
+            Else
+                fn2 = Split(BookLink, ".")
             End If
-            fn = fn & ".pdf"
 
+            Dim fn3() As String
+            fn3 = Split(BookLink, "/")
+            fn3(fn3.Count - 1) = fn3(fn3.Count - 1).Substring(0, fn3(fn3.Count - 1).Length - fn2(fn2.Count - 1).Length - 1)
+
+            If CheckBox2.Checked = True Then
+                fn = FolderBrowserDialog1.SelectedPath & "\" & fn3(fn3.Count - 1) & "_" & Format(Now, "yyyy-MM-dd-HH-mm-ss")
+            Else
+                fn = FolderBrowserDialog1.SelectedPath & "\" & fn3(fn3.Count - 1)
+            End If
+            If (fn & "." & fn2(fn2.Count - 1)).Length > 260 Then
+                fn = fn.Substring(0, 260 - fn2(fn2.Count - 1).Length - 1)
+            End If
+            fn = fn & "." & fn2(fn2.Count - 1)
             If IO.File.Exists(fn) Then
                 Try
                     IO.File.Delete(fn)
@@ -148,9 +122,9 @@ Public Class MDownForm
                 End If
                 DownloadClient1.Timeout = 30000
                 AddHandler DownloadClient1.DownloadFileCompleted, AddressOf DownloadClient_DownloadFileCompleted
-                DownloadClient1.DownloadFileAsync(New Uri(DownBookLink), fn)
+                DownloadClient1.DownloadFileAsync(New Uri(BookLink), fn)
             Else
-                DownloadClient.DownloadFile(New Uri(DownBookLink), fn)
+                DownloadClient.DownloadFile(New Uri(BookLink), fn)
             End If
         Catch ex As Exception
             TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "错误：" & ex.Message & vbCrLf & TextBox2.Text

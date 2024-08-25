@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class MGetForm
+Partial Class TextCnv
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。
@@ -22,48 +22,18 @@ Partial Class MGetForm
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MGetForm))
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(TextCnv))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'TextBox1
-        '
-        Me.TextBox1.BackColor = System.Drawing.Color.White
-        Me.TextBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TextBox1.ForeColor = System.Drawing.Color.Black
-        Me.TextBox1.Location = New System.Drawing.Point(5, 46)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(955, 301)
-        Me.TextBox1.TabIndex = 0
-        Me.TextBox1.WordWrap = False
-        '
-        'TextBox2
-        '
-        Me.TextBox2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TextBox2.ForeColor = System.Drawing.Color.Black
-        Me.TextBox2.Location = New System.Drawing.Point(5, 459)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
-        Me.TextBox2.Multiline = True
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.ReadOnly = True
-        Me.TextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox2.Size = New System.Drawing.Size(955, 301)
-        Me.TextBox2.TabIndex = 2
-        Me.TextBox2.WordWrap = False
         '
         'TableLayoutPanel1
         '
@@ -84,20 +54,49 @@ Partial Class MGetForm
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(965, 766)
-        Me.TableLayoutPanel1.TabIndex = 3
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(785, 570)
+        Me.TableLayoutPanel1.TabIndex = 4
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label2.Location = New System.Drawing.Point(4, 413)
+        Me.Label2.Location = New System.Drawing.Point(4, 315)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(957, 40)
+        Me.Label2.Size = New System.Drawing.Size(777, 40)
         Me.Label2.TabIndex = 4
-        Me.Label2.Text = "解析结果："
+        Me.Label2.Text = "输出结果："
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TextBox1
+        '
+        Me.TextBox1.BackColor = System.Drawing.Color.White
+        Me.TextBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TextBox1.ForeColor = System.Drawing.Color.Black
+        Me.TextBox1.Location = New System.Drawing.Point(5, 46)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.TextBox1.Multiline = True
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBox1.Size = New System.Drawing.Size(775, 203)
+        Me.TextBox1.TabIndex = 0
+        Me.TextBox1.WordWrap = False
+        '
+        'TextBox2
+        '
+        Me.TextBox2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TextBox2.ForeColor = System.Drawing.Color.Black
+        Me.TextBox2.Location = New System.Drawing.Point(5, 361)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.TextBox2.Multiline = True
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.ReadOnly = True
+        Me.TextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBox2.Size = New System.Drawing.Size(775, 203)
+        Me.TextBox2.TabIndex = 2
+        Me.TextBox2.WordWrap = False
         '
         'Label1
         '
@@ -106,83 +105,69 @@ Partial Class MGetForm
         Me.Label1.Location = New System.Drawing.Point(4, 0)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(957, 40)
+        Me.Label1.Size = New System.Drawing.Size(777, 40)
         Me.Label1.TabIndex = 3
-        Me.Label1.Text = "国家中小学智慧教育平台教材页面链接：（将教材页面链接粘贴至下方即可，换行为一条地址）"
+        Me.Label1.Text = "请输入文本："
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'FlowLayoutPanel1
         '
         Me.FlowLayoutPanel1.Controls.Add(Me.Button1)
         Me.FlowLayoutPanel1.Controls.Add(Me.Button2)
-        Me.FlowLayoutPanel1.Controls.Add(Me.CheckBox1)
         Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 353)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 255)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(965, 60)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(785, 60)
         Me.FlowLayoutPanel1.TabIndex = 5
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(835, 6)
+        Me.Button1.Location = New System.Drawing.Point(655, 6)
         Me.Button1.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(125, 45)
         Me.Button1.TabIndex = 2
-        Me.Button1.Text = "解析"
+        Me.Button1.Text = "合并"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(700, 6)
+        Me.Button2.Location = New System.Drawing.Point(520, 6)
         Me.Button2.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(125, 45)
         Me.Button2.TabIndex = 3
-        Me.Button2.Text = "清空"
+        Me.Button2.Text = "关闭"
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'CheckBox1
+        'TextCnv
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(438, 15)
-        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(4, 15, 4, 4)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(253, 27)
-        Me.CheckBox1.TabIndex = 4
-        Me.CheckBox1.Text = "仅输出链接（忽略错误提示）"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
-        'MGetForm
-        '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 23.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(965, 766)
+        Me.ClientSize = New System.Drawing.Size(785, 570)
         Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.Font = New System.Drawing.Font("微软雅黑", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Font = New System.Drawing.Font("微软雅黑", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
-        Me.Name = "MGetForm"
+        Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Name = "TextCnv"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "批量解析"
+        Me.Text = "多行文本合并为一行"
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.FlowLayoutPanel1.ResumeLayout(False)
-        Me.FlowLayoutPanel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
 End Class

@@ -4,6 +4,10 @@ Public Class MGetForm
     Dim DownLinks() As String
     Dim OErr As Integer
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        If TextBox1.Text = "" Then
+            MessageBox.Show("至少输入一个地址。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
         TextBox2.Text = ""
         DownLinks = Split(TextBox1.Text, vbCrLf)
         Dim iu As Integer
@@ -59,7 +63,12 @@ Public Class MGetForm
             Dim BookInfoObject As JObject = JObject.Parse(bookinforeq)
             Dim BookItemsObject As JArray = BookInfoObject("ti_items")
             Dim DownBookLinkPri As String = CStr((BookItemsObject(1)("ti_storages"))(0))
-            Dim DownBookLink As String = Replace(DownBookLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
+            Dim DownBookLink As String
+            If MainForm.DownloadMode = 1 Then
+                DownBookLink = Replace(DownBookLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
+            Else
+                DownBookLink = DownBookLinkPri
+            End If
 
             TextBox2.Text = TextBox2.Text & vbCrLf & DownBookLink
 

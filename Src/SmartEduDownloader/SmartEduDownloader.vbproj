@@ -130,6 +130,12 @@
     <Compile Include="DownFormvb.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="DownLinkForm.Designer.vb">
+      <DependentUpon>DownLinkForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DownLinkForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +170,24 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SetXaForm.Designer.vb">
+      <DependentUpon>SetXaForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SetXaForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextCnv.Designer.vb">
+      <DependentUpon>TextCnv.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TextCnv.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextSp.Designer.vb">
+      <DependentUpon>TextSp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TextSp.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="WebClientPro.Designer.vb">
       <DependentUpon>WebClientPro.vb</DependentUpon>
     </Compile>
@@ -177,6 +201,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DownFormvb.resx">
       <DependentUpon>DownFormvb.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownLinkForm.resx">
+      <DependentUpon>DownLinkForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>
@@ -192,6 +219,15 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetXaForm.resx">
+      <DependentUpon>SetXaForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextCnv.resx">
+      <DependentUpon>TextCnv.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextSp.resx">
+      <DependentUpon>TextSp.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
