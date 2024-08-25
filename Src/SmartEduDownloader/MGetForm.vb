@@ -1,4 +1,5 @@
 ﻿Imports Newtonsoft.Json.Linq
+Imports System.Net
 
 Public Class MGetForm
     Dim DownLinks() As String
@@ -79,6 +80,7 @@ Public Class MGetForm
         End Try
     End Sub
     Private Sub MGetForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        ServicePointManager.SecurityProtocol = CType(192, SecurityProtocolType) Or CType(768, SecurityProtocolType) Or CType(3072, SecurityProtocolType)
         OErr = 1
         CheckBox1.Checked = False
         DownLinks = Nothing

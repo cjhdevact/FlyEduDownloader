@@ -20,6 +20,7 @@ Public Class MainForm
     Public Const AppBuildChannel As String = "O"
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        ServicePointManager.SecurityProtocol = CType(192, SecurityProtocolType) Or CType(768, SecurityProtocolType) Or CType(3072, SecurityProtocolType)
         Dim disi As Graphics = Me.CreateGraphics()
         TextBox2.Height = disi.DpiX * 0.01 * 135
         If Environment.Is64BitProcess = True Then

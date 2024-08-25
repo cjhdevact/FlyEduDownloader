@@ -1,4 +1,5 @@
 ﻿Imports Newtonsoft.Json.Linq
+Imports System.Net
 
 Public Class MDownForm
     Dim st As Integer
@@ -18,6 +19,7 @@ Public Class MDownForm
     End Sub
 
     Private Sub MDownForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        ServicePointManager.SecurityProtocol = CType(192, SecurityProtocolType) Or CType(768, SecurityProtocolType) Or CType(3072, SecurityProtocolType)
         st = 0
         mld = 1
         CheckBox1.Checked = True
