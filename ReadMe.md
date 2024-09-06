@@ -68,7 +68,7 @@ SmartEduDownloader 可以解析下载国家中小学智慧教育平台教材、�
 
 备课：
 
-`https://basic.smartedu.cn/syncClassroom/prepare/detail?lessonId=（资源包lessonId）&chapterId=&teachingmaterialId=&fromPrepare=1&classHourId=lesson_1
+`https://basic.smartedu.cn/syncClassroom/prepare/detail?lessonId=（资源包lessonId）&chapterId=&teachingmaterialId=&fromPrepare=1&classHourId=lesson_1`
 
 #### 解析接口：
 
