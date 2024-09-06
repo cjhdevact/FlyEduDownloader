@@ -46,6 +46,7 @@ Partial Class DownFormvb
         '
         'Button1
         '
+        Me.Button1.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Button1.Location = New System.Drawing.Point(149, 80)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(88, 29)
@@ -58,6 +59,7 @@ Partial Class DownFormvb
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
+        Me.CancelButton = Me.Button1
         Me.ClientSize = New System.Drawing.Size(379, 112)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label1)

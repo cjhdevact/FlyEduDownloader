@@ -80,7 +80,7 @@ Partial Class TextCnv
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
         Me.TextBox1.Size = New System.Drawing.Size(775, 203)
-        Me.TextBox1.TabIndex = 0
+        Me.TextBox1.TabIndex = 2
         Me.TextBox1.WordWrap = False
         '
         'TextBox2
@@ -95,7 +95,7 @@ Partial Class TextCnv
         Me.TextBox2.ReadOnly = True
         Me.TextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both
         Me.TextBox2.Size = New System.Drawing.Size(775, 203)
-        Me.TextBox2.TabIndex = 2
+        Me.TextBox2.TabIndex = 3
         Me.TextBox2.WordWrap = False
         '
         'Label1
@@ -128,7 +128,7 @@ Partial Class TextCnv
         Me.Button1.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(125, 45)
-        Me.Button1.TabIndex = 2
+        Me.Button1.TabIndex = 0
         Me.Button1.Text = "合并"
         Me.Button1.UseVisualStyleBackColor = True
         '
@@ -138,13 +138,13 @@ Partial Class TextCnv
         Me.Button2.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(125, 45)
-        Me.Button2.TabIndex = 3
+        Me.Button2.TabIndex = 1
         Me.Button2.Text = "关闭"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'TextCnv
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 23.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(785, 570)
@@ -153,6 +153,7 @@ Partial Class TextCnv
         Me.ForeColor = System.Drawing.Color.Black
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.MinimumSize = New System.Drawing.Size(801, 608)
         Me.Name = "TextCnv"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "多行文本合并为一行"

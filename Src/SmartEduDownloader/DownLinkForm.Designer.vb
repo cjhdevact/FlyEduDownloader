@@ -34,30 +34,30 @@ Partial Class DownLinkForm
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(835, 6)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.Button1.Location = New System.Drawing.Point(668, 5)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(125, 45)
-        Me.Button1.TabIndex = 2
+        Me.Button1.Size = New System.Drawing.Size(100, 36)
+        Me.Button1.TabIndex = 0
         Me.Button1.Text = "下载"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(700, 6)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.Button2.Location = New System.Drawing.Point(560, 5)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(125, 45)
-        Me.Button2.TabIndex = 3
+        Me.Button2.Size = New System.Drawing.Size(100, 36)
+        Me.Button2.TabIndex = 1
         Me.Button2.Text = "清空输出"
         Me.Button2.UseVisualStyleBackColor = True
         '
@@ -65,10 +65,9 @@ Partial Class DownLinkForm
         '
         Me.Label2.AutoSize = True
         Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label2.Location = New System.Drawing.Point(4, 433)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(3, 340)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(957, 40)
+        Me.Label2.Size = New System.Drawing.Size(766, 32)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "输出："
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -88,13 +87,13 @@ Partial Class DownLinkForm
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 6
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(965, 766)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(772, 600)
         Me.TableLayoutPanel1.TabIndex = 4
         '
         'TextBox1
@@ -102,13 +101,13 @@ Partial Class DownLinkForm
         Me.TextBox1.BackColor = System.Drawing.Color.White
         Me.TextBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TextBox1.ForeColor = System.Drawing.Color.Black
-        Me.TextBox1.Location = New System.Drawing.Point(5, 46)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.TextBox1.Location = New System.Drawing.Point(4, 37)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(955, 281)
-        Me.TextBox1.TabIndex = 0
+        Me.TextBox1.Size = New System.Drawing.Size(764, 218)
+        Me.TextBox1.TabIndex = 6
         Me.TextBox1.WordWrap = False
         '
         'TextBox2
@@ -116,24 +115,23 @@ Partial Class DownLinkForm
         Me.TextBox2.BackColor = System.Drawing.Color.WhiteSmoke
         Me.TextBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TextBox2.ForeColor = System.Drawing.Color.Black
-        Me.TextBox2.Location = New System.Drawing.Point(5, 479)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.TextBox2.Location = New System.Drawing.Point(4, 377)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.TextBox2.Multiline = True
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.ReadOnly = True
         Me.TextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox2.Size = New System.Drawing.Size(955, 281)
-        Me.TextBox2.TabIndex = 2
+        Me.TextBox2.Size = New System.Drawing.Size(764, 218)
+        Me.TextBox2.TabIndex = 7
         Me.TextBox2.WordWrap = False
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label1.Location = New System.Drawing.Point(4, 0)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(957, 40)
+        Me.Label1.Size = New System.Drawing.Size(766, 32)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "请输入链接：（换行为一条地址）"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -148,50 +146,64 @@ Partial Class DownLinkForm
         Me.FlowLayoutPanel1.Controls.Add(Me.CheckBox2)
         Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 333)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 260)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(965, 60)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(772, 48)
         Me.FlowLayoutPanel1.TabIndex = 5
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(565, 6)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.Button3.Location = New System.Drawing.Point(452, 5)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(125, 45)
-        Me.Button3.TabIndex = 4
+        Me.Button3.Size = New System.Drawing.Size(100, 36)
+        Me.Button3.TabIndex = 2
         Me.Button3.Text = "设置下载目录"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(430, 6)
-        Me.Button4.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.Button4.Location = New System.Drawing.Point(344, 5)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(125, 45)
-        Me.Button4.TabIndex = 5
+        Me.Button4.Size = New System.Drawing.Size(100, 36)
+        Me.Button4.TabIndex = 3
         Me.Button4.Text = "打开下载目录"
         Me.Button4.UseVisualStyleBackColor = True
         '
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(270, 15)
-        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(4, 15, 4, 4)
+        Me.CheckBox1.Location = New System.Drawing.Point(218, 12)
+        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(3, 12, 3, 3)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(151, 27)
-        Me.CheckBox1.TabIndex = 6
+        Me.CheckBox1.Size = New System.Drawing.Size(119, 23)
+        Me.CheckBox1.TabIndex = 4
         Me.CheckBox1.Text = "使用多线程下载"
         Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Checked = True
+        Me.CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox2.Location = New System.Drawing.Point(80, 12)
+        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(3, 12, 3, 3)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(132, 23)
+        Me.CheckBox2.TabIndex = 5
+        Me.CheckBox2.Text = "文件命名添加时间"
+        Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label3.Location = New System.Drawing.Point(3, 393)
+        Me.Label3.Location = New System.Drawing.Point(2, 308)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(959, 40)
+        Me.Label3.Size = New System.Drawing.Size(768, 32)
         Me.Label3.TabIndex = 6
         Me.Label3.Text = "当前下载目录："
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -200,30 +212,18 @@ Partial Class DownLinkForm
         '
         Me.FolderBrowserDialog1.Description = "请选择电子书下载目录："
         '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Checked = True
-        Me.CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox2.Location = New System.Drawing.Point(94, 15)
-        Me.CheckBox2.Margin = New System.Windows.Forms.Padding(4, 15, 4, 4)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(168, 27)
-        Me.CheckBox2.TabIndex = 7
-        Me.CheckBox2.Text = "文件命名添加时间"
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        '
         'DownLinkForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(965, 766)
+        Me.ClientSize = New System.Drawing.Size(772, 600)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Font = New System.Drawing.Font("微软雅黑", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.MinimumSize = New System.Drawing.Size(788, 638)
         Me.Name = "DownLinkForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "批量下载链接"

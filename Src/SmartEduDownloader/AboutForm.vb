@@ -1,4 +1,10 @@
-﻿Public Class AboutForm
+﻿'==========================================
+'项目：SmartEduDownloader
+'作者：CJH
+'文件：AboutForm.vb
+'描述：关于对话框
+'==========================================
+Public Class AboutForm
 
     Private Sub LinkLabel3_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel3.LinkClicked
         If MainForm.DownloadMode = 1 Then
@@ -7,7 +13,7 @@
             System.Diagnostics.Process.Start("https://cjhdevact.github.io/otherprojects/SmartEduDownloader/Help/login.html")
         End If
     End Sub
-
+    '初始化
     Private Sub AboutForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Dim sa As String
         If Environment.Is64BitOperatingSystem = True Then
@@ -24,19 +30,20 @@
         Label3.Text = "版本 " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MainForm.MyArch & " " & MainForm.AppBuildChannel & " " & st
         Label6.Text = "系统信息 " & My.Computer.Info.OSFullName & " " & sa & " " & GetOSVersion()
     End Sub
-
+    '获取系统版本函数
     Function GetOSVersion() As String
         Dim strBuild1, strBuild2, strBuild3, strBuild4 As String
         Try
             Dim regKey As Microsoft.Win32.RegistryKey
             regKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows NT\CurrentVersion")
-            strBuild1 = regKey.GetValue("CurrentMajorVersionNumber")
-            strBuild2 = regKey.GetValue("CurrentMinorVersionNumber")
-            strBuild3 = regKey.GetValue("CurrentBuild")
-            strBuild4 = regKey.GetValue("UBR")
+            strBuild1 = regKey.GetValue("CurrentMajorVersionNumber").ToString
+            strBuild2 = regKey.GetValue("CurrentMinorVersionNumber").ToString
+            strBuild3 = regKey.GetValue("CurrentBuild").ToString
+            strBuild4 = regKey.GetValue("UBR").ToString
             regKey.Close()
         Catch ex As Exception
-            Return ""
+            Return Environment.OSVersion.Version.ToString
+            Exit Function
         End Try
         Return strBuild1 & "." & strBuild2 & "." & strBuild3 & "." & strBuild4
     End Function

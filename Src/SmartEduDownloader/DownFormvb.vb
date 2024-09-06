@@ -1,4 +1,10 @@
-﻿Public Class DownFormvb
+﻿'==========================================
+'项目：SmartEduDownloader
+'作者：CJH
+'文件：DownFormvb.vb
+'描述：下载进度显示
+'==========================================
+Public Class DownFormvb
     Public st As Integer
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         If Me.ProgressBar1.Value = 100 Then

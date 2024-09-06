@@ -1,4 +1,10 @@
-﻿Imports Newtonsoft.Json.Linq
+﻿'==========================================
+'项目：SmartEduDownloader
+'作者：CJH
+'文件：DownLinkForm.vb
+'描述：批量下载链接
+'==========================================
+Imports Newtonsoft.Json.Linq
 Imports System.Net
 
 Public Class DownLinkForm

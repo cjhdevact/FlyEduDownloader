@@ -6,5 +6,5 @@
   <ShutdownMode>1</ShutdownMode>
   <EnableVisualStyles>true</EnableVisualStyles>
   <AuthenticationMode>0</AuthenticationMode>
-  <SaveMySettingsOnExit>true</SaveMySettingsOnExit>
+  <SaveMySettingsOnExit>false</SaveMySettingsOnExit>
 </MyApplicationData>

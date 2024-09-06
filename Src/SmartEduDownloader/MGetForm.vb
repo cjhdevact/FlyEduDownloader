@@ -1,4 +1,10 @@
-﻿Imports Newtonsoft.Json.Linq
+﻿'==========================================
+'项目：SmartEduDownloader
+'作者：CJH
+'文件：MGetForm.vb
+'描述：批量解析链接
+'==========================================
+Imports Newtonsoft.Json.Linq
 Imports System.Net
 
 Public Class MGetForm

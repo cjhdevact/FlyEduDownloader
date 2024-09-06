@@ -83,7 +83,7 @@ Partial Class TextSp
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
         Me.TextBox1.Size = New System.Drawing.Size(775, 203)
-        Me.TextBox1.TabIndex = 0
+        Me.TextBox1.TabIndex = 4
         Me.TextBox1.WordWrap = False
         '
         'TextBox2
@@ -98,7 +98,7 @@ Partial Class TextSp
         Me.TextBox2.ReadOnly = True
         Me.TextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both
         Me.TextBox2.Size = New System.Drawing.Size(775, 203)
-        Me.TextBox2.TabIndex = 2
+        Me.TextBox2.TabIndex = 5
         Me.TextBox2.WordWrap = False
         '
         'Label1
@@ -126,7 +126,7 @@ Partial Class TextSp
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(785, 60)
-        Me.FlowLayoutPanel1.TabIndex = 5
+        Me.FlowLayoutPanel1.TabIndex = 2
         '
         'Button1
         '
@@ -134,7 +134,7 @@ Partial Class TextSp
         Me.Button1.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(125, 45)
-        Me.Button1.TabIndex = 2
+        Me.Button1.TabIndex = 0
         Me.Button1.Text = "分割"
         Me.Button1.UseVisualStyleBackColor = True
         '
@@ -144,7 +144,7 @@ Partial Class TextSp
         Me.Button2.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(125, 45)
-        Me.Button2.TabIndex = 3
+        Me.Button2.TabIndex = 1
         Me.Button2.Text = "关闭"
         Me.Button2.UseVisualStyleBackColor = True
         '
@@ -153,16 +153,16 @@ Partial Class TextSp
         Me.TextBox3.Location = New System.Drawing.Point(377, 15)
         Me.TextBox3.Margin = New System.Windows.Forms.Padding(3, 15, 3, 3)
         Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(135, 30)
+        Me.TextBox3.Size = New System.Drawing.Size(135, 25)
         Me.TextBox3.TabIndex = 4
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(310, 20)
+        Me.Label3.Location = New System.Drawing.Point(320, 20)
         Me.Label3.Margin = New System.Windows.Forms.Padding(3, 20, 3, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(61, 23)
+        Me.Label3.Size = New System.Drawing.Size(51, 20)
         Me.Label3.TabIndex = 5
         Me.Label3.Text = "分隔符"
         '
@@ -171,17 +171,17 @@ Partial Class TextSp
         Me.CheckBox1.AutoSize = True
         Me.CheckBox1.Checked = True
         Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox1.Location = New System.Drawing.Point(170, 19)
+        Me.CheckBox1.Location = New System.Drawing.Point(202, 19)
         Me.CheckBox1.Margin = New System.Windows.Forms.Padding(3, 19, 3, 3)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(134, 27)
-        Me.CheckBox1.TabIndex = 6
+        Me.CheckBox1.Size = New System.Drawing.Size(112, 24)
+        Me.CheckBox1.TabIndex = 3
         Me.CheckBox1.Text = "换行输出结果"
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'TextSp
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 23.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(785, 570)
@@ -190,6 +190,7 @@ Partial Class TextSp
         Me.ForeColor = System.Drawing.Color.Black
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.MinimumSize = New System.Drawing.Size(801, 608)
         Me.Name = "TextSp"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "文本分割"

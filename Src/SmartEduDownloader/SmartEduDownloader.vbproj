@@ -170,10 +170,28 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="MySplashScreen.Designer.vb">
+      <DependentUpon>MySplashScreen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MySplashScreen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NoticeForm.Designer.vb">
+      <DependentUpon>NoticeForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NoticeForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SetXaForm.Designer.vb">
       <DependentUpon>SetXaForm.vb</DependentUpon>
     </Compile>
     <Compile Include="SetXaForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TagsSet.Designer.vb">
+      <DependentUpon>TagsSet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TagsSet.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TextCnv.Designer.vb">
@@ -220,8 +238,17 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="MySplashScreen.resx">
+      <DependentUpon>MySplashScreen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NoticeForm.resx">
+      <DependentUpon>NoticeForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SetXaForm.resx">
       <DependentUpon>SetXaForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TagsSet.resx">
+      <DependentUpon>TagsSet.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TextCnv.resx">
       <DependentUpon>TextCnv.vb</DependentUpon>

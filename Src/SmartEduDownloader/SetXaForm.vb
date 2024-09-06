@@ -1,4 +1,10 @@
-﻿Public Class SetXaForm
+﻿'==========================================
+'项目：SmartEduDownloader
+'作者：CJH
+'文件：SetXaForm.vb
+'描述：X-Nd-Auth 设置
+'==========================================
+Public Class SetXaForm
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         System.Diagnostics.Process.Start("https://auth.smartedu.cn/uias/login")
