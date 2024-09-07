@@ -100,6 +100,10 @@ SmartEduDownloader 可以解析下载国家中小学智慧教育平台教材、�
 
 `https://basic.smartedu.cn/syncClassroom/prepare/detail?lessonId=8aee80a5-6b86-5bc9-016b-87465e6e0290&chapterId=5bb731e1-cdac-3984-a977-3d44c5d2d809&teachingmaterialId=4a4aa279-8dc6-4098-b45f-dd3f7d5a61b2&fromPrepare=1&classHourId=lesson_1`
 
+## 致谢
+
+[AnyTextbookDownloader](https://gitlab.com/xiaoyangtech1/AnyTextbookDownloader) - 参考了教程解析思路。
+
 ------------
 
 
