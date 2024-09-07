@@ -102,7 +102,7 @@ SmartEduDownloader 可以解析下载国家中小学智慧教育平台教材、�
 
 ## 致谢
 
-[AnyTextbookDownloader](https://gitlab.com/xiaoyangtech1/AnyTextbookDownloader) - 参考了教程解析思路。
+[AnyTextbookDownloader](https://gitlab.com/xiaoyangtech1/AnyTextbookDownloader) - 参考了教材解析思路。
 
 ------------
 
