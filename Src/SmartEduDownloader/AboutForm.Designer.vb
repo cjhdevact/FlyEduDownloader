@@ -88,7 +88,7 @@ Partial Class AboutForm
         'LinkLabel1
         '
         Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(12, 210)
+        Me.LinkLabel1.Location = New System.Drawing.Point(12, 272)
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Size = New System.Drawing.Size(61, 19)
         Me.LinkLabel1.TabIndex = 1
@@ -98,7 +98,7 @@ Partial Class AboutForm
         'LinkLabel2
         '
         Me.LinkLabel2.AutoSize = True
-        Me.LinkLabel2.Location = New System.Drawing.Point(92, 210)
+        Me.LinkLabel2.Location = New System.Drawing.Point(92, 272)
         Me.LinkLabel2.Name = "LinkLabel2"
         Me.LinkLabel2.Size = New System.Drawing.Size(61, 19)
         Me.LinkLabel2.TabIndex = 2
@@ -107,7 +107,7 @@ Partial Class AboutForm
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(361, 231)
+        Me.Button1.Location = New System.Drawing.Point(361, 293)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(116, 31)
         Me.Button1.TabIndex = 0
@@ -117,7 +117,7 @@ Partial Class AboutForm
         'LinkLabel3
         '
         Me.LinkLabel3.AutoSize = True
-        Me.LinkLabel3.Location = New System.Drawing.Point(173, 210)
+        Me.LinkLabel3.Location = New System.Drawing.Point(173, 272)
         Me.LinkLabel3.Name = "LinkLabel3"
         Me.LinkLabel3.Size = New System.Drawing.Size(61, 19)
         Me.LinkLabel3.TabIndex = 3
@@ -127,11 +127,13 @@ Partial Class AboutForm
         'Label5
         '
         Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.Red
         Me.Label5.Location = New System.Drawing.Point(12, 164)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(451, 38)
+        Me.Label5.Size = New System.Drawing.Size(468, 102)
         Me.Label5.TabIndex = 9
-        Me.Label5.Text = "本软件完全免费开源，任何人不得用于商业用途，如果你下载本软件是付费后" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "才可下载的，请立刻举报并反馈。"
+        Me.Label5.Text = resources.GetString("Label5.Text")
         '
         'Label6
         '
@@ -145,7 +147,7 @@ Partial Class AboutForm
         'LinkLabel4
         '
         Me.LinkLabel4.AutoSize = True
-        Me.LinkLabel4.Location = New System.Drawing.Point(255, 210)
+        Me.LinkLabel4.Location = New System.Drawing.Point(255, 272)
         Me.LinkLabel4.Name = "LinkLabel4"
         Me.LinkLabel4.Size = New System.Drawing.Size(51, 19)
         Me.LinkLabel4.TabIndex = 4
@@ -158,7 +160,7 @@ Partial Class AboutForm
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(489, 274)
+        Me.ClientSize = New System.Drawing.Size(489, 336)
         Me.Controls.Add(Me.LinkLabel4)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)

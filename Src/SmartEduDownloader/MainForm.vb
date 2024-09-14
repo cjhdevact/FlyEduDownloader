@@ -3,6 +3,22 @@
 '作者：CJH
 '文件：MainForm.vb
 '描述：主程序部分（解析下载资源）
+'License：
+'SmartEduDownloader
+'Copyright (C) 2024 CJH.
+
+'This program is free software: you can redistribute it and/or modify
+'it under the terms of the GNU General Public License as published by
+'the Free Software Foundation, either version 3 of the License, or
+'(at your option) any later version.
+
+'This program is distributed in the hope that it will be useful,
+'but WITHOUT ANY WARRANTY; without even the implied warranty of
+'MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+'GNU General Public License for more details.
+
+'You should have received a copy of the GNU General Public License
+'along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '==========================================
 Imports System.IO
 Imports System.Net
@@ -25,20 +41,31 @@ Public Class MainForm
 
     Public XNdAuth As String 'X-Nd-Auth 标头
 
+    Public scaleX As Single 'DPI X
+    Public scaleY As Single 'DPI Y
     '多线程获取公告
     Dim NoticeThread As New Threading.Thread(AddressOf GetNotice)
 
     '程序版本信息
     Public MyArch As String
-    Public Const AppBuildTime As String = "20240906"
+    Public Const AppBuildTime As String = "20240914"
     Public Const AppBuildChannel As String = "O"
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         '解决无法建立安全的TLS/SSL连接问题
         ServicePointManager.SecurityProtocol = CType(192, SecurityProtocolType) Or CType(768, SecurityProtocolType) Or CType(3072, SecurityProtocolType)
+        ' 获取当前窗体的 DPI
+        Dim currentDpiX As Single = Me.CreateGraphics().DpiX
+        Dim currentDpiY As Single = Me.CreateGraphics().DpiY
+
+        'If currentDpiX <> 96 OrElse currentDpiY <> 96 Then
+        'End If
+        '计算缩放比例
+        scaleX = currentDpiX / 96
+        scaleY = currentDpiY / 96
+
         'DPI控件微调
-        Dim disi As Graphics = Me.CreateGraphics()
-        TextBox2.Height = disi.DpiX * 0.01 * 135
+        'TableLayoutPanel1.Height = TableLayoutPanel1.Height * scaleY
         '程序架构判断
         If Environment.Is64BitProcess = True Then
             MyArch = "x64"
@@ -56,7 +83,13 @@ Public Class MainForm
         'AddHandler DownloadClient.DownloadDataCompleted, AddressOf DownloadClient_DownloadFileCompleted
 
         '登录模式设置
-        If Command.ToLower = "/loginmode" Then
+        If Command.ToLower = "/unloginmode" Then
+            Me.Text = "SmartEduDownloader " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （免登录下载模式）"
+            DownloadMode = 1
+            sxam.Visible = False
+            logmm.Text = "使用登录模式下载(&L)"
+            Label3.Visible = False
+        Else
             Me.Text = "SmartEduDownloader " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （登录下载模式）"
             DownloadMode = 0
             sxam.Visible = True
@@ -66,12 +99,6 @@ Public Class MainForm
             SetXaForm.Button4.Text = "退出"
             SetXaForm.StartPosition = FormStartPosition.CenterScreen
             SetXaForm.ShowDialog()
-        Else
-            Me.Text = "SmartEduDownloader " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （免登录下载模式）"
-            DownloadMode = 1
-            sxam.Visible = False
-            logmm.Text = "使用登录模式下载(&L)"
-            Label3.Visible = False
         End If
         NoticeThread.Start()
     End Sub
@@ -211,8 +238,8 @@ Public Class MainForm
             Exit Sub
         End If
         '解析Json信息
-        ' Try
-        Dim BookInfoObject As JObject = JObject.Parse(bookinforeq)
+        Try
+            Dim BookInfoObject As JObject = JObject.Parse(bookinforeq)
 
             Dim BookNameObject As JObject = BookInfoObject("global_title")
             DownBookName = CStr(BookNameObject("zh-CN")) '标题
@@ -229,7 +256,7 @@ Public Class MainForm
             Dim BookResObj4 As JArray = Nothing
             If m > 0 Then
                 BookResObj2 = BookResObj1("course_resource")
-            ElseIf j > 0
+            ElseIf j > 0 Then
                 BookResObj2 = BookResObj1("teaching_assets")
                 BookResObj3 = BookResObj1("lesson_plan_design")
                 BookResObj4 = BookResObj1("classroom_record")
@@ -237,9 +264,9 @@ Public Class MainForm
                 BookResObj2 = BookResObj1("national_course_resource")
             End If
 
-        'Dim BookItemsObject As JArray '= BookInfoObject("un_ti_items")
+            'Dim BookItemsObject As JArray '= BookInfoObject("un_ti_items")
 
-        Dim BookResInfo(BookResObj2.Count - 1) As String
+            Dim BookResInfo(BookResObj2.Count - 1) As String
             TagsSet.ListBox1.Items.Clear()
 
             TextBox2.Text = ""
@@ -250,27 +277,27 @@ Public Class MainForm
             Dim DownBookLink02 As String = ""
             Dim DownBookLink03 As String = ""
 
-        If j > 0 Then
-            DownBookLink01 = Join(findlist(BookResObj2, BookResInfo, 1), vbCrLf)
-            DownBookLink02 = Join(findlist(BookResObj3, BookResInfo, 1), vbCrLf)
-            DownBookLink03 = Join(findlist(BookResObj4, BookResInfo, 1), vbCrLf)
-        Else
-            DownBookLink01 = Join(findlist(BookResObj2, BookResInfo, 0), vbCrLf)
-        End If
-        Dim DownBookLink0() As String
-        If j > 0 Then
-            If DownBookLink03 = "" And Not DownBookLink02 = "" Then
-                DownBookLink0 = Split(DownBookLink01 & vbCrLf & DownBookLink02, vbCrLf)
-            ElseIf DownBookLink02 = "" And Not DownBookLink03 = "" Then
-                DownBookLink0 = Split(DownBookLink01 & vbCrLf & DownBookLink03, vbCrLf)
-            ElseIf Not DownBookLink02 = "" And Not DownBookLink03 = "" Then
-                DownBookLink0 = Split(DownBookLink01 & vbCrLf & DownBookLink02 & vbCrLf & DownBookLink03, vbCrLf)
+            If j > 0 Then
+                DownBookLink01 = Join(findlist(BookResObj2, BookResInfo, 1), vbCrLf)
+                DownBookLink02 = Join(findlist(BookResObj3, BookResInfo, 1), vbCrLf)
+                DownBookLink03 = Join(findlist(BookResObj4, BookResInfo, 1), vbCrLf)
+            Else
+                DownBookLink01 = Join(findlist(BookResObj2, BookResInfo, 0), vbCrLf)
+            End If
+            Dim DownBookLink0() As String
+            If j > 0 Then
+                If DownBookLink03 = "" And Not DownBookLink02 = "" Then
+                    DownBookLink0 = Split(DownBookLink01 & vbCrLf & DownBookLink02, vbCrLf)
+                ElseIf DownBookLink02 = "" And Not DownBookLink03 = "" Then
+                    DownBookLink0 = Split(DownBookLink01 & vbCrLf & DownBookLink03, vbCrLf)
+                ElseIf Not DownBookLink02 = "" And Not DownBookLink03 = "" Then
+                    DownBookLink0 = Split(DownBookLink01 & vbCrLf & DownBookLink02 & vbCrLf & DownBookLink03, vbCrLf)
+                Else
+                    DownBookLink0 = Split(DownBookLink01, vbCrLf)
+                End If
             Else
                 DownBookLink0 = Split(DownBookLink01, vbCrLf)
             End If
-        Else
-            DownBookLink0 = Split(DownBookLink01, vbCrLf)
-        End If
 
 
             '去除多余的空格分隔符
@@ -327,10 +354,10 @@ Public Class MainForm
                 End If
             Next
             DownBookLink1 = DownBookLink1.Substring(0, DownBookLink1.Length - 2)
-        DownBookLinks = Split(DownBookLink1, vbCrLf)
+            DownBookLinks = Split(DownBookLink1, vbCrLf)
 
-        '处理显示的下载链接，使用去重函数处理重复项
-        Dim a
+            '处理显示的下载链接，使用去重函数处理重复项
+            Dim a
             a = rmoe(TextBox2.Text)
             TextBox2.Text = Join(a, vbCrLf)
 
@@ -350,17 +377,17 @@ Public Class MainForm
             BookTagLabel.Text = "资源包标签：" & BookTag
 
             '针对资源包程序布局显示优化
-            PictureBox1.Location = New Point(405, 184)
-            PictureBox1.Size = New Point(266, 150)
+            PictureBox1.Location = New Point(405 * scaleX, 184 * scaleY)
+            PictureBox1.Size = New Point(266 * scaleX, 150 * scaleY)
             Button2.Text = "保存资源信息"
             Button3.Text = "保存资源包"
             Button2.Enabled = True
             Button3.Enabled = True
             Button4.Enabled = True
             Button5.Enabled = True
-        ' Catch ex As Exception
-        ' MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        'End Try
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
         '下载封面
         Try
             Dim whttpReq As System.Net.HttpWebRequest 'HttpWebRequest 类对 WebRequest 中定义的属性和方法提供支持'，也对使用户能够直接与使用 HTTP 的服务器交互的附加属性和方法提供支持。
@@ -519,8 +546,8 @@ Public Class MainForm
             '针对教材的程序页面优化
             Button2.Text = "保存书籍信息"
             Button3.Text = "保存电子书"
-            PictureBox1.Location = New Point(487, 122)
-            PictureBox1.Size = New Point(180, 240)
+            PictureBox1.Location = New Point(487 * scaleX, 122 * scaleY)
+            PictureBox1.Size = New Point(180 * scaleX, 240 * scaleY)
             Button2.Enabled = True
             Button3.Enabled = True
             Button4.Enabled = True
@@ -628,7 +655,7 @@ Public Class MainForm
                     fn2 = Split(DownBookLinks(TagsSet.ListBox1.SelectedIndex), ".")
                     fn2(fn2.Count - 1) = Replace(fn2(fn2.Count - 1), "/", "_")
                 End If
-            If fn2(fn2.Count - 1) = "" Then
+                If fn2(fn2.Count - 1) = "" Then
                     SaveFileDialog1.Filter = "文件(*.*)|*.*"
                     SaveFileDialog1.FileName = TagsSet.ListBox1.SelectedItem.ToString
                 Else
@@ -636,26 +663,26 @@ Public Class MainForm
                     SaveFileDialog1.FileName = TagsSet.ListBox1.SelectedItem.ToString & "." & fn2(fn2.Count - 1)
                 End If
                 If SaveFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
-                        '初始化下载器
-                        DownFormvb.Label1.Text = "正在下载 0%" & vbCrLf & "已经下载 0 MB，共 0 MB"
-                        DownFormvb.Button1.Text = "取消"
-                        'DownFormvb.Button1.Visible = False
-                        DownFormvb.st = 0
-                        DownFormvb.ProgressBar1.Value = 0
-                        '登录模式添加标头
-                        If DownloadMode = 0 Then
-                            DownloadClient.Headers.Set("x-nd-auth", XNdAuth)
-                        End If
-                        '开始下载
-                        Try
-                            DownloadClient.DownloadFileAsync(New Uri(DownBookLinks(TagsSet.ListBox1.SelectedIndex)), SaveFileDialog1.FileName)
-                        Catch ex As Exception
-                            DownFormvb.Label1.Text = ex.Message
-                        End Try
-                        DownFormvb.ShowDialog() '显示下载进度
+                    '初始化下载器
+                    DownFormvb.Label1.Text = "正在下载 0%" & vbCrLf & "已经下载 0 MB，共 0 MB"
+                    DownFormvb.Button1.Text = "取消"
+                    'DownFormvb.Button1.Visible = False
+                    DownFormvb.st = 0
+                    DownFormvb.ProgressBar1.Value = 0
+                    '登录模式添加标头
+                    If DownloadMode = 0 Then
+                        DownloadClient.Headers.Set("x-nd-auth", XNdAuth)
                     End If
+                    '开始下载
+                    Try
+                        DownloadClient.DownloadFileAsync(New Uri(DownBookLinks(TagsSet.ListBox1.SelectedIndex)), SaveFileDialog1.FileName)
+                    Catch ex As Exception
+                        DownFormvb.Label1.Text = ex.Message
+                    End Try
+                    DownFormvb.ShowDialog() '显示下载进度
                 End If
             End If
+        End If
     End Sub
     'Private Sub ShowDownProgress(ByVal sender As Object, ByVal e As DownloadProgressChangedEventArgs)
     'Invoke(New Action(Of Integer)(Sub(i) DownFormvb.ProgressBar1.Value = i), e.ProgressPercentage)
@@ -750,9 +777,9 @@ Public Class MainForm
     End Sub
     '（免）登录模式切换
     Private Sub logmm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles logmm.Click
-        If DownloadMode = 1 Then
+        If DownloadMode = 0 Then
             '运行自己加参数
-            System.Diagnostics.Process.Start(Application.ExecutablePath, "/loginmode")
+            System.Diagnostics.Process.Start(Application.ExecutablePath, "/unloginmode")
             Me.Close()
         Else
             System.Diagnostics.Process.Start(Application.ExecutablePath)

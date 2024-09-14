@@ -121,7 +121,7 @@
   <data name="PictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAAB61JREFUeF7tW/ePFHUUvz/BnxHuVBQbalQUFTCWmKiJqCQajUG4owvSuyAQmgIi
+        vwAADr8BOAVTJAAAB61JREFUeF7tW/ePFHUUvz/BnxHuVBQbalQUFTCWmKiJqCQajUG4owvSuyAQmgIi
         IBBRiigdBaUrSEeqdKmhSee2l9nb+nyftzthXed2vzM3e+fd3ktetszMd77v833l8767U5QpJe3cdxSX
         lbdtVOZYXVzquFpcWh4tLnNQrVTMnW0QW9gm2JYy01iK2zufa1RWvo4v1v4zWO1XTWxjG1Pm/ltKSh1v
         Nyotv2RwYZ1S2AhbU2YnRVa+AIzXVWzVPQFxkXJ7w5PrqsJmyQlIDvxFXYz5XMo2l7ctSmZIwxPqvML2
@@ -156,6 +156,14 @@
         U4E/MlPoD00V/GNzkIJ+cFKXgn50VhfxhGQ41MWckP3haV0QF0gOUh1QImszT8Dc2YZkpTN6fL6o6B/Q
         BkWNLYl+rgAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="Label5.Text" xml:space="preserve">
+    <value>【免责声明】 本软件完全免费，仅用于学习和研究智慧中小学服务原理使用，任何人不
+得用于商业用途，且下载后请务必于24小时内删除。任何违规使用造成的法律后果与程
+序作者无关，本程序是通过中小学云平台API来解析课程教材资源以及获取课程教材链
+接，自身不储存任何资源包以及教材电子课本，对于因使用本工具而产生的版权纠纷以
+及其它关于著作权的问题，本程序作者不承担任何责任，一切后果由使用者自负。如果
+你下载本软件是付费后才可下载的，请立刻举报并反馈。</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

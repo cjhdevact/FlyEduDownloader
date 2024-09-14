@@ -17,26 +17,26 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{85F3616B-7A4C-4EED-B00B-DF6866141220}
 AppName=SmartEduDownloader
-AppVersion=1.0.2.24091
-;AppVerName=SmartEduDownloader 1.0.2.24091
+AppVersion=1.0.3.24092
+;AppVerName=SmartEduDownloader 1.0.3.24092
 AppPublisher=CJH
-DefaultDirName={pf}\CJH\SmartEduDownloader\1.0.2.24091_x64
-DefaultGroupName=SmartEduDownloader 1.0.2.24091 (x64)
+DefaultDirName={pf}\CJH\SmartEduDownloader\x64
+DefaultGroupName=SmartEduDownloader
 AllowNoIcons=yes
 LicenseFile=..\License
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=.\SmartEduDownloader\setupbin\Release
-OutputBaseFilename=SmartEduDownloader_1.0.2.24091_x64_setup
+OutputDir=.\SmartEduDownloader\setupbin\release
+OutputBaseFilename=SmartEduDownloader_1.0.3.24092_x64_setup
 SetupIconFile=.\SmartEduDownloader\smartedu.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 
 VersionInfoCopyright=Copyright © 2024 CJH. All Rights Reserved.
-VersionInfoVersion=1.0.2.24091
-VersionInfoProductName=SmartEduDownloader 1.0.2.24091
-VersionInfoProductVersion=1.0.2.24091
+VersionInfoVersion=1.0.3.24092
+VersionInfoProductName=SmartEduDownloader 1.0.3.24092
+VersionInfoProductVersion=1.0.3.24092
 VersionInfoCompany=CJH
 VersionInfoDescription=SmartEduDownloader Setup
 
@@ -44,7 +44,7 @@ WizardImageFile=WizModernImage.bmp
 WizardSmallImageFile=WizModernSmallImage.bmp
 
 ;UninstallDisplayIcon=.\SmartEduDownloader\SmartEduDownloader.ico
-UninstallDisplayName=SmartEduDownloader 1.0.2.24091 (x64)
+UninstallDisplayName=SmartEduDownloader 1.0.3.24092 (x64)
 
 ; "ArchitecturesAllowed=x64" specifies that Setup cannot run on
 ; anything but x64.
@@ -68,6 +68,9 @@ Type: files; Name: "{group}\SmartEduDownloader 1.0.2.24091 (x64).lnk"
 Type: files; Name: "{commondesktop}\SmartEduDownloader 1.0.2.24091 (x64).lnk"
 Type: files; Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\SmartEduDownloader 1.0.2.24091 (x64).lnk"
 
+[UninstallRun]
+Filename: "https://cjhdevact.github.io/otherprojects/SmartEduDownloader/index.html"; Flags: shellexec runmaximized; Tasks: ; Languages:
+
 [Files]
 Source: ".\SmartEduDownloader\bin\x64\Release\SmartEduDownloader.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\License"; DestDir: "{app}"; Flags: ignoreversion
@@ -75,11 +78,11 @@ Source: ".\SmartEduDownloader\bin\x64\Release\Newtonsoft.Json.dll"; DestDir: "{a
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\SmartEduDownloader 1.0.2.24091 (x64)"; Filename: "{app}\SmartEduDownloader.exe"
-Name: "{commondesktop}\SmartEduDownloader 1.0.2.24091 (x64)"; Filename: "{app}\SmartEduDownloader.exe"; Tasks: desktopicon
+Name: "{group}\SmartEduDownloader 教学资源下载器"; Filename: "{app}\SmartEduDownloader.exe"
+Name: "{commondesktop}\SmartEduDownloader 教学资源下载器"; Filename: "{app}\SmartEduDownloader.exe"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\SmartEduDownloader.exe"; Description: "{cm:LaunchProgram,SmartEduDownloader}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\SmartEduDownloader.exe"; Parameters: "/unloginmode"; Description: "{cm:LaunchProgram,SmartEduDownloader}"; Flags: nowait postinstall skipifsilent
 
 [Messages]
 
@@ -136,7 +139,7 @@ NewFolderName=新建文件夹
 
 ; *** “欢迎”向导页
 WelcomeLabel1=欢迎安装 SmartEduDownloader！
-WelcomeLabel2=现在将安装 SmartEduDownloader 到您的电脑中。%n%n推荐您在继续安装前关闭所有其它应用程序。%n%n编译日期：2024-09-06。%n%n版本：1.0.2.24091 x64
+WelcomeLabel2=现在将安装 SmartEduDownloader 到您的电脑中。%n%n推荐您在继续安装前关闭所有其它应用程序。%n%n编译日期：2024-09-14。%n%n版本：1.0.3.24092 x64
 
 ; *** “许可协议”向导页
 WizardLicense=许可协议
@@ -225,8 +228,8 @@ UninstallNotFound=文件“%1”不存在。无法卸载。
 UninstallOpenError=文件“%1”不能打开。无法卸载。
 UninstallUnsupportedVer=此版本的卸载程序无法识别卸载参数文件“%1”的格式。无法卸载
 UninstallUnknownEntry=在卸载日志中遇到一个未知的条目 (%1)
-ConfirmUninstall=确定要卸载 SmartEduDownloader 吗？
-UninstallOnlyOnWin64=这个卸载程序只能在 Windows x64中进行卸载。
+ConfirmUninstall=确定卸载 SmartEduDownloader 教学资源下载器吗？%n%n卸载之后你将无法快速方便下载教学资源，是否要卸载？
+UninstallOnlyOnWin64=这个卸载程序只能在 Windows x64 中进行卸载。
 OnlyAdminCanUninstall=这个卸载程序需要有管理员权限的用户才能卸载。
 UninstallStatusLabel=正在从您的电脑中删除 SmartEduDownloader，请稍等。
 UninstalledAll=SmartEduDownloader 已从您的电脑中删除。
@@ -281,7 +284,7 @@ SubKeyName :=  'Software\Microsoft\Windows\CurrentVersion\Uninstall\{85F3616B-7A
 if (IsWin64()) then begin
 //自己的appID
 SubKeyName :=  'Software\Microsoft\Windows\CurrentVersion\Uninstall\{85F3616B-7A4C-4EED-B00B-DF6866141220}_is1';
-    RegWriteStringValue(HKLM,SubKeyName,'DisplayName','SmartEduDownloader 1.0.2.24091 (x64)');
+    RegWriteStringValue(HKLM,SubKeyName,'DisplayName','SmartEduDownloader 1.0.3.24092 (x64)');
   end;
 end;
 
@@ -294,6 +297,7 @@ end;
 function InitializeSetup(): Boolean;
 begin
 	Result :=true; //安装程序继续
+	ShellExec('open', ExpandConstant('{cmd}'), '/c taskkill /f /t /im SmartEduDownloader.exe', '', SW_HIDE, ewNoWait, ErrorCode);
 	IsRunning:=FindWindowByWindowName('SmartEduDownloader');
 	while IsRunning<>0 do
 		begin
@@ -308,14 +312,39 @@ begin
 	end;
 end;
 
+procedure CurPageChanged(CurPageID: Integer);
+begin
+  if CurPageID = wpFinished then
+  begin
+    SetUninstallIcon(ExpandConstant('{app}\SmartEduDownloader.exe'));
+  end;
+end;
+
+//安装时卸载旧版本
+procedure CurStepChanged(CurStep: TSetupStep);
+var 
+ResultStr: String; 
+ResultCode: Integer; 
+begin
+  if CurStep = ssInstall then
+  begin
+  if RegQueryStringValue(HKLM, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{85F3616B-7A4C-4EED-B00B-DF6866141220}_is1', 'UninstallString', ResultStr) then 
+	begin 
+		ResultStr := RemoveQuotes(ResultStr); 
+		Exec(ResultStr, '/verysilent /norestart /suppressmsgboxes', '', SW_HIDE, ewWaitUntilTerminated, ResultCode); 
+	end; 
+  end;
+end;
+
 // 卸载时判断程序是否正在运行
 function InitializeUninstall(): Boolean;
 begin
-	Result :=true; //卸载程序继续
+  Result :=true; //卸载程序继续
+  ShellExec('open', ExpandConstant('{cmd}'), '/c taskkill /f /t /im SmartEduDownloader.exe', '', SW_HIDE, ewNoWait, ErrorCode);
   IsRunning:=FindWindowByWindowName('SmartEduDownloader');
   while IsRunning<>0 do
     begin
-    if Msgbox('卸载程序发现 SmartEduDownloader 正在运行。'#13 #13 '请先关闭 SmartEduDownloader 按“是”继续卸载，或者按“否”退出！',mbCriticalError, MB_YESNO) = idNO then
+    if Msgbox('卸载程序发现 SmartEduDownloader 正在运行。'#13 #13 '请先手动关闭或者按“是”关闭 SmartEduDownloader。按“是”继续卸载，或者按“否”退出！',mbCriticalError, MB_YESNO) = idNO then
       begin
       Result :=false; //安装程序退出
       IsRunning :=0;
@@ -323,15 +352,5 @@ begin
       Result :=true; //卸载程序继续
       IsRunning:=FindWindowByWindowName('SmartEduDownloader');
     end;
-  end;
-end;
-
-
-
-procedure CurPageChanged(CurPageID: Integer);
-begin
-if CurPageID = wpFinished then
-  begin
-    SetUninstallIcon(ExpandConstant('{app}\SmartEduDownloader.exe'));
   end;
 end;

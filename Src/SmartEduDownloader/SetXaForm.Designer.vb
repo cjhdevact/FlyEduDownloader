@@ -144,7 +144,7 @@ Partial Class SetXaForm
         'LinkLabel3
         '
         Me.LinkLabel3.AutoSize = True
-        Me.LinkLabel3.Location = New System.Drawing.Point(11, 654)
+        Me.LinkLabel3.Location = New System.Drawing.Point(149, 653)
         Me.LinkLabel3.Name = "LinkLabel3"
         Me.LinkLabel3.Size = New System.Drawing.Size(65, 20)
         Me.LinkLabel3.TabIndex = 6
@@ -164,7 +164,7 @@ Partial Class SetXaForm
         '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(195, 646)
+        Me.Button5.Location = New System.Drawing.Point(10, 646)
         Me.Button5.Margin = New System.Windows.Forms.Padding(2)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(134, 34)
