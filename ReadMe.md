@@ -1,16 +1,16 @@
-# SmartEduDownloader - 国家中小学智慧教育平台资源解析下载工具
+# 飞翔教学资源助手 - 国家中小学智慧教育平台资源解析下载工具
 
-SmartEduDownloader 可以解析下载国家中小学智慧教育平台教材、课程资源地址，支持批量下载，需要.Net Framwork 4.0以上版本支持。
+飞翔教学资源助手可以解析下载国家中小学智慧教育平台教材、课程资源地址，支持批量下载，需要.Net Framwork 4.0以上版本支持。
 
-下载地址 [https://gitee.com/cjhdevact/SmartEduDownloader/releases](https://gitee.com/cjhdevact/SmartEduDownloader/releases)
+下载地址 [https://gitee.com/cjhdevact/FlyEduDownloader/releases](https://gitee.com/cjhdevact/FlyEduDownloader/releases)
 
 本软件完全免费开源，任何人不得用于商业用途，如果你下载本软件是付费后才可下载的，请立刻举报并反馈。
 
-如果有Bug可以反馈到[这里](https://github.com/cjhdevact/SmartEduDownloader/issues)
+如果有Bug可以反馈到[这里](https://github.com/cjhdevact/FlyEduDownloader/issues)
 
-程序主页 [https://cjhdevact.github.io/otherprojects/SmartEduDownloader/index.html](https://cjhdevact.github.io/otherprojects/SmartEduDownloader/index.html)
+程序主页 [https://cjhdevact.github.io/otherprojects/FlyEduDownloader/index.html](https://cjhdevact.github.io/otherprojects/FlyEduDownloader/index.html)
 
-使用教程 [https://cjhdevact.github.io/otherprojects/SmartEduDownloader/Help/index.html](https://cjhdevact.github.io/otherprojects/SmartEduDownloader/Help/index.html)
+使用教程 [https://cjhdevact.github.io/otherprojects/FlyEduDownloader/Help/index.html](https://cjhdevact.github.io/otherprojects/FlyEduDownloader/Help/index.html)
 
 ## 功能说明
 
@@ -32,9 +32,9 @@ SmartEduDownloader 可以解析下载国家中小学智慧教育平台教材、�
 
 ## 开源说明
 
-本软件仅使用了合法的下载技术，本软件自身不存储任何课本资源，课本资源均来自国家的开放平台。
+本软件仅使用了合法的下载技术，通过官方API获取教材链接，本软件自身不存储任何课本资源，课本资源均来自国家的开放平台。
 
-在延伸的代码中（修改和由本仓库代码衍生的代码中）需要说明“基于 SmartEduDownloader（ https://github.com/cjhdevact/SmartEduDownloader ） 开发”。
+在延伸的代码中（修改和由本仓库代码衍生的代码中）需要说明“基于飞翔教学资源助手（ https://github.com/cjhdevact/SmartEduDownloader ） 开发”。
 
 
 ## 此项目使用的API
@@ -43,16 +43,29 @@ SmartEduDownloader 可以解析下载国家中小学智慧教育平台教材、�
 
 #### 链接格式：
 
+普通教材：
 `https://basic.smartedu.cn/tchMaterial/detail?contentType=assets_document&contentId=（教材contentId）&catalogType=tchMaterial&subCatalog=tchMaterial`
+
+资源包教材：
+`https://basic.smartedu.cn/tchMaterial/detail?contentType=thematic_course&contentId=（教材contentId）&catalogType=tchMaterial&subCatalog=tchMateria`
 
 #### 解析接口：
 
-动态解析，解析里面的PDF文件和标题，但是要带上X-Nd-Auth标头：
+普通教材动态解析，解析里面的PDF文件和标题，但是要带上X-Nd-Auth标头：
 `https://s-file-2.ykt.cbern.com.cn/zxx/ndrv2/resources/tch_material/details/（教材contentId）.json`
 
-#### 示例课本网页链接：小学道法一上
+资源包教材：
+`https://s-file-1.ykt.cbern.com.cn/zxx/ndrs/special_edu/thematic_course/（教材contentId）/resources/list.json`
+
+#### 示例网页链接
+
+普通教材：
 
 `https://basic.smartedu.cn/tchMaterial/detail?contentType=assets_document&contentId=bdc00134-465d-454b-a541-dcd0cec4d86e&catalogType=tchMaterial&subCatalog=tchMaterial` 
+
+带资源包教材：
+
+`https://basic.smartedu.cn/tchMaterial/detail?contentType=thematic_course&contentId=2afcdb56-6fce-8c99-0bc9-e9dd33b5c51c&catalogType=tchMaterial&subCatalog=tchMaterial`
 
 ### 智慧教育平台课程资源下载
 
@@ -102,7 +115,7 @@ SmartEduDownloader 可以解析下载国家中小学智慧教育平台教材、�
 
 ## 致谢
 
-[AnyTextbookDownloader](https://gitlab.com/xiaoyangtech1/AnyTextbookDownloader) - 参考了教材解析思路。
+[AnyTextbookDownloader](https://gitlab.com/xiaoyangtech1/AnyTextbookDownloader) - 参考了教材下载思路。
 
 ------------
 
