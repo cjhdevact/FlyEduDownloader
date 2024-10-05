@@ -2,7 +2,7 @@
 
 飞翔教学资源助手可以解析下载国家中小学智慧教育平台教材、课程资源地址，支持批量下载，需要.Net Framwork 4.0以上版本支持。
 
-下载地址 [https://gitee.com/cjhdevact/FlyEduDownloader/releases](https://gitee.com/cjhdevact/FlyEduDownloader/releases)
+下载地址 [https://github.com/cjhdevact/FlyEduDownloader/releases](https://gitee.com/cjhdevact/FlyEduDownloader/releases)
 
 本软件完全免费开源，任何人不得用于商业用途，如果你下载本软件是付费后才可下载的，请立刻举报并反馈。
 
@@ -34,7 +34,7 @@
 
 本软件仅使用了合法的下载技术，通过官方API获取教材链接，本软件自身不存储任何课本资源，课本资源均来自国家的开放平台。
 
-在延伸的代码中（修改和由本仓库代码衍生的代码中）需要说明“基于飞翔教学资源助手（ https://github.com/cjhdevact/SmartEduDownloader ） 开发”。
+在延伸的代码中（修改和由本仓库代码衍生的代码中）需要说明“基于飞翔教学资源助手（ https://github.com/cjhdevact/FlyEduDownloader ） 开发”。
 
 
 ## 此项目使用的API
