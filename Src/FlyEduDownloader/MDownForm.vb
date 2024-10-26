@@ -4,7 +4,7 @@
 '文件：MDownForm.vb
 '描述：批量解析并下载链接
 'License：
-'SmartEduDownloader
+'FlyEduDownloader
 'Copyright (C) 2024 CJH.
 
 'This program is free software: you can redistribute it and/or modify
@@ -60,7 +60,8 @@ Public Class MDownForm
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         If TextBox1.Text = "" Then
-            MessageBox.Show("至少输入一个地址。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MainForm.MessageBoxError("至少输入一个地址。", "飞翔教学资源助手 - 错误", False)
+            'MessageBox.Show("至少输入一个地址。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
         st = 1

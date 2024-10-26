@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class MainForm
     Inherits System.Windows.Forms.Form
 
     'Form 重写 Dispose，以清理组件列表。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class MainForm
     '注意: 以下过程是 Windows 窗体设计器所必需的
     '可以使用 Windows 窗体设计器修改它。
     '不要使用代码编辑器修改它。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.TextBox1 = New System.Windows.Forms.TextBox()
@@ -43,9 +43,15 @@ Partial Class MainForm
         Me.dllinm = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtcnvm = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtspm = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PDFToPicm = New System.Windows.Forms.ToolStripMenuItem()
+        Me.settingm = New System.Windows.Forms.ToolStripMenuItem()
+        Me.helpm = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FindUpdatem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Hlpdocm = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Ofpm = New System.Windows.Forms.ToolStripMenuItem()
         Me.noticem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.hlpdocm = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ofpm = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.aboutm = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -57,6 +63,7 @@ Partial Class MainForm
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.feedbackm = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -150,7 +157,7 @@ Partial Class MainForm
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FindBooksRes, Me.logmm, Me.sxam, Me.toolm, Me.hlpdocm, Me.ofpm, Me.aboutm})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FindBooksRes, Me.logmm, Me.sxam, Me.toolm, Me.helpm})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(683, 25)
@@ -190,7 +197,7 @@ Partial Class MainForm
         '
         'toolm
         '
-        Me.toolm.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.readmm, Me.downmm, Me.dllinm, Me.txtcnvm, Me.txtspm, Me.noticem})
+        Me.toolm.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.readmm, Me.downmm, Me.dllinm, Me.txtcnvm, Me.txtspm, Me.PDFToPicm, Me.settingm})
         Me.toolm.Name = "toolm"
         Me.toolm.Size = New System.Drawing.Size(83, 21)
         Me.toolm.Text = "实用工具(&T)"
@@ -225,28 +232,63 @@ Partial Class MainForm
         Me.txtspm.Size = New System.Drawing.Size(199, 22)
         Me.txtspm.Text = "文本分割(&P)"
         '
+        'PDFToPicm
+        '
+        Me.PDFToPicm.Name = "PDFToPicm"
+        Me.PDFToPicm.Size = New System.Drawing.Size(199, 22)
+        Me.PDFToPicm.Text = "PDF转图片(&C)"
+        '
+        'settingm
+        '
+        Me.settingm.Name = "settingm"
+        Me.settingm.Size = New System.Drawing.Size(199, 22)
+        Me.settingm.Text = "设置(&S)"
+        '
+        'helpm
+        '
+        Me.helpm.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FindUpdatem, Me.ToolStripMenuItem1, Me.Hlpdocm, Me.feedbackm, Me.Ofpm, Me.noticem, Me.ToolStripSeparator1, Me.aboutm})
+        Me.helpm.Name = "helpm"
+        Me.helpm.Size = New System.Drawing.Size(61, 21)
+        Me.helpm.Text = "帮助(&H)"
+        '
+        'FindUpdatem
+        '
+        Me.FindUpdatem.Name = "FindUpdatem"
+        Me.FindUpdatem.Size = New System.Drawing.Size(152, 22)
+        Me.FindUpdatem.Text = "检查更新(&U)"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
+        '
+        'Hlpdocm
+        '
+        Me.Hlpdocm.Name = "Hlpdocm"
+        Me.Hlpdocm.Size = New System.Drawing.Size(152, 22)
+        Me.Hlpdocm.Text = "使用教程(&H)"
+        '
+        'Ofpm
+        '
+        Me.Ofpm.Name = "Ofpm"
+        Me.Ofpm.Size = New System.Drawing.Size(152, 22)
+        Me.Ofpm.Text = "软件官网(&O)"
+        '
         'noticem
         '
         Me.noticem.Name = "noticem"
-        Me.noticem.Size = New System.Drawing.Size(199, 22)
-        Me.noticem.Text = "公告(&N)"
+        Me.noticem.Size = New System.Drawing.Size(152, 22)
+        Me.noticem.Text = "公告(&P)"
         '
-        'hlpdocm
+        'ToolStripSeparator1
         '
-        Me.hlpdocm.Name = "hlpdocm"
-        Me.hlpdocm.Size = New System.Drawing.Size(85, 21)
-        Me.hlpdocm.Text = "使用教程(&H)"
-        '
-        'ofpm
-        '
-        Me.ofpm.Name = "ofpm"
-        Me.ofpm.Size = New System.Drawing.Size(86, 21)
-        Me.ofpm.Text = "软件官网(&O)"
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
         '
         'aboutm
         '
         Me.aboutm.Name = "aboutm"
-        Me.aboutm.Size = New System.Drawing.Size(60, 21)
+        Me.aboutm.Size = New System.Drawing.Size(152, 22)
         Me.aboutm.Text = "关于(&A)"
         '
         'PictureBox1
@@ -321,7 +363,7 @@ Partial Class MainForm
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(453, 76)
         Me.Label4.TabIndex = 15
-        Me.Label4.Text = "或者也可以资源包输入""courseid=""或""activityid=""或""lessonid""+资源包ID，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "教材输入""contentid=""+教材ID（没有引号" & _
+        Me.Label4.Text = "或者也可以资源包输入""courseid=""或""activityid=""或""lessonid""+资源包ID，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "教材输入""contentid=""+教材ID（没有引号" &
     "，如果四个同时有，activityid>" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "courseid>lessonid>contentid优先级），当教材页面的教材暂时下架，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "可以使用ID来下载。"
         '
         'TableLayoutPanel1
@@ -357,6 +399,12 @@ Partial Class MainForm
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(647, 40)
         Me.FlowLayoutPanel1.TabIndex = 7
+        '
+        'feedbackm
+        '
+        Me.feedbackm.Name = "feedbackm"
+        Me.feedbackm.Size = New System.Drawing.Size(152, 22)
+        Me.feedbackm.Text = "反馈问题(&F)"
         '
         'MainForm
         '
@@ -405,7 +453,6 @@ Partial Class MainForm
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents FindBooksRes As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents aboutm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Button3 As System.Windows.Forms.Button
@@ -414,8 +461,6 @@ Partial Class MainForm
     Friend WithEvents toolm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents readmm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents downmm As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents hlpdocm As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ofpm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents logmm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents sxam As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Label3 As System.Windows.Forms.Label
@@ -426,8 +471,17 @@ Partial Class MainForm
     Friend WithEvents findlessm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Button5 As System.Windows.Forms.Button
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents noticem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
-
+    Friend WithEvents PDFToPicm As ToolStripMenuItem
+    Friend WithEvents settingm As ToolStripMenuItem
+    Friend WithEvents helpm As ToolStripMenuItem
+    Friend WithEvents FindUpdatem As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
+    Friend WithEvents Hlpdocm As ToolStripMenuItem
+    Friend WithEvents Ofpm As ToolStripMenuItem
+    Friend WithEvents noticem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents aboutm As ToolStripMenuItem
+    Friend WithEvents feedbackm As ToolStripMenuItem
 End Class

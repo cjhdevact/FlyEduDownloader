@@ -4,7 +4,7 @@
 '文件：SetXaForm.vb
 '描述：X-Nd-Auth 设置
 'License：
-'SmartEduDownloader
+'FlyEduDownloader
 'Copyright (C) 2024 CJH.
 
 'This program is free software: you can redistribute it and/or modify
@@ -32,20 +32,27 @@ Public Class SetXaForm
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
         If TextBox1.Text = "" Then
-            MessageBox.Show("X-Nd-Auth值不能为空。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MainForm.MessageBoxError("X-Nd-Auth值不能为空。", "飞翔教学资源助手 - 错误", False)
+            'MessageBox.Show("X-Nd-Auth值不能为空。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
         MainForm.XNdAuth = TextBox1.Text
         Button4.Text = "取消"
         Button5.Visible = False
+        If CheckBox1.Checked = True Then
+            Dim Str As String = System.Convert.ToBase64String(System.Text.Encoding.Default.GetBytes(MainForm.XNdAuth))
+            AddReg("Software\CJH\FlyEduDownloader", "LoginState", Str, Microsoft.Win32.RegistryValueKind.String, "HKCU")
+        Else
+            DelReg("Software\CJH\FlyEduDownloader", "LoginState", "HKCU")
+        End If
         Me.StartPosition = FormStartPosition.CenterParent
         Me.Close()
     End Sub
 
     Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
         If Button4.Text = "退出" Then
-            Application.Exit()
-            'End
+            'Application.Exit()
+            End
         Else
             Me.Close()
         End If
@@ -53,8 +60,8 @@ Public Class SetXaForm
 
     Private Sub SetXaForm_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyClass.FormClosing
         If Button4.Text = "退出" Then
-            Application.Exit()
-            'End
+            'Application.Exit()
+            End
         End If
     End Sub
 
@@ -68,9 +75,10 @@ Public Class SetXaForm
 
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
         If MessageBox.Show("免登录模式可能在未来会失效，所以建议仅你不想登录下载时才使用该模式，如果免登录模式无法下载，请使用登录模式下载。" & vbCrLf & "是否要使用免登录模式？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
-            System.Diagnostics.Process.Start(Application.ExecutablePath, "/unloginmode")
-            Application.Exit()
-            'End
+            '运行自己加参数
+            System.Diagnostics.Process.Start(Application.ExecutablePath, "/unloginmode /noupdates")
+            'Application.Exit()
+            End
         End If
     End Sub
 End Class

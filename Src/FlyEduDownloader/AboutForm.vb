@@ -4,7 +4,7 @@
 '文件：AboutForm.vb
 '描述：关于对话框
 'License：
-'SmartEduDownloader
+'FlyEduDownloader
 'Copyright (C) 2024 CJH.
 
 'This program is free software: you can redistribute it and/or modify
@@ -69,7 +69,9 @@ Public Class AboutForm
     End Sub
 
     Private Sub LinkLabel2_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel2.LinkClicked
-        System.Diagnostics.Process.Start("https://github.com/cjhdevact/FlyEduDownloader/issues")
+        'System.Diagnostics.Process.Start("https://github.com/cjhdevact/FlyEduDownloader/issues")
+        FeedBackForm.FeedBackInfo = ""
+        FeedBackForm.ShowDialog()
     End Sub
 
     Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked

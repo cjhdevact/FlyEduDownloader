@@ -4,7 +4,7 @@
 '文件：MainForm.vb
 '描述：主程序部分（解析下载资源）
 'License：
-'SmartEduDownloader
+'FlyEduDownloader
 'Copyright (C) 2024 CJH.
 
 'This program is free software: you can redistribute it and/or modify
@@ -38,21 +38,34 @@ Public Class MainForm
 
     Public DownloadMode As Integer '下载模式 0=登录 1=免登录
 
-    Public DownloadClient As New WebClientPro '下载器对项
+    Public AGetNotice As Integer '是否获取公告 0=不获取 1=获取
+    Public AGetUpdate As Integer '是否自动获取更新 0=不获取 1=获取
+    Public BootModeTip As Integer
+
+    Public DownloadClient As New WebClientPro '下载器对象
 
     Public XNdAuth As String 'X-Nd-Auth 标头
+
+    'Public DisbMsg As Integer = 0
 
     Public scaleX As Single 'DPI X
     Public scaleY As Single 'DPI Y
     '多线程获取公告
     Dim NoticeThread As New Threading.Thread(AddressOf GetNotice)
+    '多线程获取更新
+    Delegate Sub GetUpdateForm(ByVal app32link As String, ByVal app64link As String, ByVal text As String, ByVal focupdate As Integer)
+    Delegate Sub MessageBoxForm(ByVal title As String, ByVal text As String, ByVal buttom As MessageBoxButtons, ByVal icon As MessageBoxIcon)
+    Delegate Sub MessageBoxErrForm(ByVal ErrText As String, ByVal ErrTitle As String, ByVal ShowFeedBack As Boolean)
+    'Delegate Sub DownUpdateForm(ByVal link As String, ByVal path As String)
 
     '程序版本信息
     Public MyArch As String
-    Public Const AppBuildTime As String = "20241005"
+    Public Const AppBuildTime As String = "20241026"
     Public Const AppBuildChannel As String = "OfficialG"
+    Public Const AppBuildNumber As Integer = 1
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        BootModeTip = 1
         '解决无法建立安全的TLS/SSL连接问题
         ServicePointManager.SecurityProtocol = CType(192, SecurityProtocolType) Or CType(768, SecurityProtocolType) Or CType(3072, SecurityProtocolType)
         ' 获取当前窗体的 DPI
@@ -82,6 +95,11 @@ Public Class MainForm
         AddHandler DownloadClient.DownloadProgressChanged, AddressOf DownloadClient_DownloadProgressChanged
         AddHandler DownloadClient.DownloadFileCompleted, AddressOf DownloadClient_DownloadFileCompleted
         'AddHandler DownloadClient.DownloadDataCompleted, AddressOf DownloadClient_DownloadFileCompleted
+        Try
+            AddKey("Software\CJH", "HKCU")
+            AddKey("Software\CJH\FlyEduDownloader", "HKCU")
+        Catch ex As Exception
+        End Try
         Dim mykey As RegistryKey = Registry.CurrentUser.OpenSubKey("Software\CJH\FlyEduDownloader", True)
         Dim myt As Integer
         Try
@@ -89,29 +107,102 @@ Public Class MainForm
                 myt = mykey.GetValue("AcceptLicense", -1)
                 If myt < 0 Then
                     myt = 0
+                    AddReg("Software\CJH\FlyEduDownloader", "AcceptLicense", 0, Microsoft.Win32.RegistryValueKind.DWord, "HKCU")
                 ElseIf myt > 1 Then
                     myt = 0
+                    AddReg("Software\CJH\FlyEduDownloader", "AcceptLicense", 0, Microsoft.Win32.RegistryValueKind.DWord, "HKCU")
                 End If
             Else
                 myt = 0
+                AddReg("Software\CJH\FlyEduDownloader", "AcceptLicense", 0, Microsoft.Win32.RegistryValueKind.DWord, "HKCU")
             End If
         Catch ex As Exception
             myt = 0
+            AddReg("Software\CJH\FlyEduDownloader", "AcceptLicense", 0, Microsoft.Win32.RegistryValueKind.DWord, "HKCU")
         End Try
+
+        Try
+            If (Not mykey Is Nothing) Then
+                AGetNotice = mykey.GetValue("GetNotice", -1)
+                If AGetNotice < 0 Then
+                    AGetNotice = 1
+                    AddReg("Software\CJH\FlyEduDownloader", "GetNotice", 1, Microsoft.Win32.RegistryValueKind.DWord, "HKCU")
+                ElseIf AGetNotice > 1 Then
+                    AGetNotice = 1
+                    AddReg("Software\CJH\FlyEduDownloader", "GetNotice", 1, Microsoft.Win32.RegistryValueKind.DWord, "HKCU")
+                End If
+            Else
+                AGetNotice = 1
+                AddReg("Software\CJH\FlyEduDownloader", "GetNotice", 1, Microsoft.Win32.RegistryValueKind.DWord, "HKCU")
+            End If
+        Catch ex As Exception
+            AGetNotice = 1
+            AddReg("Software\CJH\FlyEduDownloader", "GetNotice", 1, Microsoft.Win32.RegistryValueKind.DWord, "HKCU")
+        End Try
+
+        Dim xndbase64 As String
+        Dim xndent As String
+        Try
+            If (Not mykey Is Nothing) Then
+                xndbase64 = mykey.GetValue("LoginState", "")
+                Try
+                    Dim Str As String = System.Text.Encoding.Default.GetString(System.Convert.FromBase64String(xndbase64))
+                    xndent = Str
+                    If xndent = "" Then
+                        DelReg("Software\CJH\FlyEduDownloader", "LoginState", "HKCU")
+                    End If
+                Catch ex As Exception
+                    xndent = ""
+                    DelReg("Software\CJH\FlyEduDownloader", "LoginState", "HKCU")
+                End Try
+            Else
+                xndent = ""
+                DelReg("Software\CJH\FlyEduDownloader", "LoginState", "HKCU")
+            End If
+        Catch ex As Exception
+            xndent = ""
+            DelReg("Software\CJH\FlyEduDownloader", "LoginState", "HKCU")
+        End Try
+
+
+        Try
+            If (Not mykey Is Nothing) Then
+                AGetUpdate = mykey.GetValue("AutoGetUpdate", -1)
+                If AGetUpdate < 0 Then
+                    AGetUpdate = 1
+                    AddReg("Software\CJH\FlyEduDownloader", "AutoGetUpdate", 1, Microsoft.Win32.RegistryValueKind.DWord, "HKCU")
+                ElseIf AGetUpdate > 1 Then
+                    AGetUpdate = 1
+                    AddReg("Software\CJH\FlyEduDownloader", "AutoGetUpdate", 1, Microsoft.Win32.RegistryValueKind.DWord, "HKCU")
+                End If
+            Else
+                AGetUpdate = 1
+                AddReg("Software\CJH\FlyEduDownloader", "AutoGetUpdate", 1, Microsoft.Win32.RegistryValueKind.DWord, "HKCU")
+            End If
+        Catch ex As Exception
+            AGetUpdate = 1
+            AddReg("Software\CJH\FlyEduDownloader", "AutoGetUpdate", 1, Microsoft.Win32.RegistryValueKind.DWord, "HKCU")
+        End Try
+
         If (Not mykey Is Nothing) Then
             mykey.Close()
         End If
+
         If myt = 0 Then
             LicenseForm.ShowDialog()
         End If
 
+        'Dim cmds As String()
+        'cmds = Split(Command.ToLower, " ")
+        'Dim sett As Integer
         '登录模式设置
-        If Command.ToLower = "/unloginmode" Then
+        If Command.ToLower.Contains("/unloginmode") = True Then
             Me.Text = "飞翔教学资源助手 " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （免登录下载模式）"
             DownloadMode = 1
             sxam.Visible = False
             logmm.Text = "使用登录模式下载(&L)"
             Label3.Visible = False
+            'sett = 1
         Else
             Me.Text = "飞翔教学资源助手 " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （登录下载模式）"
             DownloadMode = 0
@@ -119,15 +210,65 @@ Public Class MainForm
             logmm.Text = "使用免登录模式下载(&L)"
             Label3.Visible = True
             Label1.Text = "下载链接：（可能存在多个下载链接，选择一个能用的粘贴到的实用工具-下载链接菜单下载即可）"
-            SetXaForm.Button4.Text = "退出"
-            SetXaForm.StartPosition = FormStartPosition.CenterScreen
-            SetXaForm.ShowDialog()
+            If xndent <> "" Then
+                SetXaForm.TextBox1.Text = xndent
+                XNdAuth = xndent
+            Else
+                SetXaForm.Button4.Text = "退出"
+                SetXaForm.StartPosition = FormStartPosition.CenterScreen
+                SetXaForm.ShowDialog()
+            End If
         End If
-        NoticeThread.Start()
+        If Not Command.ToLower.Contains("/noupdates") = True Then
+            If AGetUpdate = 1 Then
+                Dim GetUpdateThread As New Threading.Thread(AddressOf GetUpdate)
+                GetUpdateThread.Start()
+            End If
+        End If
+        If AGetNotice = 1 Then
+            NoticeThread.Start()
+        Else
+            noticem.Visible = False
+        End If
+        BootModeTip = 0
+    End Sub
+    '自定义错误对话框
+    Public Sub MessageBoxError(ByVal ErrText As String, ByVal ErrTitle As String, ByVal ShowFeedBack As Boolean)
+        ErrMsgForm.Text = ErrTitle
+        ErrMsgForm.TextBox1.Text = ErrText
+        If ShowFeedBack = True Then
+            ErrMsgForm.Button2.Visible = True
+        Else
+            ErrMsgForm.Button2.Visible = False
+        End If
+        ErrMsgForm.ShowDialog()
+    End Sub
+
+    '多线程MessageBox
+    Sub MessageBoxThread(ByVal title As String, ByVal text As String, ByVal buttom As MessageBoxButtons, ByVal icon As MessageBoxIcon)
+        MessageBox.Show(text, title, buttom, icon)
     End Sub
 
     'Private Sub MainForm_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
     '    NoticeThread.Abort()
+    'End Sub
+
+    '下载接口
+    'Public Sub DownSub(ByVal link As String, ByVal path As String)
+    '    '开始下载
+    '    Try
+    '        'DownloadClient.DownloadFileAsync(New Uri(link), path)
+    '        MsgBox(UpdateForm.UpdateLink32)
+    '        DownloadClient.DownloadFileAsync(New Uri("https://gitee.com/cjhdevact/FlyEduDownloader/releases/download/1.0.4.24101/FlyEduDownloader_1.0.4.24101_x86_setup.exe"), Application.StartupPath & "\FlyEduDownUpdatePack.exe")
+    '    Catch ex As Exception
+    '        'DownFormvb.Label1.Text = ex.Message
+    '        MessageBoxError("下载错误" & vbCrLf & ex.Message, "飞翔教学资源助手 - 错误", False)
+    '    End Try
+    '    DownFormvb.ShowDialog() '显示下载进度
+    'End Sub
+
+    'Public Sub DownUpdate(ByVal link As String, ByVal path As String)
+    '    DownSub(link, path)
     'End Sub
 
     '获取公告
@@ -153,6 +294,131 @@ Public Class MainForm
         End Try
     End Sub
 
+    '获取更新
+    Function GetUpdate()
+        '版本检查
+        Dim verf As String
+        Dim verstr As String = ""
+        Dim vernum As Integer
+        verf = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upver.json")
+        If verf = "" Then
+            Return (2)
+            Exit Function
+        End If
+        Try
+            Dim NoticeObject As JObject = JObject.Parse(verf)
+            vernum = CInt(NoticeObject("verm"))
+            verstr = CStr(NoticeObject("ver"))
+        Catch ex As Exception
+        End Try
+        Dim needupt As Boolean
+        If vernum > AppBuildNumber Then
+            needupt = True
+        Else
+            needupt = False
+        End If
+        '获取更新信息
+        If needupt = True Then
+            Dim veri As String
+            veri = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upinfo.json")
+            If veri = "" Then
+                Return (2)
+                Exit Function
+            End If
+            Dim app64link As String = ""
+            Dim app32link As String = ""
+            Dim updateinfo As String = ""
+            Dim focupdate As Integer
+            Dim rurl As String = ""
+            Try
+                Dim VerObject As JObject = JObject.Parse(veri)
+
+                rurl = CStr(VerObject("rurl"))
+                If rurl <> "" Then
+                    Exit Try
+                End If
+
+                app32link = CStr(VerObject("up32"))
+                app64link = CStr(VerObject("up64"))
+                Dim InfoText As JArray = VerObject("upt")
+                For i = 0 To InfoText.Count - 1
+                    If i = InfoText.Count - 1 Then
+                        updateinfo = updateinfo & InfoText(i).ToString
+                    Else
+                        updateinfo = updateinfo & InfoText(i).ToString & vbCrLf
+                    End If
+                Next
+                'updateinfo = CStr(VerObject("updateinfo"))
+                focupdate = CStr(VerObject("uf"))
+                'verstr = CStr(NoticeObject("ver"))
+            Catch ex As Exception
+            End Try
+            '获取更新信息（重定向）
+            If rurl <> "" Then
+                Dim veri2 As String
+                veri2 = GetSource(rurl)
+                If veri2 = "" Then
+                    Return (2)
+                    Exit Function
+                End If
+                Try
+                    Dim VerObject As JObject = JObject.Parse(veri2)
+                    app32link = CStr(VerObject("up32"))
+                    app64link = CStr(VerObject("up64"))
+
+                    Dim InfoText As JArray = VerObject("upt")
+                    For i = 0 To InfoText.Count - 1
+                        If i = InfoText.Count - 1 Then
+                            updateinfo = updateinfo & InfoText(i).ToString
+                        Else
+                            updateinfo = updateinfo & InfoText(i).ToString & vbCrLf
+                        End If
+                    Next
+                    'updateinfo = CStr(VerObject("updateinfo"))
+                    focupdate = CStr(VerObject("uf"))
+                    'verstr = CStr(NoticeObject("ver"))
+                Catch ex As Exception
+                End Try
+            End If
+            Dim verin As String
+            verin = “版本：" & verstr & vbCrLf & "更新内容：" & vbCrLf & updateinfo
+            'If focupdate = 1 Then
+            '    UpdateForm.Button2.Text = "退出"
+            'End If
+            'UpdateForm.UpdateLink32 = app32link
+            'UpdateForm.UpdateLink64 = app64link
+            Me.Invoke(New GetUpdateForm(AddressOf ShowUpdateForm), app32link, app64link, verin, focupdate)
+            'UpdateForm.ShowDialog()
+            Return (0)
+        Else
+            '    If BootModeTip = 0 Then
+            '        MessageBox.Show("当前已是最新版本。", "更新", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            '    End If
+            Return (1)
+        End If
+    End Function
+
+    Sub GetUpdate2()
+        Dim a As Integer
+        a = GetUpdate()
+        If a = 1 Then
+            'MessageBox.Show("当前已是最新版本。", "更新", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Me.Invoke(New MessageBoxForm(AddressOf MessageBoxThread), "飞翔教学资源助手 - 程序更新", "当前已是最新版本。", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        ElseIf a = 2
+            Me.Invoke(New MessageBoxErrForm(AddressOf MessageBoxError), "获取更新失败！", "飞翔教学资源助手 - 错误", True)
+        End If
+    End Sub
+
+    Sub ShowUpdateForm(ByVal app32link As String, ByVal app64link As String, ByVal text As String, ByVal focupdate As Integer)
+        UpdateForm.TextBox1.Text = text
+        If focupdate = 1 Then
+            UpdateForm.Button2.Text = "退出"
+        End If
+        UpdateForm.UpdateLink32 = app32link
+        UpdateForm.UpdateLink64 = app64link
+        UpdateForm.ShowDialog()
+    End Sub
+
     '解析链接操作
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         'Dim a As Integer
@@ -170,7 +436,8 @@ Public Class MainForm
         'c = InStr(TextBox1.Text, "courseId=")
         'If c > 0 Then a = c
         If TextBox1.Text = "" Then
-            MessageBox.Show("页面链接不能为空！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBoxError("页面链接不能为空！", "飞翔教学资源助手 - 错误", False)
+            'MessageBox.Show("页面链接不能为空！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
             'ElseIf Not InStr(TextBox1.Text, "basic.smartedu.cn") > 0 Then
         End If
@@ -190,7 +457,8 @@ Public Class MainForm
             Call smartedudown(TextBox1.Text)
             Exit Sub
         End If
-        MessageBox.Show("不支持下载当前链接。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        'MessageBox.Show("不支持下载当前链接。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        MessageBoxError("不支持下载当前链接。", "飞翔教学资源助手 - 错误", False)
         Exit Sub
     End Sub
     '文本去重函数
@@ -230,7 +498,8 @@ Public Class MainForm
         If k <= 0 Then
             If m <= 0 Then
                 If j <= 0 Then
-                    MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    'MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBoxError("链接解析失败。无法获取资源包ID。", "飞翔教学资源助手 - 错误", True)
                     Exit Sub
                 End If
             End If
@@ -249,7 +518,8 @@ Public Class MainForm
 
         Dim bookid As String = BookLink.Substring(k, 36) '截取从索引k开始，长度为36的子字符串
         If Len(bookid) < 36 Then
-            MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBoxError("链接解析失败。无法获取资源包ID。", "飞翔教学资源助手 - 错误", True)
             Exit Sub
         End If
         Dim booknameurl As String
@@ -263,7 +533,8 @@ Public Class MainForm
         Dim bookinforeq As String
         bookinforeq = GetSource(booknameurl)
         If bookinforeq = "" Then
-            MessageBox.Show("获取资源包信息失败。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show("获取资源包信息失败。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBoxError("获取资源包信息失败。", "飞翔教学资源助手 - 错误", True)
             Exit Sub
         End If
         '解析Json信息
@@ -415,7 +686,8 @@ Public Class MainForm
             Button4.Enabled = True
             Button5.Enabled = True
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBoxError(ex.Message, "飞翔教学资源助手 - 错误", True)
+            'MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
         '下载封面
         Try
@@ -429,7 +701,8 @@ Public Class MainForm
             PictureBox1.Image = Nothing
             PictureBox1.Image = shi
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBoxError(ex.Message, "飞翔教学资源助手 - 错误", True)
         End Try
     End Sub
     '获取链接并过滤jpg、json等无用文件
@@ -503,13 +776,15 @@ Public Class MainForm
         Dim k As Integer
         k = InStr(BookLink, "contentId=")
         If k <= 0 Then
-            MessageBox.Show("链接解析失败。无法获取BookID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBoxError("链接解析失败。无法获取BookID。", "飞翔教学资源助手 - 错误", True)
+            'MessageBox.Show("链接解析失败。无法获取BookID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
         k = k + 9
         Dim bookid As String = BookLink.Substring(k, 36) '截取从索引k开始，长度为36的子字符串
         If Len(bookid) < 36 Then
-            MessageBox.Show("链接解析失败。无法获取BookID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show("链接解析失败。无法获取BookID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBoxError("链接解析失败。无法获取BookID。", "飞翔教学资源助手 - 错误", True)
             Exit Sub
         End If
         Dim booknameurl As String
@@ -524,7 +799,8 @@ Public Class MainForm
 
         bookinforeq = GetSource2(booknameurl)
         If bookinforeq = "" Then
-            MessageBox.Show("获取电子书信息失败。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show("获取电子书信息失败。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBoxError("获取电子书信息失败。", "飞翔教学资源助手 - 错误", True)
             Exit Sub
         End If
         '处理Json文件
@@ -550,21 +826,6 @@ Public Class MainForm
             'Dim BookDownLinkPri As String = CStr((BookItemsObject(1)("ti_storages"))(0)) & vbCrLf & CStr((BookItemsObject(1)("ti_storages"))(1)) & vbCrLf & CStr((BookItemsObject(1)("ti_storages"))(2))
             Dim BookDownLinkPri As String = ""
             Dim BookDownLinkPriArr As JArray = BookItemsObject(1)("ti_storages")
-            '获取下载链接显示
-            For i = 0 To BookDownLinkPriArr.Count - 1
-                If i = BookDownLinkPriArr.Count - 1 Then
-                    BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString
-                Else
-                    BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString & vbCrLf
-                End If
-            Next
-            '如果没有登录则替换私域链接到公域
-            If DownloadMode = 1 Then
-                Dim BookDownLink As String = Replace(BookDownLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
-                TextBox2.Text = BookDownLink
-            Else
-                TextBox2.Text = BookDownLinkPri
-            End If
 
             '获取下载链接（程序下载）
             Dim DownBookLinkPri As String = CStr((BookItemsObject(1)("ti_storages"))(0))
@@ -573,11 +834,69 @@ Public Class MainForm
             Else
                 DownBookLink = DownBookLinkPri
             End If
+            Dim dwns As String()
+            Dim GetOlds As Integer = 0
+            dwns = Split(DownBookLink, "/")
+            If DownBookName.Contains("根据2022年版课程标准修订") = True Then
+                If MessageBox.Show("该链接为新课标教材链接，但可能存在旧版本教材版本。" & vbCrLf & "如果选择下载旧版本教材失败，说明对应的旧版本教材可能已被删除。" & vbCrLf & vbCrLf & "如果要下载新课标版本教材请点击““是””，如果要下载旧版本教材请点击““否””。", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = DialogResult.No Then
+                    dwns(dwns.Count - 1) = "pdf.pdf"
+                    GetOlds = 1
+                    DownBookLink = Join(dwns, "/")
+                Else
+                    GetOlds = 0
+                End If
+            Else
+                GetOlds = 0
+            End If
+
+            '获取下载链接显示
+            For i = 0 To BookDownLinkPriArr.Count - 1
+                Dim ad As String()
+                ad = Split(BookDownLinkPriArr(i).ToString, "/")
+                If GetOlds = 1 Then
+                    ad(ad.Count - 1) = "pdf.pdf"
+                End If
+                Dim newurl As String
+                newurl = Join(ad, "/")
+                If i = BookDownLinkPriArr.Count - 1 Then
+                    If DownBookName.Contains("根据2022年版课程标准修订") = True Then
+                        If GetOlds = 1 Then
+                            BookDownLinkPri = BookDownLinkPri & newurl
+                        Else
+                            BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString
+                        End If
+                    Else
+                        BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString
+                    End If
+                Else
+                    If DownBookName.Contains("根据2022年版课程标准修订") = True Then
+                        If GetOlds = 1 Then
+                            BookDownLinkPri = BookDownLinkPri & newurl & vbCrLf
+                        Else
+                            BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString & vbCrLf
+                        End If
+                    Else
+                        BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString & vbCrLf
+                    End If
+                End If
+            Next
+
+            '如果没有登录则替换私域链接到公域
+            If DownloadMode = 1 Then
+                Dim BookDownLink As String = Replace(BookDownLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
+                TextBox2.Text = BookDownLink
+            Else
+                TextBox2.Text = BookDownLinkPri
+            End If
 
             '获取封面链接
             'Dim BookPreviewLinkPri As String = CStr((BookItemsObject(3)("ti_storages"))(0))
             'DownBookImgLink = Replace(BookPreviewLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
             DownBookImgLink = CStr(((BookInfoObject("custom_properties"))("thumbnails"))(0))
+
+            If GetOlds = 1 Then
+                DownBookName = Replace(DownBookName, "（根据2022年版课程标准修订）", "")
+            End If
 
             '设置信息
             BookNameLabel.Text = "书籍名称：" & DownBookName
@@ -593,7 +912,8 @@ Public Class MainForm
             Button4.Enabled = True
             Button5.Enabled = True
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBoxError(ex.Message, "飞翔教学资源助手 - 错误", True)
+            'MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
         '下载封面
         Try
@@ -607,7 +927,8 @@ Public Class MainForm
             PictureBox1.Image = Nothing
             PictureBox1.Image = shi
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBoxError(ex.Message, "飞翔教学资源助手 - 错误", True)
         End Try
     End Sub
     '获取Json内容函数
@@ -739,14 +1060,23 @@ Public Class MainForm
             DownFormvb.Label1.Text = e.Error.Message
             DownFormvb.Button1.Text = "确定"
             'DownFormvb.Button1.Visible = True
+            'If DisbMsg = 1 Then
+            '    DownFormvb.Close()
+            'End If
         ElseIf e.Cancelled = True Then
             DownFormvb.Label1.Text = "下载已被取消"
             DownFormvb.Button1.Text = "确定"
             'DownFormvb.Button1.Visible = True
+            'If DisbMsg = 1 Then
+            '    DownFormvb.Close()
+            'End If
         Else
             DownFormvb.Label1.Text = "下载完成！"
             DownFormvb.Button1.Text = "确定"
             'DownFormvb.Button1.Visible = True
+            'If DisbMsg = 1 Then
+            '    DownFormvb.Close()
+            'End If
         End If
     End Sub
     '保存封面
@@ -777,7 +1107,8 @@ Public Class MainForm
                 Try
                     IO.File.Delete(SaveFileDialog1.FileName)
                 Catch ex As Exception
-                    MessageBox.Show("写入文件错误，存在同名文件。" & vbCrLf & ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    'MessageBox.Show("写入文件错误，存在同名文件。" & vbCrLf & ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBoxError("写入文件错误，存在同名文件。" & vbCrLf & ex.Message, "飞翔教学资源助手 - 错误", False)
                     Exit Sub
                 End Try
             End If
@@ -803,7 +1134,7 @@ Public Class MainForm
         MDownForm.Show()
     End Sub
     '帮助
-    Private Sub hlpdocm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles hlpdocm.Click
+    Private Sub hlpdocm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Hlpdocm.Click
         '两种模式判断
         If DownloadMode = 1 Then
             System.Diagnostics.Process.Start("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/Help/index.html")
@@ -812,17 +1143,17 @@ Public Class MainForm
         End If
     End Sub
 
-    Private Sub ofpm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ofpm.Click
+    Private Sub ofpm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Ofpm.Click
         System.Diagnostics.Process.Start("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/index.html")
     End Sub
     '（免）登录模式切换
     Private Sub logmm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles logmm.Click
         If DownloadMode = 0 Then
             '运行自己加参数
-            System.Diagnostics.Process.Start(Application.ExecutablePath, "/unloginmode")
+            System.Diagnostics.Process.Start(Application.ExecutablePath, "/unloginmode /noupdates")
             Me.Close()
         Else
-            System.Diagnostics.Process.Start(Application.ExecutablePath)
+            System.Diagnostics.Process.Start(Application.ExecutablePath, "/noupdates")
             Me.Close()
         End If
     End Sub
@@ -861,13 +1192,15 @@ Public Class MainForm
             Dim k As Integer
             k = InStr(TextBox1.Text.ToLower, "activityid=")
             If k <= 0 Then
-                MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                'MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBoxError("链接解析失败。无法获取资源包ID。", "飞翔教学资源助手 - 错误", True)
                 Exit Sub
             End If
             k = k + 10
             Dim bookid As String = TextBox1.Text.Substring(k, 36) '截取从索引k开始，长度为36的子字符串
             If Len(bookid) < 36 Then
-                MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                'MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBoxError("链接解析失败。无法获取资源包ID。", "飞翔教学资源助手 - 错误", True)
                 Exit Sub
             End If
             booknameurl = "https://s-file-1.ykt.cbern.com.cn/zxx/ndrv2/national_lesson/resources/details/" & bookid & ".json"
@@ -875,13 +1208,15 @@ Public Class MainForm
             Dim k As Integer
             k = InStr(TextBox1.Text.ToLower, "courseid=")
             If k <= 0 Then
-                MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                'MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBoxError("链接解析失败。无法获取资源包ID。", "飞翔教学资源助手 - 错误", True)
                 Exit Sub
             End If
             k = k + 8
             Dim bookid As String = TextBox1.Text.Substring(k, 36) '截取从索引k开始，长度为36的子字符串
             If Len(bookid) < 36 Then
-                MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                'MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBoxError("链接解析失败。无法获取资源包ID。", "飞翔教学资源助手 - 错误", True)
                 Exit Sub
             End If
             booknameurl = "https://s-file-2.ykt.cbern.com.cn/zxx/ndrv2/resources/" & bookid & ".json"
@@ -889,13 +1224,15 @@ Public Class MainForm
             Dim k As Integer
             k = InStr(TextBox1.Text.ToLower, "lessonid=")
             If k <= 0 Then
-                MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                'MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBoxError("链接解析失败。无法获取资源包ID。", "飞翔教学资源助手 - 错误", True)
                 Exit Sub
             End If
             k = k + 8
             Dim bookid As String = TextBox1.Text.Substring(k, 36) '截取从索引k开始，长度为36的子字符串
             If Len(bookid) < 36 Then
-                MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                'MessageBox.Show("链接解析失败。无法获取资源包ID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBoxError("链接解析失败。无法获取资源包ID。", "飞翔教学资源助手 - 错误", True)
                 Exit Sub
             End If
             booknameurl = "https://s-file-2.ykt.cbern.com.cn/zxx/ndrv2/prepare_lesson/resources/details/" & bookid & ".json"
@@ -903,16 +1240,25 @@ Public Class MainForm
             Dim k As Integer
             k = InStr(TextBox1.Text.ToLower, "contentid=")
             If k <= 0 Then
-                MessageBox.Show("链接解析失败。无法获取BookID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                'MessageBox.Show("链接解析失败。无法获取BookID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBoxError("链接解析失败。无法获取BookID。", "飞翔教学资源助手 - 错误", True)
                 Exit Sub
             End If
             k = k + 9
             Dim bookid As String = TextBox1.Text.Substring(k, 36) '截取从索引k开始，长度为36的子字符串
             If Len(bookid) < 36 Then
-                MessageBox.Show("链接解析失败。无法获取BookID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                'MessageBox.Show("链接解析失败。无法获取BookID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBoxError("链接解析失败。无法获取BookID。", "飞翔教学资源助手 - 错误", True)
                 Exit Sub
             End If
-            booknameurl = "https://s-file-1.ykt.cbern.com.cn/zxx/ndrv2/resources/tch_material/details/" & bookid & ".json"
+            '从官方服务器获取资源信息
+            If TextBox1.Text.Contains("thematic_course") = True Then '资源包教材
+                booknameurl = "https://s-file-1.ykt.cbern.com.cn/zxx/ndrs/special_edu/thematic_course/" & bookid & "/resources/list.json"
+            Else
+                '普通教材
+                booknameurl = "https://s-file-1.ykt.cbern.com.cn/zxx/ndrv2/resources/tch_material/details/" & bookid & ".json"
+            End If
+            'booknameurl = "https://s-file-1.ykt.cbern.com.cn/zxx/ndrv2/resources/tch_material/details/" & bookid & ".json"
         End If
         SaveFileDialog1.Filter = "Json 文件(*.json)|*.json"
         SaveFileDialog1.FileName = DownBookName & "_" & Format(Now, "yyyy-MM-dd-HH-mm-ss") & ".json"
@@ -929,8 +1275,6 @@ Public Class MainForm
             End Try
             DownFormvb.ShowDialog()
         End If
-
-
         ''If InStr(TextBox1.Text, "contentId=") > 0 Then Call smartedudown(TextBox1.Text)
     End Sub
     '显示公告栏
@@ -938,5 +1282,23 @@ Public Class MainForm
         NoticeForm.Text = NtTi
         NoticeForm.TextBox1.Text = NtTx
         NoticeForm.Show()
+    End Sub
+    'PDF转图片
+    Private Sub PDFToPicm_Click(sender As Object, e As EventArgs) Handles PDFToPicm.Click
+        PDFToImg.Show()
+    End Sub
+    '设置
+    Private Sub settingm_Click(sender As Object, e As EventArgs) Handles settingm.Click
+        SettingForm.ShowDialog()
+    End Sub
+    '检查更新
+    Private Sub FindUpdatem_Click(sender As Object, e As EventArgs) Handles FindUpdatem.Click
+        Dim GetUpdateThread As New Threading.Thread(AddressOf GetUpdate2)
+        GetUpdateThread.Start()
+    End Sub
+    '反馈问题
+    Private Sub feedbackm_Click(sender As Object, e As EventArgs) Handles feedbackm.Click
+        FeedBackForm.FeedBackInfo = ""
+        FeedBackForm.ShowDialog()
     End Sub
 End Class

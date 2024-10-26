@@ -4,7 +4,7 @@
 '文件：NoticeForm.vb
 '描述：公告栏
 'License：
-'SmartEduDownloader
+'FlyEduDownloader
 'Copyright (C) 2024 CJH.
 
 'This program is free software: you can redistribute it and/or modify

@@ -4,7 +4,7 @@
 '文件：TagsSet.vb
 '描述：选择资源包里要下载的内容
 'License：
-'SmartEduDownloader
+'FlyEduDownloader
 'Copyright (C) 2024 CJH.
 
 'This program is free software: you can redistribute it and/or modify

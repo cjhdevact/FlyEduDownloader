@@ -6,7 +6,7 @@
 
 本软件完全免费开源，任何人不得用于商业用途，如果你下载本软件是付费后才可下载的，请立刻举报并反馈。
 
-如果有Bug可以反馈到[这里](https://github.com/cjhdevact/FlyEduDownloader/issues)
+如果有Bug可以反馈到[这里](https://cjhdevact.github.io/otherprojects/FlyEduDownloader/feedback.html)
 
 程序主页 [https://cjhdevact.github.io/otherprojects/FlyEduDownloader/index.html](https://cjhdevact.github.io/otherprojects/FlyEduDownloader/index.html)
 
@@ -16,10 +16,8 @@
 
 本程序支持的功能有：
 
-- [x] 获取智慧教育平台电子教材信息以及下载链接
-- [x] 获取智慧教育平台课程资源信息以及下载链接
-- [x] 免登录下载智慧教育平台电子教材和课程资源
-- [x] 登录下载智慧教育平台电子教材和课程资源
+- [x] 获取智慧教育平台电子教材、课程资源信息以及下载链接（支持2022新课标教材）
+- [x] 免登录、登录下载智慧教育平台电子教材和课程资源
 - [x] 自动识别教材标题，自动重命名
 - [x] 批量解析和下载智慧教育平台电子教材链接
 - [x] 其他一些小工具（如文本处理，批量下载文件（可以使用X-Nd-Auth标头批量下载获取到的教材以及课程资源PDF文件链接）...）
@@ -34,7 +32,7 @@
 
 本软件仅使用了合法的下载技术，通过官方API获取教材链接，本软件自身不存储任何课本资源，课本资源均来自国家的开放平台。
 
-在延伸的代码中（修改和由本仓库代码衍生的代码中）需要说明“基于飞翔教学资源助手（ https://github.com/cjhdevact/FlyEduDownloader ） 开发”。
+在延伸的代码中（修改和由本仓库代码衍生的代码中）需要说明“基于飞翔教学资源助手（https://github.com/cjhdevact/FlyEduDownloader）开发”。
 
 
 ## 此项目使用的API
@@ -115,7 +113,7 @@
 
 ## 致谢
 
-[AnyTextbookDownloader](https://gitlab.com/xiaoyangtech1/AnyTextbookDownloader) - 参考了教材下载思路。
+[AnyTextbookDownloader](https://gitlab.com/xiaoyangtech1/AnyTextbookDownloader) - 参考了教材部分下载思路。
 
 ------------
 

@@ -4,7 +4,7 @@
 '文件：MGetForm.vb
 '描述：批量解析链接
 'License：
-'SmartEduDownloader
+'FlyEduDownloader
 'Copyright (C) 2024 CJH.
 
 'This program is free software: you can redistribute it and/or modify
@@ -28,7 +28,8 @@ Public Class MGetForm
     Dim OErr As Integer
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         If TextBox1.Text = "" Then
-            MessageBox.Show("至少输入一个地址。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show("至少输入一个地址。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MainForm.MessageBoxError("至少输入一个地址。", "飞翔教学资源助手 - 错误", False)
             Exit Sub
         End If
         TextBox2.Text = ""

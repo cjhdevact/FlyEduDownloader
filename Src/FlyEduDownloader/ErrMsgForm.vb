@@ -1,8 +1,8 @@
 ﻿'==========================================
 '项目：FlyEduDownloader
 '作者：CJH
-'文件：TextCnv.vb
-'描述：文本合并
+'文件：ErrMsgForm.vb
+'描述：错误信息对话框
 'License：
 'FlyEduDownloader
 'Copyright (C) 2024 CJH.
@@ -20,13 +20,13 @@
 'You should have received a copy of the GNU General Public License
 'along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '==========================================
-Public Class TextCnv
-
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        TextBox2.Text = Replace(TextBox1.Text, vbCrLf, "")
+Public Class ErrMsgForm
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Me.Close()
     End Sub
 
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        Me.Close()
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        FeedBackForm.FeedBackInfo = Me.TextBox1.Text
+        FeedBackForm.ShowDialog()
     End Sub
 End Class

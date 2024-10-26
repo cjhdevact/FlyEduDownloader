@@ -1,6 +1,6 @@
 ﻿;****************************************************************
 ;PROJECT: FlyEduDownloader
-;FILE: FlyEduDownloader-Release-x64-InnoSetup.iss
+;FILE: FlyEduDownloader-Release-InnoSetup.iss
 ;PURPOSE: Inno Setup Script.
 ;AUTHOR: CJH
 ;****************************************************************
@@ -15,19 +15,19 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{85F3616B-7A4C-4EED-B00B-DF6866141220}
+AppId={{9FAF52FE-D96C-4DA1-853D-15D56DE424F8}
 AppName=飞翔教学资源助手
 AppVersion=1.0.5.24102
 ;AppVerName=FlyEduDownloader 1.0.5.24102
 AppPublisher=CJH
-DefaultDirName={pf}\CJH\FlyEduDownloader\x64
+DefaultDirName={pf}\CJH\FlyEduDownloader\x86
 DefaultGroupName=飞翔教学资源助手
 AllowNoIcons=yes
 LicenseFile=..\License
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=.\FlyEduDownloader\setupbin\release
-OutputBaseFilename=FlyEduDownloader_1.0.5.24102_x64_setup
+OutputBaseFilename=fed-1.0.5.24102-x86-up
 SetupIconFile=.\FlyEduDownloader\res\FlyEduDownloader.ico
 Compression=lzma
 SolidCompression=yes
@@ -38,21 +38,14 @@ VersionInfoVersion=1.0.5.24102
 VersionInfoProductName=FlyEduDownloader 1.0.5.24102
 VersionInfoProductVersion=1.0.5.24102
 VersionInfoCompany=CJH
-VersionInfoDescription=FlyEduDownloader Setup
+VersionInfoDescription=FlyEduDownloader Update Pack
 
 WizardImageFile=WizModernImage.bmp
 WizardSmallImageFile=WizModernSmallImage.bmp
 
 ;UninstallDisplayIcon=.\FlyEduDownloader\FlyEduDownloader.ico
-UninstallDisplayName=飞翔教学资源助手 1.0.5.24102 (x64)
+UninstallDisplayName=飞翔教学资源助手 1.0.5.24102
 
-; "ArchitecturesAllowed=x64" specifies that Setup cannot run on
-; anything but x64.
-ArchitecturesAllowed=x64
-; "ArchitecturesInstallIn64BitMode=x64" requests that the install be
-; done in "64-bit mode" on x64, meaning it should use the native
-; 64-bit Program Files directory and the 64-bit view of the registry.
-ArchitecturesInstallIn64BitMode=x64
 [Languages]
 Name: "chinesesimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
 
@@ -63,19 +56,27 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ; Removed old files
 Type: files; Name: "{app}\FlyEduDownloader.exe"
 Type: files; Name: "{app}\Newtonsoft.Json.dll"
+Type: files; Name: "{app}\O2S.Components.PDFRender4NET.dll"
+Type: files; Name: "{app}\License"
 ; Removed old links
-Type: files; Name: "{group}\FlyEduDownloader 1.0.2.24091 (x64).lnk"
-Type: files; Name: "{commondesktop}\FlyEduDownloader 1.0.2.24091 (x64).lnk"
-Type: files; Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\FlyEduDownloader 1.0.2.24091 (x64).lnk"
+Type: files; Name: "{group}\FlyEduDownloader 1.0.2.24091.lnk"
+Type: files; Name: "{commondesktop}\FlyEduDownloader 1.0.2.24091.lnk"
+Type: files; Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\FlyEduDownloader 1.0.2.24091.lnk"
+Type: files; Name: "{group}\飞翔教学资源助手.lnk"
+Type: files; Name: "{commondesktop}\飞翔教学资源助手.lnk"
+Type: files; Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\飞翔教学资源助手.lnk"
 
 [UninstallRun]
 Filename: "https://cjhdevact.github.io/otherprojects/FlyEduDownloader/aslink.html"; Flags: shellexec runmaximized; Tasks: ; Languages:
 
+[Run]
+Filename: "{app}\FlyEduDownloader.exe"; Description: "启动飞翔教学资源助手"; Flags: postinstall shellexec skipifdoesntexist
+
 [Files]
-Source: ".\FlyEduDownloader\bin\x64\Release\FlyEduDownloader.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\FlyEduDownloader\bin\Release\FlyEduDownloader.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\FlyEduDownloader\bin\Release\O2S.Components.PDFRender4NET.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\License"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\FlyEduDownloader\bin\x64\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\FlyEduDownloader\bin\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -140,7 +141,7 @@ NewFolderName=新建文件夹
 
 ; *** “欢迎”向导页
 WelcomeLabel1=欢迎安装 飞翔教学资源助手！
-WelcomeLabel2=现在将安装 飞翔教学资源助手 到您的电脑中。%n%n推荐您在继续安装前关闭所有其它应用程序。%n%n编译日期：2024-10-26。%n%n版本：1.0.5.24102 x64
+WelcomeLabel2=现在将安装 飞翔教学资源助手 到您的电脑中。%n%n推荐您在继续安装前关闭所有其它应用程序。%n%n编译日期：2024-10-26。%n%n版本：1.0.5.24102
 
 ; *** “许可协议”向导页
 WizardLicense=许可协议
@@ -277,22 +278,24 @@ var
 begin
 if (IsWin64()) then begin
 //自己的appID
-SubKeyName :=  'Software\Microsoft\Windows\CurrentVersion\Uninstall\{85F3616B-7A4C-4EED-B00B-DF6866141220}_is1';
+
+SubKeyName :=  'Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{9FAF52FE-D96C-4DA1-853D-15D56DE424F8}_is1';
+    RegWriteStringValue(HKLM64,SubKeyName,'DisplayIcon',iconPath);
+  end else begin
+SubKeyName :=  'Software\Microsoft\Windows\CurrentVersion\Uninstall\{9FAF52FE-D96C-4DA1-853D-15D56DE424F8}_is1';
     RegWriteStringValue(HKLM,SubKeyName,'DisplayIcon',iconPath);
   end;
 
 //卸载显示名
 if (IsWin64()) then begin
 //自己的appID
-SubKeyName :=  'Software\Microsoft\Windows\CurrentVersion\Uninstall\{85F3616B-7A4C-4EED-B00B-DF6866141220}_is1';
-    RegWriteStringValue(HKLM,SubKeyName,'DisplayName','飞翔教学资源助手 1.0.5.24102 (x64)');
-  end;
-end;
 
-procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
-begin
-  if CurUninstallStep = usUninstall then
-  RegDeleteKeyIncludingSubkeys(HKEY_CURRENT_USER, 'Software\CJH\FlyEduDownloader')
+SubKeyName :=  'Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{9FAF52FE-D96C-4DA1-853D-15D56DE424F8}_is1';
+    RegWriteStringValue(HKLM64,SubKeyName,'DisplayName','飞翔教学资源助手 1.0.5.24102 (x86)');
+  end else begin
+SubKeyName :=  'Software\Microsoft\Windows\CurrentVersion\Uninstall\{9FAF52FE-D96C-4DA1-853D-15D56DE424F8}_is1';
+    RegWriteStringValue(HKLM,SubKeyName,'DisplayName','飞翔教学资源助手 1.0.5.24102');
+  end;
 end;
 
 procedure InitializeWizard();
@@ -327,22 +330,6 @@ begin
   end;
 end;
 
-//安装时卸载旧版本
-procedure CurStepChanged(CurStep: TSetupStep);
-var 
-ResultStr: String; 
-ResultCode: Integer; 
-begin
-  if CurStep = ssInstall then
-  begin
-  if RegQueryStringValue(HKLM, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{85F3616B-7A4C-4EED-B00B-DF6866141220}_is1', 'UninstallString', ResultStr) then 
-	begin 
-		ResultStr := RemoveQuotes(ResultStr); 
-		Exec(ResultStr, '/verysilent /norestart /suppressmsgboxes', '', SW_HIDE, ewWaitUntilTerminated, ResultCode); 
-	end; 
-  end;
-end;
-
 // 卸载时判断程序是否正在运行
 function InitializeUninstall(): Boolean;
 begin
@@ -351,7 +338,7 @@ begin
   IsRunning:=FindWindowByWindowName('飞翔教学资源助手');
   while IsRunning<>0 do
     begin
-    if Msgbox('卸载程序发现 飞翔教学资源助手 正在运行。'#13 #13 '请先手动关闭或者按“是”关闭 飞翔教学资源助手。按“是”继续卸载，或者按“否”退出！',mbCriticalError, MB_YESNO) = idNO then
+    if Msgbox('卸载程序发现 飞翔教学资源助手 正在运行。'#13 #13 '请先关闭 飞翔教学资源助手 按“是”继续卸载，或者按“否”退出！',mbCriticalError, MB_YESNO) = idNO then
       begin
       Result :=false; //安装程序退出
       IsRunning :=0;

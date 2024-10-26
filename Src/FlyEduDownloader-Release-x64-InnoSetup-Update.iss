@@ -27,7 +27,7 @@ LicenseFile=..\License
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=.\FlyEduDownloader\setupbin\release
-OutputBaseFilename=FlyEduDownloader_1.0.5.24102_x64_setup
+OutputBaseFilename=fed-1.0.5.24102-x64-up
 SetupIconFile=.\FlyEduDownloader\res\FlyEduDownloader.ico
 Compression=lzma
 SolidCompression=yes
@@ -38,7 +38,7 @@ VersionInfoVersion=1.0.5.24102
 VersionInfoProductName=FlyEduDownloader 1.0.5.24102
 VersionInfoProductVersion=1.0.5.24102
 VersionInfoCompany=CJH
-VersionInfoDescription=FlyEduDownloader Setup
+VersionInfoDescription=FlyEduDownloader Update Pack
 
 WizardImageFile=WizModernImage.bmp
 WizardSmallImageFile=WizModernSmallImage.bmp
@@ -63,13 +63,21 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ; Removed old files
 Type: files; Name: "{app}\FlyEduDownloader.exe"
 Type: files; Name: "{app}\Newtonsoft.Json.dll"
+Type: files; Name: "{app}\O2S.Components.PDFRender4NET.dll"
+Type: files; Name: "{app}\License"
 ; Removed old links
-Type: files; Name: "{group}\FlyEduDownloader 1.0.2.24091 (x64).lnk"
-Type: files; Name: "{commondesktop}\FlyEduDownloader 1.0.2.24091 (x64).lnk"
-Type: files; Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\FlyEduDownloader 1.0.2.24091 (x64).lnk"
+Type: files; Name: "{group}\FlyEduDownloader 1.0.2.24091.lnk"
+Type: files; Name: "{commondesktop}\FlyEduDownloader 1.0.2.24091.lnk"
+Type: files; Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\FlyEduDownloader 1.0.2.24091.lnk"
+Type: files; Name: "{group}\飞翔教学资源助手.lnk"
+Type: files; Name: "{commondesktop}\飞翔教学资源助手.lnk"
+Type: files; Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\飞翔教学资源助手.lnk"
 
 [UninstallRun]
 Filename: "https://cjhdevact.github.io/otherprojects/FlyEduDownloader/aslink.html"; Flags: shellexec runmaximized; Tasks: ; Languages:
+
+[Run]
+Filename: "{app}\FlyEduDownloader.exe"; Description: "启动飞翔教学资源助手"; Flags: postinstall shellexec skipifdoesntexist
 
 [Files]
 Source: ".\FlyEduDownloader\bin\x64\Release\FlyEduDownloader.exe"; DestDir: "{app}"; Flags: ignoreversion
@@ -289,12 +297,6 @@ SubKeyName :=  'Software\Microsoft\Windows\CurrentVersion\Uninstall\{85F3616B-7A
   end;
 end;
 
-procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
-begin
-  if CurUninstallStep = usUninstall then
-  RegDeleteKeyIncludingSubkeys(HKEY_CURRENT_USER, 'Software\CJH\FlyEduDownloader')
-end;
-
 procedure InitializeWizard();
 begin
 WizardForm.LICENSEACCEPTEDRADIO.Checked := true;
@@ -324,22 +326,6 @@ begin
   if CurPageID = wpFinished then
   begin
     SetUninstallIcon(ExpandConstant('{app}\FlyEduDownloader.exe'));
-  end;
-end;
-
-//安装时卸载旧版本
-procedure CurStepChanged(CurStep: TSetupStep);
-var 
-ResultStr: String; 
-ResultCode: Integer; 
-begin
-  if CurStep = ssInstall then
-  begin
-  if RegQueryStringValue(HKLM, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{85F3616B-7A4C-4EED-B00B-DF6866141220}_is1', 'UninstallString', ResultStr) then 
-	begin 
-		ResultStr := RemoveQuotes(ResultStr); 
-		Exec(ResultStr, '/verysilent /norestart /suppressmsgboxes', '', SW_HIDE, ewWaitUntilTerminated, ResultCode); 
-	end; 
   end;
 end;
 

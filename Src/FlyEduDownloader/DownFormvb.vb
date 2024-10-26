@@ -4,7 +4,7 @@
 '文件：DownFormvb.vb
 '描述：下载进度显示
 'License：
-'SmartEduDownloader
+'FlyEduDownloader
 'Copyright (C) 2024 CJH.
 
 'This program is free software: you can redistribute it and/or modify
