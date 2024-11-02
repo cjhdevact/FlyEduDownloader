@@ -21,24 +21,22 @@
 'along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '==========================================
 Public Class SetXaForm
-    Public TempXa As String
+
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        If LoginHelp.ShowDialog() = DialogResult.OK Then
-            If TempXa = "" Then
-                MainForm.MessageBoxError("获取登录信息失败。" & vbCrLf & "请重新尝试手动设置信息，或使用直接登录方式登录。", "飞翔教学资源助手 - 错误", True)
-            Else
-                Call Button3_Click(sender, e)
-            End If
-        End If
+        System.Diagnostics.Process.Start("https://auth.smartedu.cn/uias/login")
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        System.Diagnostics.Process.Start("https://basic.smartedu.cn/tchMaterial")
     End Sub
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
-        If TempXa = "" Then
-            MainForm.MessageBoxError("没有登录信息，请先登录。", "飞翔教学资源助手 - 错误", False)
+        If TextBox1.Text = "" Then
+            MainForm.MessageBoxError("X-Nd-Auth值不能为空。", "飞翔教学资源助手 - 错误", False)
             'MessageBox.Show("X-Nd-Auth值不能为空。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
-        MainForm.XNdAuth = TempXa
+        MainForm.XNdAuth = TextBox1.Text
         Button4.Text = "取消"
         Button5.Visible = False
         If CheckBox1.Checked = True Then
@@ -47,15 +45,6 @@ Public Class SetXaForm
         Else
             DelReg("Software\CJH\FlyEduDownloader", "LoginState", "HKCU")
         End If
-        '清理Cookies缓存
-        Try
-            System.IO.File.Delete(Application.StartupPath & "\cookies.dat")
-        Catch ex As Exception
-        End Try
-        Try
-            System.IO.Directory.Delete(Application.StartupPath & "\LocalStorage")
-        Catch ex As Exception
-        End Try
         Me.StartPosition = FormStartPosition.CenterParent
         Me.Close()
     End Sub
@@ -69,16 +58,7 @@ Public Class SetXaForm
         End If
     End Sub
 
-    Private Sub SetXaForm_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        '清理Cookies缓存
-        Try
-            System.IO.File.Delete(Application.StartupPath & "\cookies.dat")
-        Catch ex As Exception
-        End Try
-        Try
-            System.IO.Directory.Delete(Application.StartupPath & "\LocalStorage")
-        Catch ex As Exception
-        End Try
+    Private Sub SetXaForm_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyClass.FormClosing
         If Button4.Text = "退出" Then
             'Application.Exit()
             End
@@ -100,20 +80,5 @@ Public Class SetXaForm
             'Application.Exit()
             End
         End If
-    End Sub
-
-    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
-        If WebLoginForm.ShowDialog() = DialogResult.OK Then
-            If TempXa = "" Then
-                MainForm.MessageBoxError("获取登录信息失败。" & vbCrLf & "请重新尝试登录，或使用手动设置信息方式登录。", "飞翔教学资源助手 - 错误", True)
-            Else
-                Call Button3_Click(sender, e)
-            End If
-        End If
-    End Sub
-
-    Private Sub SetXaForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        'TempXa = ""
-        LoginHelp.TextBox1.Text = TempXa
     End Sub
 End Class

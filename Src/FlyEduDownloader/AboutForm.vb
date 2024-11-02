@@ -31,7 +31,6 @@ Public Class AboutForm
     End Sub
     '初始化
     Private Sub AboutForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Label1.Text = "飞翔教学资源助手"
         Dim sa As String
         If Environment.Is64BitOperatingSystem = True Then
             sa = "x64"
@@ -85,13 +84,5 @@ Public Class AboutForm
 
     Private Sub LinkLabel5_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel5.LinkClicked
         LicenseForm.ShowDialog()
-    End Sub
-
-    Private Sub PictureBox1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox1.Click
-        If Label1.Text = "飞翔教学资源助手" Then
-            Label1.Text = "授人以鱼，不如授人以渔"
-        Else
-            Label1.Text = "飞翔教学资源助手"
-        End If
     End Sub
 End Class
