@@ -52,6 +52,7 @@ Public Class MainForm
     Public scaleY As Single 'DPI Y
     '多线程获取公告
     Dim NoticeThread As New Threading.Thread(AddressOf GetNotice)
+    Delegate Sub HideNoticeMenu()
     '多线程获取更新
     Delegate Sub GetUpdateForm(ByVal app32link As String, ByVal app64link As String, ByVal text As String, ByVal focupdate As Integer)
     Delegate Sub MessageBoxForm(ByVal title As String, ByVal text As String, ByVal buttom As MessageBoxButtons, ByVal icon As MessageBoxIcon)
@@ -60,9 +61,9 @@ Public Class MainForm
 
     '程序版本信息
     Public MyArch As String
-    Public Const AppBuildTime As String = "20241026"
+    Public Const AppBuildTime As String = "20241102"
     Public Const AppBuildChannel As String = "OfficialG"
-    Public Const AppBuildNumber As Integer = 1
+    Public Const AppBuildNumber As Integer = 2
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         BootModeTip = 1
@@ -211,8 +212,9 @@ Public Class MainForm
             Label3.Visible = True
             Label1.Text = "下载链接：（可能存在多个下载链接，选择一个能用的粘贴到的实用工具-下载链接菜单下载即可）"
             If xndent <> "" Then
-                SetXaForm.TextBox1.Text = xndent
+                SetXaForm.TempXa = xndent
                 XNdAuth = xndent
+                SetXaForm.Button5.Visible = False
             Else
                 SetXaForm.Button4.Text = "退出"
                 SetXaForm.StartPosition = FormStartPosition.CenterScreen
@@ -249,9 +251,11 @@ Public Class MainForm
         MessageBox.Show(text, title, buttom, icon)
     End Sub
 
-    'Private Sub MainForm_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-    '    NoticeThread.Abort()
-    'End Sub
+    Private Sub MainForm_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+        End
+        'NoticeThread.Interrupt()
+        'NoticeThread.Join()
+    End Sub
 
     '下载接口
     'Public Sub DownSub(ByVal link As String, ByVal path As String)
@@ -270,27 +274,58 @@ Public Class MainForm
     'Public Sub DownUpdate(ByVal link As String, ByVal path As String)
     '    DownSub(link, path)
     'End Sub
-
+    Sub HideNoticeMenu1()
+        noticem.Visible = False
+    End Sub
     '获取公告
     Sub GetNotice()
-        Dim ntic As String
-        ntic = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/noticemsg.json")
         Try
-            Dim NoticeObject As JObject = JObject.Parse(ntic)
-            NtTi = CStr(NoticeObject("title"))
-            NoticeForm.Text = NtTi
-            Dim InfoText As JArray = NoticeObject("text")
-            For i = 0 To InfoText.Count - 1
-                If i = InfoText.Count - 1 Then
-                    NtTx = NtTx & InfoText(i).ToString
-                Else
-                    NtTx = NtTx & InfoText(i).ToString & vbCrLf
+            Dim ntic As String
+            ntic = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/noticemsg2.json")
+            Dim reget As String = ""
+            Try
+                Dim NoticeObject As JObject = JObject.Parse(ntic)
+                reget = CStr(NoticeObject("rurl"))
+                If reget <> "" Then
+                    Exit Try
                 End If
-            Next
-            NoticeForm.TextBox1.Text = NtTx
-            NoticeForm.ShowDialog()
-        Catch ex As Exception
-            noticem.Visible = False
+                NtTi = CStr(NoticeObject("title"))
+                NoticeForm.Text = NtTi
+                Dim InfoText As JArray = NoticeObject("text")
+                For i = 0 To InfoText.Count - 1
+                    If i = InfoText.Count - 1 Then
+                        NtTx = NtTx & InfoText(i).ToString
+                    Else
+                        NtTx = NtTx & InfoText(i).ToString & vbCrLf
+                    End If
+                Next
+                NoticeForm.TextBox1.Text = NtTx
+                NoticeForm.ShowDialog()
+            Catch ex As Exception
+                Me.Invoke(New HideNoticeMenu(AddressOf HideNoticeMenu1))
+            End Try
+            If reget <> "" Then
+                Try
+                    Dim ntic1 As String = ""
+                    ntic1 = GetSource(reget)
+                    Dim NoticeObject As JObject = JObject.Parse(ntic1)
+                    NtTi = CStr(NoticeObject("title"))
+                    NoticeForm.Text = NtTi
+                    Dim InfoText As JArray = NoticeObject("text")
+                    For i = 0 To InfoText.Count - 1
+                        If i = InfoText.Count - 1 Then
+                            NtTx = NtTx & InfoText(i).ToString
+                        Else
+                            NtTx = NtTx & InfoText(i).ToString & vbCrLf
+                        End If
+                    Next
+                    NoticeForm.TextBox1.Text = NtTx
+                    NoticeForm.ShowDialog()
+                Catch ex As Exception
+                    Me.Invoke(New HideNoticeMenu(AddressOf HideNoticeMenu1))
+                End Try
+            End If
+        Catch ex As Threading.ThreadInterruptedException
         End Try
     End Sub
 
@@ -300,7 +335,11 @@ Public Class MainForm
         Dim verf As String
         Dim verstr As String = ""
         Dim vernum As Integer
-        verf = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upver.json")
+        If System.Environment.OSVersion.Version.Major >= 6 And System.Environment.OSVersion.Version.Minor >= 1 Then
+            verf = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upver.json")
+        Else
+            verf = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upversup.json")
+        End If
         If verf = "" Then
             Return (2)
             Exit Function
@@ -320,7 +359,11 @@ Public Class MainForm
         '获取更新信息
         If needupt = True Then
             Dim veri As String
-            veri = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upinfo.json")
+            If System.Environment.OSVersion.Version.Major >= 6 And System.Environment.OSVersion.Version.Minor >= 1 Then
+                veri = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upinfo.json")
+            Else
+                veri = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upinfosup.json")
+            End If
             If veri = "" Then
                 Return (2)
                 Exit Function
@@ -381,7 +424,7 @@ Public Class MainForm
                 End Try
             End If
             Dim verin As String
-            verin = “版本：" & verstr & vbCrLf & "更新内容：" & vbCrLf & updateinfo
+            verin = "版本：" & verstr & vbCrLf & "更新内容：" & vbCrLf & updateinfo
             'If focupdate = 1 Then
             '    UpdateForm.Button2.Text = "退出"
             'End If
@@ -404,7 +447,7 @@ Public Class MainForm
         If a = 1 Then
             'MessageBox.Show("当前已是最新版本。", "更新", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Me.Invoke(New MessageBoxForm(AddressOf MessageBoxThread), "飞翔教学资源助手 - 程序更新", "当前已是最新版本。", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        ElseIf a = 2
+        ElseIf a = 2 Then
             Me.Invoke(New MessageBoxErrForm(AddressOf MessageBoxError), "获取更新失败！", "飞翔教学资源助手 - 错误", True)
         End If
     End Sub
@@ -838,7 +881,7 @@ Public Class MainForm
             Dim GetOlds As Integer = 0
             dwns = Split(DownBookLink, "/")
             If DownBookName.Contains("根据2022年版课程标准修订") = True Then
-                If MessageBox.Show("该链接为新课标教材链接，但可能存在旧版本教材版本。" & vbCrLf & "如果选择下载旧版本教材失败，说明对应的旧版本教材可能已被删除。" & vbCrLf & vbCrLf & "如果要下载新课标版本教材请点击““是””，如果要下载旧版本教材请点击““否””。", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = DialogResult.No Then
+                If MessageBox.Show("该链接为新课标教材链接，但可能存在旧版本教材版本。" & vbCrLf & "如果选择下载旧版本教材失败，说明对应的旧版本教材可能已被删除。" & vbCrLf & vbCrLf & "如果要下载新课标版本教材请点击""是""，如果要下载旧版本教材请点击""否""。", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = DialogResult.No Then
                     dwns(dwns.Count - 1) = "pdf.pdf"
                     GetOlds = 1
                     DownBookLink = Join(dwns, "/")
@@ -1057,6 +1100,12 @@ Public Class MainForm
     '下载状态处理
     Private Sub DownloadClient_DownloadFileCompleted(ByVal sender As System.Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
         If e.Error IsNot Nothing Then
+            If IO.File.Exists(SaveFileDialog1.FileName) Then
+                Try
+                    IO.File.Delete(SaveFileDialog1.FileName)
+                Catch ex As Exception
+                End Try
+            End If
             DownFormvb.Label1.Text = e.Error.Message
             DownFormvb.Button1.Text = "确定"
             'DownFormvb.Button1.Visible = True
@@ -1064,6 +1113,12 @@ Public Class MainForm
             '    DownFormvb.Close()
             'End If
         ElseIf e.Cancelled = True Then
+            If IO.File.Exists(SaveFileDialog1.FileName) Then
+                Try
+                    IO.File.Delete(SaveFileDialog1.FileName)
+                Catch ex As Exception
+                End Try
+            End If
             DownFormvb.Label1.Text = "下载已被取消"
             DownFormvb.Button1.Text = "确定"
             'DownFormvb.Button1.Visible = True
@@ -1178,15 +1233,15 @@ Public Class MainForm
         TextSp.Show()
     End Sub
     '寻找教材
-    Private Sub Fbooksm_Click(sender As System.Object, e As System.EventArgs) Handles Fbooksm.Click
+    Private Sub Fbooksm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Fbooksm.Click
         System.Diagnostics.Process.Start("https://basic.smartedu.cn/tchMaterial")
     End Sub
     '寻找资源包
-    Private Sub findlessm_Click(sender As System.Object, e As System.EventArgs) Handles findlessm.Click
+    Private Sub findlessm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles findlessm.Click
         System.Diagnostics.Process.Start("https://basic.smartedu.cn/syncClassroom")
     End Sub
     '保存官方服务器上的Json信息文件
-    Private Sub Button5_Click(sender As System.Object, e As System.EventArgs) Handles Button5.Click
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
         Dim booknameurl As String
         If InStr(TextBox1.Text.ToLower, "activityid=") > 0 Then
             Dim k As Integer
@@ -1278,26 +1333,26 @@ Public Class MainForm
         ''If InStr(TextBox1.Text, "contentId=") > 0 Then Call smartedudown(TextBox1.Text)
     End Sub
     '显示公告栏
-    Private Sub noticem_Click(sender As System.Object, e As System.EventArgs) Handles noticem.Click
+    Private Sub noticem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles noticem.Click
         NoticeForm.Text = NtTi
         NoticeForm.TextBox1.Text = NtTx
         NoticeForm.Show()
     End Sub
     'PDF转图片
-    Private Sub PDFToPicm_Click(sender As Object, e As EventArgs) Handles PDFToPicm.Click
+    Private Sub PDFToPicm_Click(ByVal sender As Object, ByVal e As EventArgs) Handles PDFToPicm.Click
         PDFToImg.Show()
     End Sub
     '设置
-    Private Sub settingm_Click(sender As Object, e As EventArgs) Handles settingm.Click
+    Private Sub settingm_Click(ByVal sender As Object, ByVal e As EventArgs) Handles settingm.Click
         SettingForm.ShowDialog()
     End Sub
     '检查更新
-    Private Sub FindUpdatem_Click(sender As Object, e As EventArgs) Handles FindUpdatem.Click
+    Private Sub FindUpdatem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles FindUpdatem.Click
         Dim GetUpdateThread As New Threading.Thread(AddressOf GetUpdate2)
         GetUpdateThread.Start()
     End Sub
     '反馈问题
-    Private Sub feedbackm_Click(sender As Object, e As EventArgs) Handles feedbackm.Click
+    Private Sub feedbackm_Click(ByVal sender As Object, ByVal e As EventArgs) Handles feedbackm.Click
         FeedBackForm.FeedBackInfo = ""
         FeedBackForm.ShowDialog()
     End Sub

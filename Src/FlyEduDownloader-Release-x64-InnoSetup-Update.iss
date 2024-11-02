@@ -17,8 +17,8 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{85F3616B-7A4C-4EED-B00B-DF6866141220}
 AppName=飞翔教学资源助手
-AppVersion=1.0.5.24102
-;AppVerName=FlyEduDownloader 1.0.5.24102
+AppVersion=1.0.6.24111
+;AppVerName=FlyEduDownloader 1.0.6.24111
 AppPublisher=CJH
 DefaultDirName={pf}\CJH\FlyEduDownloader\x64
 DefaultGroupName=飞翔教学资源助手
@@ -27,16 +27,16 @@ LicenseFile=..\License
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=.\FlyEduDownloader\setupbin\release
-OutputBaseFilename=fed-1.0.5.24102-x64-up
+OutputBaseFilename=fed-1.0.6.24111-x64-up
 SetupIconFile=.\FlyEduDownloader\res\FlyEduDownloader.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 
 VersionInfoCopyright=Copyright © 2024 CJH. All Rights Reserved.
-VersionInfoVersion=1.0.5.24102
-VersionInfoProductName=FlyEduDownloader 1.0.5.24102
-VersionInfoProductVersion=1.0.5.24102
+VersionInfoVersion=1.0.6.24111
+VersionInfoProductName=FlyEduDownloader 1.0.6.24111
+VersionInfoProductVersion=1.0.6.24111
 VersionInfoCompany=CJH
 VersionInfoDescription=FlyEduDownloader Update Pack
 
@@ -44,7 +44,7 @@ WizardImageFile=WizModernImage.bmp
 WizardSmallImageFile=WizModernSmallImage.bmp
 
 ;UninstallDisplayIcon=.\FlyEduDownloader\FlyEduDownloader.ico
-UninstallDisplayName=飞翔教学资源助手 1.0.5.24102 (x64)
+UninstallDisplayName=飞翔教学资源助手 1.0.6.24111 (x64)
 
 ; "ArchitecturesAllowed=x64" specifies that Setup cannot run on
 ; anything but x64.
@@ -81,7 +81,9 @@ Filename: "{app}\FlyEduDownloader.exe"; Description: "启动飞翔教学资源�
 
 [Files]
 Source: ".\FlyEduDownloader\bin\x64\Release\FlyEduDownloader.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\FlyEduDownloader\bin\Release\O2S.Components.PDFRender4NET.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\FlyEduDownloader\libs\miniblink\x64\miniblink.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\FlyEduDownloader\bin\x64\Release\Miniblink.NetLib.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\FlyEduDownloader\bin\x64\Release\O2S.Components.PDFRender4NET.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\License"; DestDir: "{app}"; Flags: ignoreversion
 Source: ".\FlyEduDownloader\bin\x64\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
@@ -148,7 +150,7 @@ NewFolderName=新建文件夹
 
 ; *** “欢迎”向导页
 WelcomeLabel1=欢迎安装 飞翔教学资源助手！
-WelcomeLabel2=现在将安装 飞翔教学资源助手 到您的电脑中。%n%n推荐您在继续安装前关闭所有其它应用程序。%n%n编译日期：2024-10-26。%n%n版本：1.0.5.24102 x64
+WelcomeLabel2=现在将安装 飞翔教学资源助手 到您的电脑中。%n%n推荐您在继续安装前关闭所有其它应用程序。%n%n编译日期：2024-11-02。%n%n版本：1.0.6.24111 x64
 
 ; *** “许可协议”向导页
 WizardLicense=许可协议
@@ -293,7 +295,7 @@ SubKeyName :=  'Software\Microsoft\Windows\CurrentVersion\Uninstall\{85F3616B-7A
 if (IsWin64()) then begin
 //自己的appID
 SubKeyName :=  'Software\Microsoft\Windows\CurrentVersion\Uninstall\{85F3616B-7A4C-4EED-B00B-DF6866141220}_is1';
-    RegWriteStringValue(HKLM,SubKeyName,'DisplayName','飞翔教学资源助手 1.0.5.24102 (x64)');
+    RegWriteStringValue(HKLM,SubKeyName,'DisplayName','飞翔教学资源助手 1.0.6.24111 (x64)');
   end;
 end;
 
