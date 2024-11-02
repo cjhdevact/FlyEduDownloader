@@ -96,7 +96,7 @@ Public Class SetXaForm
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
         If MessageBox.Show("免登录模式可能在未来会失效，所以建议仅你不想登录下载时才使用该模式，如果免登录模式无法下载，请使用登录模式下载。" & vbCrLf & "是否要使用免登录模式？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
             '运行自己加参数
-            System.Diagnostics.Process.Start(Application.ExecutablePath, "/unloginmode /noupdates")
+            System.Diagnostics.Process.Start(Application.ExecutablePath, "/unloginmode")
             'Application.Exit()
             End
         End If
