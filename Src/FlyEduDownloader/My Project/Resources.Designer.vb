@@ -61,10 +61,8 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似 {\rtf1\ansi\ansicpg936\deff0\deflang1033\deflangfe2052{\fonttbl{\f0\fnil\fcharset134 \&apos;ce\&apos;a2\&apos;c8\&apos;ed\&apos;d1\&apos;c5\&apos;ba\&apos;da;}}
-        '''{\colortbl ;\red255\green0\blue0;\red0\green0\blue255;}
-        '''{\*\generator Msftedit 5.41.21.2512;}\viewkind4\uc1\pard\qc\lang2052\f0\fs36\&apos;c3\&apos;e2\&apos;d4\&apos;f0\&apos;c9\&apos;f9\&apos;c3\&apos;f7\fs18\par
-        '''\pard\fs20 1.\&apos;b1\&apos;be\&apos;c8\&apos;ed\&apos;bc\&apos;fe\&apos;cd\&apos;ea\&apos;c8\&apos;ab\&apos;c3\&apos;e2\&apos;b7\&apos;d1\&apos;a3\&apos;ac\&apos;bd\&apos;f6\&apos;d3\&apos;c3\&apos;d3\&apos;da\&apos;d1\&apos;a7\&apos;cf\&apos;b0\&apos;ba\&apos;cd\&apos;d1\&apos;d0\&apos;be\&apos;bf\&apos;d6\&apos;c7\&apos;bb\&apos;db\&apos;d6\&apos;d0\&apos;d0\&apos;a1\&apos;d1\&apos;a7\&apos;b7\&apos;fe\&apos;ce\&apos;f1\&apos;d4\&apos;ad\&apos;c0\&apos;ed\ [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        '''  查找类似 {\rtf1\adeflang1025\ansi\ansicpg936\uc2\adeff0\deff0\stshfdbch31505\stshfloch31506\stshfhich31506\stshfbi0\deflang1033\deflangfe2052\themelang1033\themelangfe2052\themelangcs0{\fonttbl{\f0\fbidi \froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f34\fbidi \froman\fcharset0\fprq2{\*\panose 02040503050406030204}Cambria Math;}
+        '''{\f36\fbidi \fnil\fcharset134\fprq2{\*\panose 02010600030101010101}\&apos;b5\&apos;c8\&apos;cf\&apos;df{\*\falt DengXian};}{\f44\fbidi \fswiss\fcharset134\fprq2{\*\panose 000000000000 [字符串的其余部分被截断]&quot;; 的本地化字符串。
         '''</summary>
         Friend ReadOnly Property license() As String
             Get

@@ -62,10 +62,11 @@ Public Class FeedBackForm
             Dim NoticeObject As JObject = JObject.Parse(feedbacklink)
             MyFeedLink = CStr(NoticeObject("link"))
         Catch ex As Exception
-            MyFeedLink = "https://wj.qq.com/s2/15810944/9589/"
+            'MyFeedLink = "https://wj.qq.com/s2/15810944/9589/"
+            MyFeedLink = "https://cjhdevact.github.io/otherprojects/FlyEduDownloader/feedbacklink.html"
         End Try
         If MyFeedLink = "" Then
-            MyFeedLink = "https://wj.qq.com/s2/15810944/9589/"
+            MyFeedLink = "https://cjhdevact.github.io/otherprojects/FlyEduDownloader/feedbacklink.html"
         End If
 
         Dim sa As String

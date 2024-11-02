@@ -51,7 +51,7 @@ Public Class LicenseForm
         End Try
         End
     End Sub
-    Private Sub LicenseForm_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyClass.FormClosing
+    Private Sub LicenseForm_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
         If a = 0 Then
             e.Cancel = True
         End If
