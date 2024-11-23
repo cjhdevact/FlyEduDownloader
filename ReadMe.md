@@ -16,10 +16,11 @@
 
 飞翔教学资源助手可以解析下载国家中小学智慧教育平台教材、课程资源地址，支持批量下载，需要.Net Framwork 4.0以上版本支持。
 
-
 [下载最新版本](https://github.com/cjhdevact/FlyEduDownloader/releases/latest) | [问题反馈](https://cjhdevact.github.io/otherprojects/FlyEduDownloader/feedback.html) | [官方主页](https://cjhdevact.github.io/otherprojects/FlyEduDownloader/index.html) | [使用教程](https://cjhdevact.github.io/otherprojects/FlyEduDownloader/Help/index.html)
 
 本软件完全免费开源，任何人不得用于商业用途，如果你下载本软件是付费后才可下载的，请立刻举报并反馈。
+
+关键词：飞翔教学资源助手，飞翔教学资源助手官网，飞翔教材助手官网，飞翔教材助手，国家中小学智慧教育平台，智慧教育云，国家中小学智慧教育平台下载，2024新教材，2024新课标教材，新教材，国家中小学智慧教育平台403，国家中小学智慧教育平台下载报错，国家中小学教育云平台，电子教材，小学电子教材，初中电子教材，高中电子教材，电子教材下载器，人教版课本，人教版电子教材下载，统编版电子教材，统编版小学语文，统编版道德与法治，统编版初中语文，统编版初中政治，道德与法治，山东电子课本，五四制电子课本，鲁教版电子课本，鲁教版数学，鲁教版英语，日语课本，俄语课本，人教数学课本，人教英语课本，K12教育，双减政策，人教社，人教社电子教材，中小学电子教材，寒假，暑假，弯道超车，寒假预习，暑假预习，放假预习没有课本怎么办，去哪找电子教材，制作鬼畜课本，鬼畜课本怎么制作
 
 ## 功能说明
 
