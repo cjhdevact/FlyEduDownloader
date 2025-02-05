@@ -5,7 +5,7 @@
 '描述：批量下载链接
 'License：
 'FlyEduDownloader
-'Copyright (C) 2024 CJH.
+'Copyright (C) 2024-2025 CJH.
 
 'This program is free software: you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -26,9 +26,12 @@ Imports System.Net
 Public Class DownLinkForm
     Dim st As Integer
     Dim mld As Integer
-    Public DownloadClient As New WebClientPro
+
     Dim DownLinks() As String
     Dim dline As Integer
+
+    Public DownloadClient As New WebClientPro
+
     'Dim lgtmp As String
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         TextBox2.Text = ""
@@ -45,6 +48,7 @@ Public Class DownLinkForm
         st = 0
         mld = 1
         CheckBox1.Checked = True
+
         DownloadClient.Timeout = 30000
         'AddHandler DownloadClient.DownloadProgressChanged, AddressOf DownloadClient_DownloadProgressChanged
         AddHandler DownloadClient.DownloadFileCompleted, AddressOf DownloadClient_DownloadFileCompleted
@@ -66,9 +70,7 @@ Public Class DownLinkForm
         End If
         st = 1
         TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "**************开始下载**************" & vbCrLf & TextBox2.Text
-        If MainForm.DownloadMode = 0 Then
-            DownloadClient.Headers.Set("x-nd-auth", MainForm.XNdAuth)
-        End If
+
         TextBox1.Enabled = False
         Button1.Enabled = False
         Button2.Enabled = False
@@ -137,11 +139,12 @@ Public Class DownLinkForm
                 End Try
             End If
 
-            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "正在下载第" & dline & "个 " & vbCrLf & TextBox2.Text
+            'TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "正在下载第" & dline & "个 " & vbCrLf & TextBox2.Text
+            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "正在下载" & BookLink & "" & vbCrLf & TextBox2.Text
 
             'DownloadClient.DownloadFileAsync(New Uri(DownBookLink), (fn))
+            Dim DownloadClient1 As New WebClientPro
             If mld = 1 Then
-                Dim DownloadClient1 As New WebClientPro
                 If MainForm.DownloadMode = 0 Then
                     DownloadClient1.Headers.Set("x-nd-auth", MainForm.XNdAuth)
                 End If

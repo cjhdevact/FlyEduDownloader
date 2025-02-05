@@ -5,7 +5,7 @@
 '描述：主程序部分（解析下载资源）
 'License：
 'FlyEduDownloader
-'Copyright (C) 2024 CJH.
+'Copyright (C) 2024-2025 CJH.
 
 'This program is free software: you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -90,6 +90,7 @@ Public Class MainForm
 
         '初始化
         DownloadClient.Timeout = 30000
+        FolderBrowserDialog1.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & "\BookDownloads"
         DownBookLink = ""
         DownBookName = ""
         DownBookImgLink = ""
@@ -251,8 +252,11 @@ Public Class MainForm
         MessageBox.Show(text, title, buttom, icon)
     End Sub
 
-    Private Sub MainForm_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
-        End
+    Private Sub MainForm_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+        'End
+        'Application.ExitThread()
+        'Application.Exit()
+        System.Environment.Exit(0)
         'NoticeThread.Interrupt()
         'NoticeThread.Join()
     End Sub
@@ -868,7 +872,9 @@ Public Class MainForm
 
             'Dim BookDownLinkPri As String = CStr((BookItemsObject(1)("ti_storages"))(0)) & vbCrLf & CStr((BookItemsObject(1)("ti_storages"))(1)) & vbCrLf & CStr((BookItemsObject(1)("ti_storages"))(2))
             Dim BookDownLinkPri As String = ""
+
             Dim BookDownLinkPriArr As JArray = BookItemsObject(1)("ti_storages")
+
 
             '获取下载链接（程序下载）
             Dim DownBookLinkPri As String = CStr((BookItemsObject(1)("ti_storages"))(0))
@@ -880,17 +886,26 @@ Public Class MainForm
             Dim dwns As String()
             Dim GetOlds As Integer = 0
             dwns = Split(DownBookLink, "/")
-            If DownBookName.Contains("根据2022年版课程标准修订") = True Then
-                If MessageBox.Show("该链接为新课标教材链接，但可能存在旧版本教材版本。" & vbCrLf & "如果选择下载旧版本教材失败，说明对应的旧版本教材可能已被删除。" & vbCrLf & vbCrLf & "如果要下载新课标版本教材请点击""是""，如果要下载旧版本教材请点击""否""。", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = DialogResult.No Then
-                    dwns(dwns.Count - 1) = "pdf.pdf"
-                    GetOlds = 1
-                    DownBookLink = Join(dwns, "/")
-                Else
-                    GetOlds = 0
-                End If
+            'If DownBookName.Contains("根据2022年版课程标准修订") = True Then
+            '    'If MessageBox.Show("该链接为新课标教材链接，但可能存在旧版本教材版本。" & vbCrLf & "如果选择下载旧版本教材失败，说明对应的旧版本教材可能已被删除。" & vbCrLf & vbCrLf & "如果要下载新课标版本教材请点击""是""，如果要下载旧版本教材请点击""否""。", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) = DialogResult.No Then
+            '    If CheckBox1.Checked = True Then
+            '        dwns(dwns.Count - 1) = "pdf.pdf"
+            '        GetOlds = 1
+            '        DownBookLink = Join(dwns, "/")
+            '    Else
+            '        GetOlds = 0
+            '    End If
+            'Else
+            '    GetOlds = 0
+            'End If
+            If CheckBox1.Checked = True Then
+                dwns(dwns.Count - 1) = "pdf.pdf"
+                GetOlds = 1
+                DownBookLink = Join(dwns, "/")
             Else
                 GetOlds = 0
             End If
+
 
             '获取下载链接显示
             For i = 0 To BookDownLinkPriArr.Count - 1
@@ -923,7 +938,6 @@ Public Class MainForm
                     End If
                 End If
             Next
-
             '如果没有登录则替换私域链接到公域
             If DownloadMode = 1 Then
                 Dim BookDownLink As String = Replace(BookDownLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
@@ -1051,22 +1065,15 @@ Public Class MainForm
             TagsSet.ShowDialog()
             If TagsSet.ec = 1 Then
                 '初始化保存对话框
-                '处理扩展名
-                Dim fn2() As String = Nothing
-                If DownBookLinks(TagsSet.ListBox1.SelectedIndex).Substring(DownBookLinks(TagsSet.ListBox1.SelectedIndex).Length - 1, 1) = "/" Then
-                    fn2(0) = ""
-                Else
-                    fn2 = Split(DownBookLinks(TagsSet.ListBox1.SelectedIndex), ".")
-                    fn2(fn2.Count - 1) = Replace(fn2(fn2.Count - 1), "/", "_")
-                End If
-                If fn2(fn2.Count - 1) = "" Then
-                    SaveFileDialog1.Filter = "文件(*.*)|*.*"
-                    SaveFileDialog1.FileName = TagsSet.ListBox1.SelectedItem.ToString
-                Else
-                    SaveFileDialog1.Filter = fn2(fn2.Count - 1).ToUpper & " 文件(*." & fn2(fn2.Count - 1) & ")|*." & fn2(fn2.Count - 1)
-                    SaveFileDialog1.FileName = TagsSet.ListBox1.SelectedItem.ToString & "." & fn2(fn2.Count - 1)
-                End If
-                If SaveFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
+                'If fn2(fn2.Count - 1) = "" Then
+                '    SaveFileDialog1.Filter = "文件(*.*)|*.*"
+                '    SaveFileDialog1.FileName = TagsSet.ListBox1.SelectedItem.ToString
+                'Else
+                '    SaveFileDialog1.Filter = fn2(fn2.Count - 1).ToUpper & " 文件(*." & fn2(fn2.Count - 1) & ")|*." & fn2(fn2.Count - 1)
+                '    SaveFileDialog1.FileName = TagsSet.ListBox1.SelectedItem.ToString & "." & fn2(fn2.Count - 1)
+                'End If
+                If FolderBrowserDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
+                    'If SaveFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
                     '初始化下载器
                     DownFormvb.Label1.Text = "正在下载 0%" & vbCrLf & "已经下载 0 MB，共 0 MB"
                     DownFormvb.Button1.Text = "取消"
@@ -1078,12 +1085,27 @@ Public Class MainForm
                         DownloadClient.Headers.Set("x-nd-auth", XNdAuth)
                     End If
                     '开始下载
-                    Try
-                        DownloadClient.DownloadFileAsync(New Uri(DownBookLinks(TagsSet.ListBox1.SelectedIndex)), SaveFileDialog1.FileName)
-                    Catch ex As Exception
-                        DownFormvb.Label1.Text = ex.Message
-                    End Try
-                    DownFormvb.ShowDialog() '显示下载进度
+                    For Each item As Integer In TagsSet.ListBox1.CheckedIndices
+                        '处理扩展名
+                        Dim fn2() As String = Nothing
+                        If DownBookLinks(item).Substring(DownBookLinks(item).Length - 1, 1) = "/" Then
+                            fn2(0) = ""
+                        Else
+                            fn2 = Split(DownBookLinks(item), ".")
+                            fn2(fn2.Count - 1) = Replace(fn2(fn2.Count - 1), "/", "_")
+                        End If
+
+                        MsgBox(DownBookLinks(item))
+                        MsgBox(TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1))
+                        Try
+                            'DownloadClient.DownloadFileAsync(New Uri(DownBookLinks(TagsSet.ListBox1.SelectedIndex)), SaveFileDialog1.FileName)
+                            DownloadClient.DownloadFileAsync(New Uri(DownBookLinks(item)), FolderBrowserDialog1.SelectedPath & "\" & TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1))
+                        Catch ex As Exception
+                            DownFormvb.Label1.Text = ex.Message
+                        End Try
+                        DownFormvb.ShowDialog() '显示下载进度
+                    Next
+                    'End If
                 End If
             End If
         End If
@@ -1355,5 +1377,9 @@ Public Class MainForm
     Private Sub feedbackm_Click(ByVal sender As Object, ByVal e As EventArgs) Handles feedbackm.Click
         FeedBackForm.FeedBackInfo = ""
         FeedBackForm.ShowDialog()
+    End Sub
+    '帮助
+    Private Sub PictureBox2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox2.Click
+        MessageBox.Show("你可以直接粘贴教材或资源包链接来解析，也可以通过输入ID的方式来下载。输入ID的方式是资源包输入""courseid=""或""activityid=""或""lessonid=""+资源包ID，教材输入""contentid=""+教材ID（没有引号，如果四个同时有，activityid>courseid>lessonid>contentid优先级），当教材页面的教材暂时下架，可以使用ID来下载。", "帮助", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 End Class

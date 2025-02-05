@@ -102,9 +102,9 @@ Partial Class SetXaForm
         Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBox1.Location = New System.Drawing.Point(11, 88)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(280, 24)
+        Me.CheckBox1.Size = New System.Drawing.Size(490, 24)
         Me.CheckBox1.TabIndex = 14
-        Me.CheckBox1.Text = "保存登录状态，下一次就不用重新登录了"
+        Me.CheckBox1.Text = "保存登录状态，下一次就不用重新登录了（公共场所电脑请勿勾选该选项）"
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'Button6

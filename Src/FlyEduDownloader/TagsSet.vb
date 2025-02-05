@@ -5,7 +5,7 @@
 '描述：选择资源包里要下载的内容
 'License：
 'FlyEduDownloader
-'Copyright (C) 2024 CJH.
+'Copyright (C) 2024-2025 CJH.
 
 'This program is free software: you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -34,5 +34,44 @@ Public Class TagsSet
 
     Private Sub TagsSet_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         ec = 0
+        If ListBox1.Items.Count <> 0 Then
+            For i As Integer = 0 To ListBox1.Items.Count - 1
+                ListBox1.SetItemChecked(i, False)
+            Next
+        End If
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        If ListBox1.Items.Count <> 0 Then '全部选中
+            For u As Integer = 0 To ListBox1.Items.Count - 1
+                ListBox1.SetItemChecked(u, True)
+            Next
+        End If
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        If ListBox1.Items.Count <> 0 Then '反选
+            For u As Integer = 0 To ListBox1.Items.Count - 1
+                ListBox1.SetItemChecked(u, Not (ListBox1.GetItemChecked(u)))
+            Next
+            'Else
+            '    MsgBox("反向选中遇到错误：列表数据为空，本次操作无效。", MsgBoxStyle.Critical)
+        End If
+    End Sub
+
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
+        If ListBox1.Items.Count <> 0 Then
+            'Dim allChecked As Boolean = True
+            'For i As Integer = 0 To ListBox1.Items.Count - 1
+            '    If Not ListBox1.GetItemChecked(i) Then
+            '        allChecked = False
+            '        Exit For
+            '    End If
+            'Next
+            ' 如果全部都已选中，则取消所有选中；否则选中所有项
+            For i As Integer = 0 To ListBox1.Items.Count - 1
+                ListBox1.SetItemChecked(i, False)
+            Next
+        End If
     End Sub
 End Class

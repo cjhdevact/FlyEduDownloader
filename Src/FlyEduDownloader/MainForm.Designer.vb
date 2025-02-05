@@ -49,6 +49,7 @@ Partial Class MainForm
         Me.FindUpdatem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.Hlpdocm = New System.Windows.Forms.ToolStripMenuItem()
+        Me.feedbackm = New System.Windows.Forms.ToolStripMenuItem()
         Me.Ofpm = New System.Windows.Forms.ToolStripMenuItem()
         Me.noticem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
@@ -60,21 +61,23 @@ Partial Class MainForm
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Button5 = New System.Windows.Forms.Button()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.feedbackm = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TextBox1
         '
         Me.TextBox1.BackColor = System.Drawing.Color.White
         Me.TextBox1.ForeColor = System.Drawing.Color.Black
-        Me.TextBox1.Location = New System.Drawing.Point(13, 83)
+        Me.TextBox1.Location = New System.Drawing.Point(13, 57)
         Me.TextBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(529, 25)
@@ -82,7 +85,7 @@ Partial Class MainForm
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(550, 78)
+        Me.Button1.Location = New System.Drawing.Point(550, 52)
         Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(117, 36)
@@ -93,7 +96,7 @@ Partial Class MainForm
         'BookNameLabel
         '
         Me.BookNameLabel.AutoSize = True
-        Me.BookNameLabel.Location = New System.Drawing.Point(9, 208)
+        Me.BookNameLabel.Location = New System.Drawing.Point(14, 122)
         Me.BookNameLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.BookNameLabel.Name = "BookNameLabel"
         Me.BookNameLabel.Size = New System.Drawing.Size(74, 19)
@@ -103,7 +106,7 @@ Partial Class MainForm
         'BookIDLabel
         '
         Me.BookIDLabel.AutoSize = True
-        Me.BookIDLabel.Location = New System.Drawing.Point(9, 243)
+        Me.BookIDLabel.Location = New System.Drawing.Point(14, 157)
         Me.BookIDLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.BookIDLabel.Name = "BookIDLabel"
         Me.BookIDLabel.Size = New System.Drawing.Size(62, 19)
@@ -112,10 +115,10 @@ Partial Class MainForm
         '
         'BookTagLabel
         '
-        Me.BookTagLabel.Location = New System.Drawing.Point(9, 277)
+        Me.BookTagLabel.Location = New System.Drawing.Point(14, 191)
         Me.BookTagLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.BookTagLabel.Name = "BookTagLabel"
-        Me.BookTagLabel.Size = New System.Drawing.Size(376, 62)
+        Me.BookTagLabel.Size = New System.Drawing.Size(376, 154)
         Me.BookTagLabel.TabIndex = 4
         Me.BookTagLabel.Text = "书籍标签："
         '
@@ -149,11 +152,11 @@ Partial Class MainForm
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(10, 57)
+        Me.Label2.Location = New System.Drawing.Point(10, 31)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(555, 19)
+        Me.Label2.Size = New System.Drawing.Size(452, 19)
         Me.Label2.TabIndex = 7
-        Me.Label2.Text = "国家中小学智慧教育平台教材页面或者课程教学页面链接：（将教材页面链接粘贴至下方即可）"
+        Me.Label2.Text = "请输入国家中小学智慧教育平台教材页面或者课程教学页面的链接或对应ID："
         '
         'MenuStrip1
         '
@@ -254,41 +257,47 @@ Partial Class MainForm
         'FindUpdatem
         '
         Me.FindUpdatem.Name = "FindUpdatem"
-        Me.FindUpdatem.Size = New System.Drawing.Size(152, 22)
+        Me.FindUpdatem.Size = New System.Drawing.Size(142, 22)
         Me.FindUpdatem.Text = "检查更新(&U)"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(139, 6)
         '
         'Hlpdocm
         '
         Me.Hlpdocm.Name = "Hlpdocm"
-        Me.Hlpdocm.Size = New System.Drawing.Size(152, 22)
+        Me.Hlpdocm.Size = New System.Drawing.Size(142, 22)
         Me.Hlpdocm.Text = "使用教程(&H)"
+        '
+        'feedbackm
+        '
+        Me.feedbackm.Name = "feedbackm"
+        Me.feedbackm.Size = New System.Drawing.Size(142, 22)
+        Me.feedbackm.Text = "反馈问题(&F)"
         '
         'Ofpm
         '
         Me.Ofpm.Name = "Ofpm"
-        Me.Ofpm.Size = New System.Drawing.Size(152, 22)
+        Me.Ofpm.Size = New System.Drawing.Size(142, 22)
         Me.Ofpm.Text = "软件官网(&O)"
         '
         'noticem
         '
         Me.noticem.Name = "noticem"
-        Me.noticem.Size = New System.Drawing.Size(152, 22)
+        Me.noticem.Size = New System.Drawing.Size(142, 22)
         Me.noticem.Text = "公告(&P)"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(139, 6)
         '
         'aboutm
         '
         Me.aboutm.Name = "aboutm"
-        Me.aboutm.Size = New System.Drawing.Size(152, 22)
+        Me.aboutm.Size = New System.Drawing.Size(142, 22)
         Me.aboutm.Text = "关于(&A)"
         '
         'PictureBox1
@@ -338,12 +347,12 @@ Partial Class MainForm
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(10, 30)
+        Me.Label3.Location = New System.Drawing.Point(14, 93)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(467, 19)
+        Me.Label3.Size = New System.Drawing.Size(595, 19)
         Me.Label3.TabIndex = 13
-        Me.Label3.Text = "如果登录状态失效或者X-Nd-Auth信息错误，可以在""设置登录信息""菜单修改。"
+        Me.Label3.Text = "如果登录状态失效（下载提示401）或者X-Nd-Auth信息错误，可以在""设置登录信息""菜单重新登录。"
         '
         'Button5
         '
@@ -354,17 +363,6 @@ Partial Class MainForm
         Me.Button5.TabIndex = 14
         Me.Button5.Text = "保存Json信息"
         Me.Button5.UseVisualStyleBackColor = True
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Location = New System.Drawing.Point(12, 113)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(453, 76)
-        Me.Label4.TabIndex = 15
-        Me.Label4.Text = "或者也可以资源包输入""courseid=""或""activityid=""或""lessonid""+资源包ID，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "教材输入""contentid=""+教材ID（没有引号" &
-    "，如果四个同时有，activityid>" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "courseid>lessonid>contentid优先级），当教材页面的教材暂时下架，" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "可以使用ID来下载。"
         '
         'TableLayoutPanel1
         '
@@ -400,11 +398,30 @@ Partial Class MainForm
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(647, 40)
         Me.FlowLayoutPanel1.TabIndex = 7
         '
-        'feedbackm
+        'PictureBox2
         '
-        Me.feedbackm.Name = "feedbackm"
-        Me.feedbackm.Size = New System.Drawing.Size(152, 22)
-        Me.feedbackm.Text = "反馈问题(&F)"
+        Me.PictureBox2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
+        Me.PictureBox2.Location = New System.Drawing.Point(459, 33)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(16, 16)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox2.TabIndex = 17
+        Me.PictureBox2.TabStop = False
+        '
+        'FolderBrowserDialog1
+        '
+        Me.FolderBrowserDialog1.Description = "请选择你要保存的目录"
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(539, 28)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(132, 23)
+        Me.CheckBox1.TabIndex = 18
+        Me.CheckBox1.Text = "尝试获取旧版教材"
+        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'MainForm
         '
@@ -412,6 +429,8 @@ Partial Class MainForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(683, 577)
+        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.PictureBox1)
@@ -421,7 +440,6 @@ Partial Class MainForm
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.BookTagLabel)
         Me.Font = New System.Drawing.Font("微软雅黑", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.ForeColor = System.Drawing.Color.Black
@@ -439,6 +457,7 @@ Partial Class MainForm
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.FlowLayoutPanel1.ResumeLayout(False)
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -470,7 +489,6 @@ Partial Class MainForm
     Friend WithEvents Fbooksm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents findlessm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Button5 As System.Windows.Forms.Button
-    Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents PDFToPicm As ToolStripMenuItem
@@ -484,4 +502,7 @@ Partial Class MainForm
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents aboutm As ToolStripMenuItem
     Friend WithEvents feedbackm As ToolStripMenuItem
+    Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
+    Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
+    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
 End Class

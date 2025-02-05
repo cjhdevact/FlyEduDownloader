@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("FlyEduDownloader")> 
 <Assembly: AssemblyCompany("CJH")> 
 <Assembly: AssemblyProduct("FlyEduDownloader")> 
-<Assembly: AssemblyCopyright("Copyright © 2024 CJH. All rights reserved.")> 
+<Assembly: AssemblyCopyright("Copyright © 2024-2025 CJH. All rights reserved.")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>

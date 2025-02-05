@@ -1,0 +1,15 @@
+/Src/.vs/
+
+/Src/*.suo
+
+/Src/TimeControl-bin/
+
+/Src/FlyEduDownloader/bin/
+
+/Src/FlyEduDownloader/setupbin/
+
+/Src/FlyEduDownloader/obj/
+
+/Src/FlyEduDownloader/libs/miniblink/x64/miniblink.dll
+
+/Src/FlyEduDownloader/libs/miniblink/x86/miniblink.dll

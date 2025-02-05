@@ -5,7 +5,7 @@
 '描述：反馈对话框
 'License：
 'FlyEduDownloader
-'Copyright (C) 2024 CJH.
+'Copyright (C) 2024-2025 CJH.
 
 'This program is free software: you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by

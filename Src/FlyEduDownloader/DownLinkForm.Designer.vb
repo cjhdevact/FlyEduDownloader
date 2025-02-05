@@ -210,7 +210,7 @@ Partial Class DownLinkForm
         '
         'FolderBrowserDialog1
         '
-        Me.FolderBrowserDialog1.Description = "请选择电子书下载目录："
+        Me.FolderBrowserDialog1.Description = "请选择下载目录："
         '
         'DownLinkForm
         '

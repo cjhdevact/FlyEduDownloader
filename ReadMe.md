@@ -131,7 +131,7 @@
 
 ## 致谢
 
-[AnyTextbookDownloader](#) - 参考了教材部分下载思路。
+[AnyTextbookDownloader](https://gitlab.com/xiaoyangtech1/AnyTextbookDownloader) - 参考了教材部分下载思路。
 
 ------------
 

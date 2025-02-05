@@ -85,7 +85,7 @@ Partial Class AboutForm
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(154, 19)
         Me.Label4.TabIndex = 4
-        Me.Label4.Text = "版权所有 © 2024 CJH。"
+        Me.Label4.Text = "版权所有 © 2024-2025 CJH。"
         '
         'LinkLabel1
         '

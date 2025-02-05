@@ -33,7 +33,7 @@ Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 
-VersionInfoCopyright=Copyright © 2024 CJH. All Rights Reserved.
+VersionInfoCopyright=Copyright © 2024-2025 CJH. All Rights Reserved.
 VersionInfoVersion=1.0.6.24111
 VersionInfoProductName=FlyEduDownloader 1.0.6.24111
 VersionInfoProductVersion=1.0.6.24111
@@ -135,7 +135,7 @@ NewFolderName=新建文件夹
 
 ; *** “欢迎”向导页
 WelcomeLabel1=欢迎安装 飞翔教学资源助手！
-WelcomeLabel2=现在将安装 飞翔教学资源助手 到您的电脑中。%n%n推荐您在继续安装前关闭所有其它应用程序。%n%n编译日期：2024-11-02。%n%n版本：1.0.6.24111
+WelcomeLabel2=现在将安装 飞翔教学资源助手 到您的电脑中。%n%n推荐您在继续安装前关闭所有其它应用程序。%n%n编译日期：2024-2025-11-02。%n%n版本：1.0.6.24111
 
 ; *** “许可协议”向导页
 WizardLicense=许可协议
