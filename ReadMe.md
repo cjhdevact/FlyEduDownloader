@@ -16,7 +16,7 @@
 
 飞翔教学资源助手可以解析下载国家中小学智慧教育平台教材、课程资源地址，支持批量下载，需要.Net Framwork 4.0以上版本支持。
 
-视频演示：[点击这里](https://www.bilibili.com/video/BV1MpHgesEYu)
+视频演示：[点击这里](https://www.bilibili.com/video/BV1ZTAKeVE3E)
 
 <h3 align="center">
   <a href="https://github.com/cjhdevact/FlyEduDownloader/releases/latest">下载最新版本</a> | <a href="https://cjhdevact.github.io/otherprojects/FlyEduDownloader/feedback.html">问题反馈</a> | <a href="https://cjhdevact.github.io/otherprojects/FlyEduDownloader/index.html">官方主页</a> | <a href="https://cjhdevact.github.io/otherprojects/FlyEduDownloader/Help/index.html">使用教程</a>
