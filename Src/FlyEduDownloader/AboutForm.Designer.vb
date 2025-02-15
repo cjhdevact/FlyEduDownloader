@@ -30,13 +30,14 @@ Partial Class AboutForm
         Me.Label4 = New System.Windows.Forms.Label()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button1 = New CustButtom()
         Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.LinkLabel4 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel5 = New System.Windows.Forms.LinkLabel()
         Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -81,16 +82,16 @@ Partial Class AboutForm
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(12, 145)
+        Me.Label4.Location = New System.Drawing.Point(12, 164)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(154, 19)
+        Me.Label4.Size = New System.Drawing.Size(192, 19)
         Me.Label4.TabIndex = 4
         Me.Label4.Text = "版权所有 © 2024-2025 CJH。"
         '
         'LinkLabel1
         '
         Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(13, 294)
+        Me.LinkLabel1.Location = New System.Drawing.Point(13, 313)
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Size = New System.Drawing.Size(61, 19)
         Me.LinkLabel1.TabIndex = 1
@@ -100,7 +101,7 @@ Partial Class AboutForm
         'LinkLabel2
         '
         Me.LinkLabel2.AutoSize = True
-        Me.LinkLabel2.Location = New System.Drawing.Point(93, 294)
+        Me.LinkLabel2.Location = New System.Drawing.Point(93, 313)
         Me.LinkLabel2.Name = "LinkLabel2"
         Me.LinkLabel2.Size = New System.Drawing.Size(61, 19)
         Me.LinkLabel2.TabIndex = 2
@@ -109,7 +110,7 @@ Partial Class AboutForm
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(362, 319)
+        Me.Button1.Location = New System.Drawing.Point(361, 349)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(116, 31)
         Me.Button1.TabIndex = 0
@@ -119,7 +120,7 @@ Partial Class AboutForm
         'LinkLabel3
         '
         Me.LinkLabel3.AutoSize = True
-        Me.LinkLabel3.Location = New System.Drawing.Point(174, 294)
+        Me.LinkLabel3.Location = New System.Drawing.Point(174, 313)
         Me.LinkLabel3.Name = "LinkLabel3"
         Me.LinkLabel3.Size = New System.Drawing.Size(61, 19)
         Me.LinkLabel3.TabIndex = 3
@@ -131,7 +132,7 @@ Partial Class AboutForm
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.Red
-        Me.Label5.Location = New System.Drawing.Point(13, 186)
+        Me.Label5.Location = New System.Drawing.Point(13, 205)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(471, 102)
         Me.Label5.TabIndex = 9
@@ -140,7 +141,7 @@ Partial Class AboutForm
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 126)
+        Me.Label6.Location = New System.Drawing.Point(12, 145)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(61, 19)
         Me.Label6.TabIndex = 10
@@ -149,7 +150,7 @@ Partial Class AboutForm
         'LinkLabel4
         '
         Me.LinkLabel4.AutoSize = True
-        Me.LinkLabel4.Location = New System.Drawing.Point(333, 294)
+        Me.LinkLabel4.Location = New System.Drawing.Point(333, 313)
         Me.LinkLabel4.Name = "LinkLabel4"
         Me.LinkLabel4.Size = New System.Drawing.Size(51, 19)
         Me.LinkLabel4.TabIndex = 4
@@ -159,7 +160,7 @@ Partial Class AboutForm
         'LinkLabel5
         '
         Me.LinkLabel5.AutoSize = True
-        Me.LinkLabel5.Location = New System.Drawing.Point(252, 294)
+        Me.LinkLabel5.Location = New System.Drawing.Point(252, 313)
         Me.LinkLabel5.Name = "LinkLabel5"
         Me.LinkLabel5.Size = New System.Drawing.Size(61, 19)
         Me.LinkLabel5.TabIndex = 11
@@ -169,26 +170,35 @@ Partial Class AboutForm
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(12, 164)
+        Me.Label7.Location = New System.Drawing.Point(12, 183)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(347, 19)
         Me.Label7.TabIndex = 12
         Me.Label7.Text = "我们利用有限的时间编写了这个程序，希望它能帮助到你。"
         '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(12, 126)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(61, 19)
+        Me.Label8.TabIndex = 13
+        Me.Label8.Text = "编译时间"
+        '
         'AboutForm
         '
-        Me.AcceptButton = Me.Button1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(489, 356)
+        Me.ClientSize = New System.Drawing.Size(489, 392)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.LinkLabel5)
         Me.Controls.Add(Me.LinkLabel4)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.LinkLabel3)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.LinkLabel2)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.Label4)
@@ -219,11 +229,12 @@ Partial Class AboutForm
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
     Friend WithEvents LinkLabel2 As System.Windows.Forms.LinkLabel
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Button1 As CustButtom
     Friend WithEvents LinkLabel3 As System.Windows.Forms.LinkLabel
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents LinkLabel4 As System.Windows.Forms.LinkLabel
     Friend WithEvents LinkLabel5 As System.Windows.Forms.LinkLabel
     Friend WithEvents Label7 As Label
+    Friend WithEvents Label8 As System.Windows.Forms.Label
 End Class

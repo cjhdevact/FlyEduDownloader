@@ -27,14 +27,14 @@ Partial Class FeedBackForm
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button1 = New FlyEduDownloader.CustButtom()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Button3 = New FlyEduDownloader.CustButtom()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Button4 = New FlyEduDownloader.CustButtom()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -101,6 +101,8 @@ Partial Class FeedBackForm
         '
         'Button1
         '
+        Me.Button1.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Location = New System.Drawing.Point(591, 3)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(92, 31)
@@ -122,11 +124,43 @@ Partial Class FeedBackForm
         Me.Panel1.Size = New System.Drawing.Size(680, 144)
         Me.Panel1.TabIndex = 4
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Checked = True
+        Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox1.Location = New System.Drawing.Point(12, 109)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(123, 21)
+        Me.CheckBox1.TabIndex = 5
+        Me.CheckBox1.Text = "包括我的系统信息"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(9, 89)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(210, 17)
+        Me.Label4.TabIndex = 4
+        Me.Label4.Text = "3.把以下内容按提示粘贴到反馈信息中"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(9, 63)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(126, 17)
+        Me.Label3.TabIndex = 3
+        Me.Label3.Text = "2.按要求填写反馈信息"
+        '
         'Button3
         '
+        Me.Button3.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button3.Location = New System.Drawing.Point(12, 29)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(122, 31)
+        Me.Button3.Size = New System.Drawing.Size(135, 31)
         Me.Button3.TabIndex = 2
         Me.Button3.Text = "问卷收集（建议）"
         Me.Button3.UseVisualStyleBackColor = True
@@ -142,42 +176,14 @@ Partial Class FeedBackForm
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(140, 29)
+        Me.Button4.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button4.Location = New System.Drawing.Point(153, 29)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(92, 31)
         Me.Button4.TabIndex = 2
         Me.Button4.Text = "Github"
         Me.Button4.UseVisualStyleBackColor = True
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 63)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(126, 17)
-        Me.Label3.TabIndex = 3
-        Me.Label3.Text = "2.按要求填写反馈信息"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(9, 89)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(210, 17)
-        Me.Label4.TabIndex = 4
-        Me.Label4.Text = "3.把以下内容按提示粘贴到反馈信息中"
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Checked = True
-        Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox1.Location = New System.Drawing.Point(12, 109)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(123, 21)
-        Me.CheckBox1.TabIndex = 5
-        Me.CheckBox1.Text = "包括我的系统信息"
-        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'FeedBackForm
         '
@@ -210,13 +216,13 @@ Partial Class FeedBackForm
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents Label1 As Label
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
-    Friend WithEvents Button1 As Button
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label2 As Label
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button4 As Button
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents Button1 As FlyEduDownloader.CustButtom
+    Friend WithEvents Button3 As FlyEduDownloader.CustButtom
+    Friend WithEvents Button4 As FlyEduDownloader.CustButtom
 End Class

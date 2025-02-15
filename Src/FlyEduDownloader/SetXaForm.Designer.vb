@@ -24,13 +24,13 @@ Partial Class SetXaForm
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SetXaForm))
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button1 = New CustButtom()
+        Me.Button3 = New CustButtom()
+        Me.Button4 = New CustButtom()
         Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
-        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Button5 = New CustButtom()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Button6 = New CustButtom()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
@@ -160,12 +160,12 @@ Partial Class SetXaForm
 
     End Sub
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
-    Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents Button1 As CustButtom
+    Friend WithEvents Button3 As CustButtom
+    Friend WithEvents Button4 As CustButtom
     Friend WithEvents LinkLabel3 As System.Windows.Forms.LinkLabel
-    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents Button5 As CustButtom
     Friend WithEvents CheckBox1 As CheckBox
-    Friend WithEvents Button6 As System.Windows.Forms.Button
+    Friend WithEvents Button6 As CustButtom
     Friend WithEvents Label6 As System.Windows.Forms.Label
 End Class

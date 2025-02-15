@@ -27,7 +27,21 @@ Public Class UpdateForm
     Public UpdateLink32 As String
     Public DownloadClient As New WebClient '下载器对象
     Dim a As Integer
-    Private Sub UpdateForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub UpdateForm_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
+        With DownloadClient
+            '    .Accept = "*/*"
+            '    .Headers.Set("accept-encoding", "gzip, deflate, br, zstd")
+            '    .Headers.Set("accept-language", "zh-CN,zh;q=0.9")
+            '    .Headers.Set("origin", "https://basic.smartedu.cn")
+            '    .Referer = "https://basic.smartedu.cn/"
+            '    .Headers.Set("sec-ch-ua", """Not(A:Brand"";v=""99"", ""Google Chrome"";v=""133"", ""Chromium"";v=""133""")
+            '    .Headers.Set("sec-ch-ua-mobile", "?0")
+            '    .Headers.Set("sec-ch-ua-platform", """Windows""")
+            '    .Headers.Set("sec-fetch-dest", "empty")
+            '    .Headers.Set("sec-fetch-mode", "cors")
+            '    .Headers.Set("sec-fetch-site", "cross-site")
+            .Headers.Set("useragent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36")
+        End With
         a = 0
         AddHandler DownloadClient.DownloadProgressChanged, AddressOf DownloadClient_DownloadProgressChanged
         AddHandler DownloadClient.DownloadFileCompleted, AddressOf DownloadClient_DownloadFileCompleted
@@ -79,7 +93,7 @@ Public Class UpdateForm
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
         '初始化下载器
         Me.TextBox1.Text = "正在下载 0%" & vbCrLf & "已经下载 0 MB， 共 0 MB"
         'DownFormvb.Button1.Text = "取消"

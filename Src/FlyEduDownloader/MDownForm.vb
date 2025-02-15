@@ -29,6 +29,7 @@ Public Class MDownForm
     Public DownloadClient As New WebClientPro
     Dim DownLinks() As String
     Dim dline As Integer
+    Dim strmode As Integer
     'Dim lgtmp As String
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         TextBox2.Text = ""
@@ -41,6 +42,22 @@ Public Class MDownForm
     End Sub
 
     Private Sub MDownForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        With DownloadClient
+            '    .Accept = "*/*"
+            '    .Headers.Set("accept-encoding", "gzip, deflate, br, zstd")
+            '    .Headers.Set("accept-language", "zh-CN,zh;q=0.9")
+            '    .Headers.Set("origin", "https://basic.smartedu.cn")
+            '    .Referer = "https://basic.smartedu.cn/"
+            '    .Headers.Set("sec-ch-ua", """Not(A:Brand"";v=""99"", ""Google Chrome"";v=""133"", ""Chromium"";v=""133""")
+            '    .Headers.Set("sec-ch-ua-mobile", "?0")
+            '    .Headers.Set("sec-ch-ua-platform", """Windows""")
+            '    .Headers.Set("sec-fetch-dest", "empty")
+            '    .Headers.Set("sec-fetch-mode", "cors")
+            '    .Headers.Set("sec-fetch-site", "cross-site")
+            .Headers.Set("useragent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36")
+        End With
+
+        strmode = 0
         ServicePointManager.SecurityProtocol = CType(192, SecurityProtocolType) Or CType(768, SecurityProtocolType) Or CType(3072, SecurityProtocolType)
         st = 0
         mld = 1
@@ -139,7 +156,17 @@ Public Class MDownForm
                 BookInfoObject = JObject.Parse(bookinforeq)
             End If
             Dim BookItemsObject As JArray = BookInfoObject("ti_items")
-            Dim DownBookLinkPri As String = CStr((BookItemsObject(1)("ti_storages"))(0))
+            Dim DownBookLinkPri As String = ""
+            If CheckBox2.Checked = True Then '强制获取旧版教材
+                DownBookLinkPri = "https://r1-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/pdf.pdf"
+            Else
+                For i = 0 To BookItemsObject.Count - 1
+                    If BookItemsObject(i)("ti_format") = "pdf" Then
+                        DownBookLinkPri = CStr((BookItemsObject(i)("ti_storages"))(0)) '获取官方教材链接
+                        Exit For
+                    End If
+                Next
+            End If
             Dim DownBookLink As String
             If MainForm.DownloadMode = 1 Then
                 DownBookLink = Replace(DownBookLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
@@ -154,6 +181,11 @@ Public Class MDownForm
             Dim DownBookName As String = CStr(BookNameObject("zh-CN"))
             Dim BookIDGet As String = BookInfoObject("id")
 
+
+            If CheckBox2.Checked = True Then
+                DownBookName = Replace(DownBookName, "（根据2022年版课程标准修订）", "")
+            End If
+
             If System.IO.Directory.Exists(FolderBrowserDialog1.SelectedPath) = False Then
                 IO.Directory.CreateDirectory(FolderBrowserDialog1.SelectedPath)
             End If
@@ -166,6 +198,17 @@ Public Class MDownForm
             End If
             fn = fn & ".pdf"
 
+            '处理文件名，去除非法字符\/:*?"<>|
+            fn = Replace(fn, "\", "_")
+            fn = Replace(fn, "/", "_")
+            fn = Replace(fn, ":", "-")
+            fn = Replace(fn, "*", "-")
+            fn = Replace(fn, "?", "")
+            fn = Replace(fn, """", "")
+            fn = Replace(fn, "<", "")
+            fn = Replace(fn, ">", "")
+            fn = Replace(fn, "|", "_")
+            fn = MainForm.EnsureValidFileName(fn)
             If IO.File.Exists(fn) Then
                 Try
                     IO.File.Delete(fn)
@@ -178,14 +221,18 @@ Public Class MDownForm
 
             'DownloadClient.DownloadFileAsync(New Uri(DownBookLink), (fn))
             If mld = 1 Then
+                strmode = 1
                 Dim DownloadClient1 As New WebClientPro
                 If MainForm.DownloadMode = 0 Then
                     DownloadClient1.Headers.Set("x-nd-auth", MainForm.XNdAuth)
                 End If
                 DownloadClient1.Timeout = 30000
                 AddHandler DownloadClient1.DownloadFileCompleted, AddressOf DownloadClient_DownloadFileCompleted
-                DownloadClient1.DownloadFileAsync(New Uri(DownBookLink), fn)
+                Threading.Thread.Sleep(500)
+                DownloadClient1.DownloadFileAsync(New Uri(DownBookLink), fn, dline)
             Else
+                strmode = 0
+                Threading.Thread.Sleep(500)
                 DownloadClient.DownloadFile(New Uri(DownBookLink), fn)
             End If
         Catch ex As Exception
@@ -199,13 +246,26 @@ Public Class MDownForm
 
     Private Sub DownloadClient_DownloadFileCompleted(ByVal sender As System.Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
         If e.Error IsNot Nothing Then
-            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个" & e.Error.Message & vbCrLf & TextBox2.Text
+            If strmode = 1 Then
+                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & e.UserState & "个" & e.Error.Message & vbCrLf & TextBox2.Text
+            Else
+                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个" & e.Error.Message & vbCrLf & TextBox2.Text
+            End If
+
             'lgtmp = ""
         ElseIf e.Cancelled = True Then
-            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个下载已被取消" & vbCrLf & TextBox2.Text
+            If strmode = 1 Then
+                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & e.UserState & "个下载已被取消" & vbCrLf & TextBox2.Text
+            Else
+                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个下载已被取消" & vbCrLf & TextBox2.Text
+            End If
             'lgtmp = ""
         Else
-            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个下载完成！" & vbCrLf & TextBox2.Text
+            If strmode = 1 Then
+                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & e.UserState & "个下载完成！" & vbCrLf & TextBox2.Text
+            Else
+                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个下载完成！" & vbCrLf & TextBox2.Text
+            End If
             'lgtmp = ""
         End If
     End Sub

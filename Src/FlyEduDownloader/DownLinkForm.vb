@@ -29,7 +29,7 @@ Public Class DownLinkForm
 
     Dim DownLinks() As String
     Dim dline As Integer
-
+    Dim strmode As Integer
     Public DownloadClient As New WebClientPro
 
     'Dim lgtmp As String
@@ -44,6 +44,22 @@ Public Class DownLinkForm
     End Sub
 
     Private Sub DownLinkForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        With DownloadClient
+            '    .Accept = "*/*"
+            '    .Headers.Set("accept-encoding", "gzip, deflate, br, zstd")
+            '    .Headers.Set("accept-language", "zh-CN,zh;q=0.9")
+            '    .Headers.Set("origin", "https://basic.smartedu.cn")
+            '    .Referer = "https://basic.smartedu.cn/"
+            '    .Headers.Set("sec-ch-ua", """Not(A:Brand"";v=""99"", ""Google Chrome"";v=""133"", ""Chromium"";v=""133""")
+            '    .Headers.Set("sec-ch-ua-mobile", "?0")
+            '    .Headers.Set("sec-ch-ua-platform", """Windows""")
+            '    .Headers.Set("sec-fetch-dest", "empty")
+            '    .Headers.Set("sec-fetch-mode", "cors")
+            '    .Headers.Set("sec-fetch-site", "cross-site")
+            .Headers.Set("useragent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36")
+        End With
+
+        strmode = 0
         ServicePointManager.SecurityProtocol = CType(192, SecurityProtocolType) Or CType(768, SecurityProtocolType) Or CType(3072, SecurityProtocolType)
         st = 0
         mld = 1
@@ -77,6 +93,7 @@ Public Class DownLinkForm
         Button3.Enabled = False
         Button4.Enabled = False
         CheckBox1.Enabled = False
+        CheckBox2.Enabled = False
         DownLinks = Split(TextBox1.Text, vbCrLf)
         Dim iu As Integer
         iu = DownLinks.Length
@@ -100,6 +117,7 @@ Public Class DownLinkForm
         Button3.Enabled = True
         Button4.Enabled = True
         CheckBox1.Enabled = True
+        CheckBox2.Enabled = True
         st = 0
     End Sub
 
@@ -131,6 +149,18 @@ Public Class DownLinkForm
                 fn = fn.Substring(0, 260 - fn2(fn2.Count - 1).Length - 1)
             End If
             fn = fn & "." & fn2(fn2.Count - 1)
+
+            '处理文件名，去除非法字符\/:*?"<>|
+            fn = Replace(fn, "\", "_")
+            fn = Replace(fn, "/", "_")
+            fn = Replace(fn, ":", "-")
+            fn = Replace(fn, "*", "-")
+            fn = Replace(fn, "?", "")
+            fn = Replace(fn, """", "")
+            fn = Replace(fn, "<", "")
+            fn = Replace(fn, ">", "")
+            fn = Replace(fn, "|", "_")
+            fn = MainForm.EnsureValidFileName(fn)
             If IO.File.Exists(fn) Then
                 Try
                     IO.File.Delete(fn)
@@ -143,15 +173,19 @@ Public Class DownLinkForm
             TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "正在下载" & BookLink & "" & vbCrLf & TextBox2.Text
 
             'DownloadClient.DownloadFileAsync(New Uri(DownBookLink), (fn))
-            Dim DownloadClient1 As New WebClientPro
             If mld = 1 Then
+                strmode = 1
+                Dim DownloadClient1 As New WebClientPro
                 If MainForm.DownloadMode = 0 Then
                     DownloadClient1.Headers.Set("x-nd-auth", MainForm.XNdAuth)
                 End If
                 DownloadClient1.Timeout = 30000
                 AddHandler DownloadClient1.DownloadFileCompleted, AddressOf DownloadClient_DownloadFileCompleted
-                DownloadClient1.DownloadFileAsync(New Uri(BookLink), fn)
+                Threading.Thread.Sleep(500)
+                DownloadClient1.DownloadFileAsync(New Uri(BookLink), fn, dline)
             Else
+                strmode = 0
+                Threading.Thread.Sleep(500)
                 DownloadClient.DownloadFile(New Uri(BookLink), fn)
             End If
         Catch ex As Exception
@@ -165,13 +199,26 @@ Public Class DownLinkForm
 
     Private Sub DownloadClient_DownloadFileCompleted(ByVal sender As System.Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
         If e.Error IsNot Nothing Then
-            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个" & e.Error.Message & vbCrLf & TextBox2.Text
+            If strmode = 1 Then
+                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & e.UserState & "个" & e.Error.Message & vbCrLf & TextBox2.Text
+            Else
+                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个" & e.Error.Message & vbCrLf & TextBox2.Text
+            End If
+
             'lgtmp = ""
         ElseIf e.Cancelled = True Then
-            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个下载已被取消" & vbCrLf & TextBox2.Text
+            If strmode = 1 Then
+                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & e.UserState & "个下载已被取消" & vbCrLf & TextBox2.Text
+            Else
+                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个下载已被取消" & vbCrLf & TextBox2.Text
+            End If
             'lgtmp = ""
         Else
-            TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个下载完成！" & vbCrLf & TextBox2.Text
+            If strmode = 1 Then
+                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & e.UserState & "个下载完成！" & vbCrLf & TextBox2.Text
+            Else
+                TextBox2.Text = Format(Now, "[yyyy-MM-dd HH:mm:ss] ") & "第" & dline & "个下载完成！" & vbCrLf & TextBox2.Text
+            End If
             'lgtmp = ""
         End If
     End Sub

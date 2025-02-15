@@ -51,6 +51,25 @@
 
 飞翔教学资源助手，飞翔教学资源助手官网，飞翔教材助手官网，飞翔教材助手，国家中小学智慧教育平台，智慧教育云，国家中小学智慧教育平台下载，2024新教材，2024新课标教材，新教材，国家中小学智慧教育平台403，国家中小学智慧教育平台下载报错，国家中小学教育云平台，电子教材，小学电子教材，初中电子教材，高中电子教材，电子教材下载器，人教版课本，人教版电子教材下载，统编版电子教材，统编版小学语文，统编版道德与法治，统编版初中语文，统编版初中政治，道德与法治，山东电子课本，五四制电子课本，鲁教版电子课本，鲁教版数学，鲁教版英语，日语课本，俄语课本，人教数学课本，人教英语课本，K12教育，双减政策，人教社，人教社电子教材，中小学电子教材，寒假，暑假，弯道超车，寒假预习，暑假预习，放假预习没有课本怎么办，去哪找电子教材，制作鬼畜课本，鬼畜课本怎么制作
 
+## 数字签名
+
+本程序使用了自签证书进行了签名
+
+证书信息：
+```
+Name: CJH Root Certificate
+Create: ‎2024‎年‎12‎月‎27‎日 20:42:16
+Expires: ‎2150‎年‎12‎月‎31‎日 0:00:003e5
+MD5: 0bc507db70947e57ddd81bec63b581d9
+SHA256: d2d67c8ebea3cc954c7ee0e94f5f45537dde7709053ca9e89f352fda60283
+Key fingerprint (SHA1): 73b80a8d0ba3f662b575f2fc0b78612469e22e59
+KeyID: d929e453f645017190dac5001a736a4d
+Certificate SerialNumber: dbde77418068d5a34b2064626a12ecde
+Key Type: md5RSA
+```
+
+你可以在[这里](/Src/FlyEduDownloader/res/rootcert.cer)下载证书来验证程序完整性。
+
 ## 开源说明
 
 本软件仅使用了合法的下载技术，通过官方API获取教材链接，本软件自身不存储任何课本资源，课本资源均来自国家的开放平台。
@@ -58,6 +77,7 @@
 在延伸的代码中（修改和由本仓库代码衍生的代码中）需要说明“`基于飞翔教学资源助手（https://github.com/cjhdevact/FlyEduDownloader）开发`”。
 
 ## 此项目使用的API
+<details><summary><b>APIs</b></summary>
 
 ### 智慧教育平台教材下载
 
@@ -133,9 +153,12 @@
 
 `https://basic.smartedu.cn/syncClassroom/prepare/detail?lessonId=8aee80a5-6b86-5bc9-016b-87465e6e0290&chapterId=5bb731e1-cdac-3984-a977-3d44c5d2d809&teachingmaterialId=4a4aa279-8dc6-4098-b45f-dd3f7d5a61b2&fromPrepare=1&classHourId=lesson_1`
 
+</details>
+
+
 ## 致谢
 
-[AnyTextbookDownloader](#) - 参考了教材部分下载思路。
+AnyTextbookDownloader - 参考了部分教材下载思路。
 
 ------------
 

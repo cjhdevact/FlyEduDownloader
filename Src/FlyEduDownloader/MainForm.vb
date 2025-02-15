@@ -30,6 +30,7 @@ Imports Microsoft.Win32
 Public Class MainForm
     Dim DownBookLink As String '电子课本链接
     Dim DownBookLinks() As String '资源包链接集合
+    Dim DownBookAudioLinks() As String '课本音频集合
     Dim DownBookImgLink As String '封面图片链接
     Dim DownBookName As String '资源名称
 
@@ -43,6 +44,8 @@ Public Class MainForm
     Public BootModeTip As Integer
 
     Public DownloadClient As New WebClientPro '下载器对象
+
+    Public DownloadWinState As Integer '下载窗口处理
 
     Public XNdAuth As String 'X-Nd-Auth 标头
 
@@ -61,12 +64,14 @@ Public Class MainForm
 
     '程序版本信息
     Public MyArch As String
-    Public Const AppBuildTime As String = "20241102"
-    Public Const AppBuildChannel As String = "OfficialG"
-    Public Const AppBuildNumber As Integer = 2
-
+    Public Const AppBuildTime As String = "20250215"
+    Public Const AppBuildChannel As String = "Official"
+    Public Const AppBuildNumber As Integer = 3
+ 
+    '初始化
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         BootModeTip = 1
+        DownloadWinState = 0
         '解决无法建立安全的TLS/SSL连接问题
         ServicePointManager.SecurityProtocol = CType(192, SecurityProtocolType) Or CType(768, SecurityProtocolType) Or CType(3072, SecurityProtocolType)
         ' 获取当前窗体的 DPI
@@ -87,6 +92,21 @@ Public Class MainForm
         Else
             MyArch = "x86"
         End If
+
+        With DownloadClient
+            '    .Accept = "*/*"
+            '    .Headers.Set("accept-encoding", "gzip, deflate, br, zstd")
+            '    .Headers.Set("accept-language", "zh-CN,zh;q=0.9")
+            '    .Headers.Set("origin", "https://basic.smartedu.cn")
+            '    .Referer = "https://basic.smartedu.cn/"
+            '    .Headers.Set("sec-ch-ua", """Not(A:Brand"";v=""99"", ""Google Chrome"";v=""133"", ""Chromium"";v=""133""")
+            '    .Headers.Set("sec-ch-ua-mobile", "?0")
+            '    .Headers.Set("sec-ch-ua-platform", """Windows""")
+            '    .Headers.Set("sec-fetch-dest", "empty")
+            '    .Headers.Set("sec-fetch-mode", "cors")
+            '    .Headers.Set("sec-fetch-site", "cross-site")
+            .Headers.Set("useragent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36")
+        End With
 
         '初始化
         DownloadClient.Timeout = 30000
@@ -199,19 +219,19 @@ Public Class MainForm
         'Dim sett As Integer
         '登录模式设置
         If Command.ToLower.Contains("/unloginmode") = True Then
-            Me.Text = "飞翔教学资源助手 " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （免登录下载模式）"
+            Me.Text = "飞翔教学资源助手 " & My.Application.Info.Version.ToString & " (" & AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （免登录下载模式）"
             DownloadMode = 1
             sxam.Visible = False
             logmm.Text = "使用登录模式下载(&L)"
             Label3.Visible = False
             'sett = 1
         Else
-            Me.Text = "飞翔教学资源助手 " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （登录下载模式）"
+            Me.Text = "飞翔教学资源助手 " & My.Application.Info.Version.ToString & " (" & AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （登录下载模式）"
             DownloadMode = 0
             sxam.Visible = True
             logmm.Text = "使用免登录模式下载(&L)"
             Label3.Visible = True
-            Label1.Text = "下载链接：（可能存在多个下载链接，选择一个能用的粘贴到的实用工具-下载链接菜单下载即可）"
+            Label1.Text = "下载链接：（可能存在多个下载链接，如果手动下载选择一个能用的粘贴到的实用工具-下载链接菜单下载即可）"
             If xndent <> "" Then
                 SetXaForm.TempXa = xndent
                 XNdAuth = xndent
@@ -501,13 +521,145 @@ Public Class MainForm
             Exit Sub
         End If
         If InStr(TextBox1.Text.ToLower, "contentid=") > 0 Then
-            Call smartedudown(TextBox1.Text)
+            If CheckBox2.Checked = True Then
+                Call bookaudioresdown(TextBox1.Text)
+            Else
+                Call smartedudown(TextBox1.Text)
+            End If
             Exit Sub
         End If
         'MessageBox.Show("不支持下载当前链接。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
         MessageBoxError("不支持下载当前链接。", "飞翔教学资源助手 - 错误", False)
         Exit Sub
     End Sub
+    '下载教材听力
+    Sub bookaudioresdown(ByVal BookLink As String)
+        'Exp.
+        'https://s-file-1.ykt.cbern.com.cn/zxx/ndrs/resources/d199388d-afe7-4ff2-912d-cea6ac4b9b1b/relation_audios.json
+        '解析链接
+        Dim k As Integer
+        k = InStr(BookLink, "contentId=")
+        If k <= 0 Then
+            MessageBoxError("链接解析失败。无法获取BookID。", "飞翔教学资源助手 - 错误", True)
+            'MessageBox.Show("链接解析失败。无法获取BookID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+        k = k + 9
+        Dim bookid As String = BookLink.Substring(k, 36) '截取从索引k开始，长度为36的子字符串
+        If Len(bookid) < 36 Then
+            'MessageBox.Show("链接解析失败。无法获取BookID。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBoxError("链接解析失败。无法获取BookID。", "飞翔教学资源助手 - 错误", True)
+            Exit Sub
+        End If
+        Dim booknameurl As String
+        booknameurl = "https://s-file-1.ykt.cbern.com.cn/zxx/ndrs/resources/" & bookid & "/relation_audios.json"
+        Dim bookinforeq As String
+        bookinforeq = GetSource2(booknameurl)
+        If bookinforeq = "" Then
+            'MessageBox.Show("获取电子书信息失败。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBoxError("未获取电子书对应的听力音频。", "飞翔教学资源助手 - 错误", True)
+            Exit Sub
+        End If
+        '处理Json文件
+        Try
+            Dim BookInfoObject As JArray
+            BookInfoObject = JArray.Parse(bookinforeq)
+            If BookInfoObject.Count = 0 Then
+                MessageBoxError("未获取电子书对应的听力音频。", "飞翔教学资源助手 - 错误", False)
+                Exit Sub
+            End If
+            Dim AudioListName(BookInfoObject.Count - 1) As String
+            For i = 0 To BookInfoObject.Count - 1
+                AudioListName(i) = BookInfoObject(i)("global_title")("zh-CN").ToString
+            Next
+
+            Dim AudioListUrl(BookInfoObject.Count - 1) As String
+            For i = 0 To BookInfoObject.Count - 1
+                AudioListUrl(i) = BookInfoObject(i)("ti_items")(0)("ti_storages")(0).ToString
+            Next
+            DownBookAudioLinks = AudioListUrl
+            'MsgBox(Join(AudioListName, vbCrLf))
+            'MsgBox(Join(AudioListUrl, vbCrLf))
+            TagsSet.ListBox1.Items.Clear()
+            For i = 0 To BookInfoObject.Count - 1
+                TagsSet.ListBox1.Items.AddRange({AudioListName(i)})
+            Next
+
+        Catch ex As Exception
+            MessageBoxError(ex.Message, "飞翔教学资源助手 - 错误", True)
+            Exit Sub
+        End Try
+
+        TagsSet.Label1.Text = "请选择你要下载的内容。"
+        TagsSet.ListBox1.SelectedIndex = 0
+        TagsSet.ShowDialog()
+        If TagsSet.ec = 1 Then
+            '初始化保存对话框
+            'If fn2(fn2.Count - 1) = "" Then
+            '    SaveFileDialog1.Filter = "文件(*.*)|*.*"
+            '    SaveFileDialog1.FileName = TagsSet.ListBox1.SelectedItem.ToString
+            'Else
+            '    SaveFileDialog1.Filter = fn2(fn2.Count - 1).ToUpper & " 文件(*." & fn2(fn2.Count - 1) & ")|*." & fn2(fn2.Count - 1)
+            '    SaveFileDialog1.FileName = TagsSet.ListBox1.SelectedItem.ToString & "." & fn2(fn2.Count - 1)
+            'End If
+            If FolderBrowserDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
+                'If SaveFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
+                '初始化下载器
+                'DownFormvb.Button1.Visible = False
+                '登录模式添加标头
+                If DownloadMode = 0 Then
+                    DownloadClient.Headers.Set("x-nd-auth", XNdAuth)
+                End If
+                Dim ii As Integer = 0
+                '开始下载
+                For Each item As Integer In TagsSet.ListBox1.CheckedIndices
+                    '处理扩展名
+                    Dim fn2() As String = Nothing
+                    If DownBookAudioLinks(item).Substring(DownBookAudioLinks(item).Length - 1, 1) = "/" Then
+                        fn2(0) = ""
+                    Else
+                        fn2 = Split(DownBookAudioLinks(item), ".")
+                        fn2(fn2.Count - 1) = Replace(fn2(fn2.Count - 1), "/", "_")
+                    End If
+                    ii = ii + 1
+                    If ii = TagsSet.ListBox1.CheckedIndices.Count Then
+                        DownloadWinState = 0
+                    Else
+                        DownloadWinState = 1
+                    End If
+                    Try
+                        DownFormvb.st = 0
+                        DownFormvb.ProgressBar1.Value = 0
+                        DownFormvb.Label1.Text = "正在下载" & vbCrLf & "已下载 0%" & vbCrLf & "已经下载 0 MB，共 0 MB"
+                        DownFormvb.Button1.Text = "取消"
+                        DownFormvb.Button1.Text = "取消"
+                        Threading.Thread.Sleep(500)
+                        'DownloadClient.DownloadFileAsync(New Uri(DownBookLinks(TagsSet.ListBox1.SelectedIndex)), SaveFileDialog1.FileName)
+                        Dim dfn As String
+                        dfn = TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1)
+                        '处理文件名，去除非法字符\/:*?"<>|
+                        dfn = Replace(dfn, "\", "_")
+                        dfn = Replace(dfn, "/", "_")
+                        dfn = Replace(dfn, ":", "-")
+                        dfn = Replace(dfn, "*", "-")
+                        dfn = Replace(dfn, "?", "")
+                        dfn = Replace(dfn, """", "")
+                        dfn = Replace(dfn, "<", "")
+                        dfn = Replace(dfn, ">", "")
+                        dfn = Replace(dfn, "|", "_")
+                        dfn = EnsureValidFileName(dfn)
+                        DownloadClient.DownloadFileAsync(New Uri(DownBookAudioLinks(item)), FolderBrowserDialog1.SelectedPath & "\" & dfn, ii & "/" & TagsSet.ListBox1.CheckedIndices.Count & " " & TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1))
+                    Catch ex As Exception
+                        DownFormvb.Label1.Text = ex.Message
+                    End Try
+                    DownFormvb.ShowDialog() '显示下载进度
+                Next
+                'End If
+                DownloadWinState = 0
+            End If
+        End If
+    End Sub
+
     '文本去重函数
     Function rmoe(ByVal s As String)
         Dim a, i, j, k
@@ -741,6 +893,20 @@ Public Class MainForm
             Dim whttpReq As System.Net.HttpWebRequest 'HttpWebRequest 类对 WebRequest 中定义的属性和方法提供支持'，也对使用户能够直接与使用 HTTP 的服务器交互的附加属性和方法提供支持。
             Dim whttpURL As New System.Uri(DownBookImgLink)
             whttpReq = CType(WebRequest.Create(whttpURL), HttpWebRequest)
+            With whttpReq
+                '    .Accept = "*/*"
+                '    .Headers.Set("accept-encoding", "gzip, deflate, br, zstd")
+                '    .Headers.Set("accept-language", "zh-CN,zh;q=0.9")
+                '    .Headers.Set("origin", "https://basic.smartedu.cn")
+                '    .Referer = "https://basic.smartedu.cn/"
+                '    .Headers.Set("sec-ch-ua", """Not(A:Brand"";v=""99"", ""Google Chrome"";v=""133"", ""Chromium"";v=""133""")
+                '    .Headers.Set("sec-ch-ua-mobile", "?0")
+                '    .Headers.Set("sec-ch-ua-platform", """Windows""")
+                '    .Headers.Set("sec-fetch-dest", "empty")
+                '    .Headers.Set("sec-fetch-mode", "cors")
+                '    .Headers.Set("sec-fetch-site", "cross-site")
+                .UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+            End With
             whttpReq.Timeout = 30000
             whttpReq.Method = "GET"
             Dim res As WebResponse = whttpReq.GetResponse()
@@ -845,6 +1011,7 @@ Public Class MainForm
         Dim bookinforeq As String
 
         bookinforeq = GetSource2(booknameurl)
+
         If bookinforeq = "" Then
             'MessageBox.Show("获取电子书信息失败。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error)
             MessageBoxError("获取电子书信息失败。", "飞翔教学资源助手 - 错误", True)
@@ -873,11 +1040,28 @@ Public Class MainForm
             'Dim BookDownLinkPri As String = CStr((BookItemsObject(1)("ti_storages"))(0)) & vbCrLf & CStr((BookItemsObject(1)("ti_storages"))(1)) & vbCrLf & CStr((BookItemsObject(1)("ti_storages"))(2))
             Dim BookDownLinkPri As String = ""
 
-            Dim BookDownLinkPriArr As JArray = BookItemsObject(1)("ti_storages")
+            Dim BookDownLinkPriArr As JArray = Nothing
 
+            For i = 0 To BookItemsObject.Count - 1
+                If BookItemsObject(i)("ti_format") = "pdf" Then
+                    BookDownLinkPriArr = BookItemsObject(i)("ti_storages")
+                    Exit For
+                End If
+            Next
 
             '获取下载链接（程序下载）
-            Dim DownBookLinkPri As String = CStr((BookItemsObject(1)("ti_storages"))(0))
+            Dim DownBookLinkPri As String = ""
+            If CheckBox1.Checked = True Then '强制获取旧版教材
+                DownBookLinkPri = "https://r1-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/pdf.pdf"
+            Else
+                For i = 0 To BookItemsObject.Count - 1
+                    If BookItemsObject(i)("ti_format") = "pdf" Then
+                        DownBookLinkPri = CStr((BookItemsObject(i)("ti_storages"))(0)) '获取官方教材链接
+                        Exit For
+                    End If
+                Next
+            End If
+
             If DownloadMode = 1 Then
                 DownBookLink = Replace(DownBookLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
             Else
@@ -906,38 +1090,44 @@ Public Class MainForm
                 GetOlds = 0
             End If
 
+            If CheckBox1.Checked = True Then '强制获取旧版教材
+                For i = 0 To BookDownLinkPriArr.Count - 1
+                    BookDownLinkPriArr(i) = "https://r" & i + 1 & "-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/pdf.pdf"
+                Next
+            End If
 
             '获取下载链接显示
             For i = 0 To BookDownLinkPriArr.Count - 1
-                Dim ad As String()
-                ad = Split(BookDownLinkPriArr(i).ToString, "/")
-                If GetOlds = 1 Then
-                    ad(ad.Count - 1) = "pdf.pdf"
-                End If
-                Dim newurl As String
-                newurl = Join(ad, "/")
+                'Dim ad As String()
+                'ad = Split(BookDownLinkPriArr(i).ToString, "/")
+                'If GetOlds = 1 Then
+                '    ad(ad.Count - 1) = "pdf.pdf"
+                'End If
+                'Dim newurl As String
+                'newurl = Join(ad, "/")
                 If i = BookDownLinkPriArr.Count - 1 Then
-                    If DownBookName.Contains("根据2022年版课程标准修订") = True Then
-                        If GetOlds = 1 Then
-                            BookDownLinkPri = BookDownLinkPri & newurl
-                        Else
-                            BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString
-                        End If
-                    Else
-                        BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString
-                    End If
+                    'If DownBookName.Contains("根据2022年版课程标准修订") = True Then
+                    '    If GetOlds = 1 Then
+                    '        BookDownLinkPri = BookDownLinkPri & newurl
+                    '    Else
+                    '        BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString
+                    '    End If
+                    'Else
+                    BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString
+                    'End If
                 Else
-                    If DownBookName.Contains("根据2022年版课程标准修订") = True Then
-                        If GetOlds = 1 Then
-                            BookDownLinkPri = BookDownLinkPri & newurl & vbCrLf
-                        Else
-                            BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString & vbCrLf
-                        End If
-                    Else
-                        BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString & vbCrLf
-                    End If
+                    'If DownBookName.Contains("根据2022年版课程标准修订") = True Then
+                    '    If GetOlds = 1 Then
+                    '        BookDownLinkPri = BookDownLinkPri & newurl & vbCrLf
+                    '    Else
+                    '        BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString & vbCrLf
+                    '    End If
+                    'Else
+                    BookDownLinkPri = BookDownLinkPri & BookDownLinkPriArr(i).ToString & vbCrLf
+                    'End If
                 End If
             Next
+
             '如果没有登录则替换私域链接到公域
             If DownloadMode = 1 Then
                 Dim BookDownLink As String = Replace(BookDownLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
@@ -962,7 +1152,7 @@ Public Class MainForm
             '针对教材的程序页面优化
             Button2.Text = "保存书籍信息"
             Button3.Text = "保存电子书"
-            PictureBox1.Location = New Point(487 * scaleX, 122 * scaleY)
+            PictureBox1.Location = New Point(487 * scaleX, 138 * scaleY)
             PictureBox1.Size = New Point(180 * scaleX, 240 * scaleY)
             Button2.Enabled = True
             Button3.Enabled = True
@@ -978,6 +1168,20 @@ Public Class MainForm
             Dim whttpURL As New System.Uri(DownBookImgLink)
             whttpReq = CType(WebRequest.Create(whttpURL), HttpWebRequest)
             whttpReq.Timeout = 30000
+            With whttpReq
+                '    .Accept = "*/*"
+                '    .Headers.Set("accept-encoding", "gzip, deflate, br, zstd")
+                '    .Headers.Set("accept-language", "zh-CN,zh;q=0.9")
+                '    .Headers.Set("origin", "https://basic.smartedu.cn")
+                '    .Referer = "https://basic.smartedu.cn/"
+                '    .Headers.Set("sec-ch-ua", """Not(A:Brand"";v=""99"", ""Google Chrome"";v=""133"", ""Chromium"";v=""133""")
+                '    .Headers.Set("sec-ch-ua-mobile", "?0")
+                '    .Headers.Set("sec-ch-ua-platform", """Windows""")
+                '    .Headers.Set("sec-fetch-dest", "empty")
+                '    .Headers.Set("sec-fetch-mode", "cors")
+                '    .Headers.Set("sec-fetch-site", "cross-site")
+                .UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+            End With
             whttpReq.Method = "GET"
             Dim res As WebResponse = whttpReq.GetResponse()
             Dim shi As New Bitmap(res.GetResponseStream)
@@ -1002,6 +1206,20 @@ Public Class MainForm
             Dim httpURL As New System.Uri(url)
             httpReq = CType(WebRequest.Create(httpURL), HttpWebRequest)
             httpReq.Timeout = 15000
+            With httpReq
+                '    .Accept = "*/*"
+                '    .Headers.Set("accept-encoding", "gzip, deflate, br, zstd")
+                '    .Headers.Set("accept-language", "zh-CN,zh;q=0.9")
+                '    .Headers.Set("origin", "https://basic.smartedu.cn")
+                '    .Referer = "https://basic.smartedu.cn/"
+                '    .Headers.Set("sec-ch-ua", """Not(A:Brand"";v=""99"", ""Google Chrome"";v=""133"", ""Chromium"";v=""133""")
+                '    .Headers.Set("sec-ch-ua-mobile", "?0")
+                '    .Headers.Set("sec-ch-ua-platform", """Windows""")
+                '    .Headers.Set("sec-fetch-dest", "empty")
+                '    .Headers.Set("sec-fetch-mode", "cors")
+                '    .Headers.Set("sec-fetch-site", "cross-site")
+                .UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+            End With
             httpReq.Method = "GET"
             httpResp = CType(httpReq.GetResponse(), HttpWebResponse)
             'Dim reader As StreamReader = New StreamReader(httpResp.GetResponseStream, System.Text.Encoding.GetEncoding("GB2312")) '如是中文，要设置编码格式为“GB2312”。
@@ -1039,7 +1257,20 @@ Public Class MainForm
         If Button3.Text = "保存电子书" Then
             '初始化保存对话框
             SaveFileDialog1.Filter = "PDF 文件(*.pdf)|*.pdf"
-            SaveFileDialog1.FileName = DownBookName & ".pdf"
+            Dim dfn As String
+            dfn = DownBookName
+            '处理文件名，去除非法字符\/:*?"<>|
+            dfn = Replace(dfn, "\", "_")
+            dfn = Replace(dfn, "/", "_")
+            dfn = Replace(dfn, ":", "-")
+            dfn = Replace(dfn, "*", "-")
+            dfn = Replace(dfn, "?", "")
+            dfn = Replace(dfn, """", "")
+            dfn = Replace(dfn, "<", "")
+            dfn = Replace(dfn, ">", "")
+            dfn = Replace(dfn, "|", "_")
+            dfn = EnsureValidFileName(dfn)
+            SaveFileDialog1.FileName = dfn & ".pdf"
             If SaveFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
                 '初始化下载器
                 DownFormvb.Label1.Text = "正在下载 0%" & vbCrLf & "已经下载 0 MB，共 0 MB"
@@ -1051,9 +1282,10 @@ Public Class MainForm
                 If DownloadMode = 0 Then
                     DownloadClient.Headers.Set("x-nd-auth", XNdAuth)
                 End If
+                
                 '开始下载
                 Try
-                    DownloadClient.DownloadFileAsync(New Uri(DownBookLink), SaveFileDialog1.FileName)
+                    DownloadClient.DownloadFileAsync(New Uri(DownBookLink), SaveFileDialog1.FileName, DownBookName)
                 Catch ex As Exception
                     DownFormvb.Label1.Text = ex.Message
                 End Try
@@ -1061,6 +1293,8 @@ Public Class MainForm
             End If
         Else
             '保存资源包
+            TagsSet.Label1.Text = "请选择你要下载的内容，有多个相同选项是因为从官网获取到的信息包含重复项，选择一个即可，有些是空地址，请自行辨别。" & vbCrLf _
+                    & "暂时不支持下载M3U8视频, 如果要下载, 请手动复制地址使用M3U8下载器（如N_m3u8DL-CLI）下载。"
             TagsSet.ListBox1.SelectedIndex = 0
             TagsSet.ShowDialog()
             If TagsSet.ec = 1 Then
@@ -1074,16 +1308,11 @@ Public Class MainForm
                 'End If
                 If FolderBrowserDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
                     'If SaveFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
-                    '初始化下载器
-                    DownFormvb.Label1.Text = "正在下载 0%" & vbCrLf & "已经下载 0 MB，共 0 MB"
-                    DownFormvb.Button1.Text = "取消"
-                    'DownFormvb.Button1.Visible = False
-                    DownFormvb.st = 0
-                    DownFormvb.ProgressBar1.Value = 0
                     '登录模式添加标头
                     If DownloadMode = 0 Then
                         DownloadClient.Headers.Set("x-nd-auth", XNdAuth)
                     End If
+                    Dim ii As Integer = 0
                     '开始下载
                     For Each item As Integer In TagsSet.ListBox1.CheckedIndices
                         '处理扩展名
@@ -1094,17 +1323,41 @@ Public Class MainForm
                             fn2 = Split(DownBookLinks(item), ".")
                             fn2(fn2.Count - 1) = Replace(fn2(fn2.Count - 1), "/", "_")
                         End If
-
-                        MsgBox(DownBookLinks(item))
-                        MsgBox(TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1))
+                        ii = ii + 1
+                        If ii = TagsSet.ListBox1.CheckedIndices.Count Then
+                            DownloadWinState = 0
+                        Else
+                            DownloadWinState = 1
+                        End If
+                        'MsgBox(DownBookLinks(item))
+                        'MsgBox(TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1))
                         Try
+                            DownFormvb.st = 0
+                            DownFormvb.ProgressBar1.Value = 0
+                            DownFormvb.Label1.Text = "正在下载" & vbCrLf & "已下载 0%" & vbCrLf & "已经下载 0 MB，共 0 MB"
+                            DownFormvb.Button1.Text = "取消"
+                            Threading.Thread.Sleep(500)
+                            Dim dfn As String
+                            dfn = TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1)
+                            '处理文件名，去除非法字符\/:*?"<>|
+                            dfn = Replace(dfn, "\", "_")
+                            dfn = Replace(dfn, "/", "_")
+                            dfn = Replace(dfn, ":", "-")
+                            dfn = Replace(dfn, "*", "-")
+                            dfn = Replace(dfn, "?", "")
+                            dfn = Replace(dfn, """", "")
+                            dfn = Replace(dfn, "<", "")
+                            dfn = Replace(dfn, ">", "")
+                            dfn = Replace(dfn, "|", "_")
+                            dfn = EnsureValidFileName(dfn)
                             'DownloadClient.DownloadFileAsync(New Uri(DownBookLinks(TagsSet.ListBox1.SelectedIndex)), SaveFileDialog1.FileName)
-                            DownloadClient.DownloadFileAsync(New Uri(DownBookLinks(item)), FolderBrowserDialog1.SelectedPath & "\" & TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1))
+                            DownloadClient.DownloadFileAsync(New Uri(DownBookLinks(item)), FolderBrowserDialog1.SelectedPath & "\" & dfn, ii & "/" & TagsSet.ListBox1.CheckedIndices.Count & " " & TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1))
                         Catch ex As Exception
                             DownFormvb.Label1.Text = ex.Message
                         End Try
                         DownFormvb.ShowDialog() '显示下载进度
                     Next
+                    DownloadWinState = 0
                     'End If
                 End If
             End If
@@ -1117,7 +1370,8 @@ Public Class MainForm
     '下载进度同步
     Private Sub DownloadClient_DownloadProgressChanged(ByVal sender As Object, ByVal e As System.Net.DownloadProgressChangedEventArgs)
         DownFormvb.ProgressBar1.Value = e.ProgressPercentage
-        DownFormvb.Label1.Text = "正在下载 " & e.ProgressPercentage & "%" & vbCrLf & "已经下载 " & Int(e.BytesReceived / 1024 / 1024).ToString & " MB，共 " & Int(e.TotalBytesToReceive / 1024 / 1024).ToString & " MB"
+        'DownFormvb.Label1.Text = "正在下载 " & e.ProgressPercentage & "%" & vbCrLf & "已经下载 " & Int(e.BytesReceived / 1024 / 1024).ToString & " MB，共 " & Int(e.TotalBytesToReceive / 1024 / 1024).ToString & " MB"
+        DownFormvb.Label1.Text = "正在下载 " & e.UserState & vbCrLf & "已下载 " & e.ProgressPercentage & "%" & vbCrLf & "已经下载 " & Int(e.BytesReceived / 1024 / 1024).ToString & " MB，共 " & Int(e.TotalBytesToReceive / 1024 / 1024).ToString & " MB"
     End Sub
     '下载状态处理
     Private Sub DownloadClient_DownloadFileCompleted(ByVal sender As System.Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
@@ -1128,8 +1382,17 @@ Public Class MainForm
                 Catch ex As Exception
                 End Try
             End If
-            DownFormvb.Label1.Text = e.Error.Message
+            If e.Error.Message.ToString.Contains("404") Then
+                DownFormvb.Label1.Text = "下载失败 " & e.UserState & vbCrLf & "找不到对应的资源。" & e.Error.Message
+            ElseIf e.Error.Message.ToString.Contains("401") Then
+                DownFormvb.Label1.Text = "下载失败 " & e.UserState & vbCrLf & "登录状态无效，请尝试重新登录。" & e.Error.Message
+            Else
+                DownFormvb.Label1.Text = e.Error.Message
+            End If
             DownFormvb.Button1.Text = "确定"
+            'If DownloadWinState = 1 Then
+            '    DownFormvb.Close()
+            'End If
             'DownFormvb.Button1.Visible = True
             'If DisbMsg = 1 Then
             '    DownFormvb.Close()
@@ -1141,19 +1404,22 @@ Public Class MainForm
                 Catch ex As Exception
                 End Try
             End If
-            DownFormvb.Label1.Text = "下载已被取消"
+            DownFormvb.Label1.Text = e.UserState & vbCrLf & "下载已被取消。"
             DownFormvb.Button1.Text = "确定"
             'DownFormvb.Button1.Visible = True
             'If DisbMsg = 1 Then
             '    DownFormvb.Close()
             'End If
         Else
-            DownFormvb.Label1.Text = "下载完成！"
+            DownFormvb.Label1.Text = e.UserState & vbCrLf & "下载完成！"
             DownFormvb.Button1.Text = "确定"
             'DownFormvb.Button1.Visible = True
             'If DisbMsg = 1 Then
             '    DownFormvb.Close()
             'End If
+            If DownloadWinState = 1 Then
+                DownFormvb.Close()
+            End If
         End If
     End Sub
     '保存封面
@@ -1167,7 +1433,7 @@ Public Class MainForm
             DownFormvb.st = 0
             DownFormvb.ProgressBar1.Value = 0
             Try
-                DownloadClient.DownloadFileAsync(New Uri(DownBookImgLink), SaveFileDialog1.FileName)
+                DownloadClient.DownloadFileAsync(New Uri(DownBookImgLink), SaveFileDialog1.FileName, DownBookName & "_" & Format(Now, "yyyy-MM-dd-HH-mm-ss") & ".jpg")
             Catch ex As Exception
                 DownFormvb.Label1.Text = ex.Message
             End Try
@@ -1202,6 +1468,43 @@ Public Class MainForm
             fs2.Close()
         End If
     End Sub
+
+    '合法文件名函数
+    Public Function CreateValidFileName(ByVal originalName As String) As String
+        Dim invalidChars As String = New String(Path.GetInvalidFileNameChars()) ' 获取所有非法字符
+        Dim newName As String = originalName
+
+        ' 移除非法字符
+        For Each c As Char In invalidChars
+            newName = newName.Replace(c, "")
+        Next
+
+        ' 确保文件名不是空的或者全是空格
+        If String.IsNullOrWhiteSpace(newName) Then
+            newName = "DefaultFileName" ' 如果原名称无效，则使用默认名称
+        End If
+
+        Return newName
+    End Function
+    '截取文件名函数
+    Function EnsureValidFileName(ByVal fileName As String) As String
+        Dim maxLength As Integer = 255
+        If fileName.Length > maxLength Then
+            ' 截断文件名，但不包括扩展名
+            Dim extension As String = Path.GetExtension(fileName)
+            Dim baseNameLength As Integer = maxLength - extension.Length
+            If baseNameLength <= 0 Then
+                'Throw New ArgumentException("文件扩展名过长。")
+            End If
+            Dim baseName As String = Path.GetFileNameWithoutExtension(fileName)
+            If baseName.Length > baseNameLength Then
+                baseName = baseName.Substring(0, baseNameLength)
+            End If
+            fileName = baseName & extension
+        End If
+        Return fileName
+    End Function
+
     '链接批量解析
     Private Sub readmm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles readmm.Click
         MGetForm.Show()
@@ -1226,9 +1529,11 @@ Public Class MainForm
     '（免）登录模式切换
     Private Sub logmm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles logmm.Click
         If DownloadMode = 0 Then
-            '运行自己加参数
-            System.Diagnostics.Process.Start(Application.ExecutablePath, "/unloginmode /noupdates")
-            Me.Close()
+            If MessageBox.Show("免登录模式只能下载旧版教材或课程，即勾选了强制获取旧版教材选项，如果要下载最新教材，请使用登录模式下载。" & vbCrLf & "如果免登录模式无法下载，请使用登录模式下载。" & vbCrLf & "是否要使用免登录模式？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
+                '运行自己加参数
+                System.Diagnostics.Process.Start(Application.ExecutablePath, "/unloginmode /noupdates")
+                Me.Close()
+            End If
         Else
             System.Diagnostics.Process.Start(Application.ExecutablePath, "/noupdates")
             Me.Close()

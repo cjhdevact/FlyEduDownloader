@@ -25,7 +25,7 @@ Partial Class NoticeForm
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(NoticeForm))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button3 = New CustButtom()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
@@ -105,6 +105,6 @@ Partial Class NoticeForm
     End Sub
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents Button3 As CustButtom
     Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
 End Class

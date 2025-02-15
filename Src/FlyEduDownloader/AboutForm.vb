@@ -1,4 +1,7 @@
-﻿'==========================================
+﻿Imports System.IO
+Imports System.Reflection
+
+'==========================================
 '项目：FlyEduDownloader
 '作者：CJH
 '文件：AboutForm.vb
@@ -22,6 +25,38 @@
 '==========================================
 Public Class AboutForm
 
+    Public AppBuildPETime As DateTime
+
+    '获取编译时间函数
+    Private Function GetPe32Time(ByVal fileName As String) As DateTime
+        Dim num As Integer
+        Using reader As BinaryReader = New BinaryReader(New FileStream(fileName, FileMode.Open, FileAccess.Read))
+            Dim buffer As Byte() = reader.ReadBytes(2)
+            Dim message As String = "Error in PE32 file."
+            If (buffer.Length <> 2) Then
+                'Throw New Exception(message)
+            End If
+            If ((buffer(0) <> &H4D) OrElse (buffer(1) <> 90)) Then
+                'Throw New Exception(message)
+            End If
+            reader.BaseStream.Seek(60, SeekOrigin.Begin)
+            Dim num2 As Byte = reader.ReadByte
+            reader.BaseStream.Seek(CLng(num2), SeekOrigin.Begin)
+            buffer = reader.ReadBytes(4)
+            If (buffer.Length <> 4) Then
+                'Throw New Exception(message)
+            End If
+            If ((((buffer(0) <> 80) OrElse (buffer(1) <> &H45)) OrElse (buffer(2) <> 0)) OrElse (buffer(3) <> 0)) Then
+                'Throw New Exception(message)
+            End If
+            If (reader.ReadBytes(4).Length <> 4) Then
+                'Throw New Exception(message)
+            End If
+            num = reader.ReadInt32
+        End Using
+        Return DateTime.SpecifyKind(New DateTime(&H7B2, 1, 1), DateTimeKind.Utc).AddSeconds(CDbl(num)).ToLocalTime
+    End Function
+
     Private Sub LinkLabel3_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel3.LinkClicked
         If MainForm.DownloadMode = 1 Then
             System.Diagnostics.Process.Start("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/Help/index.html")
@@ -31,6 +66,7 @@ Public Class AboutForm
     End Sub
     '初始化
     Private Sub AboutForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
         Label1.Text = "飞翔教学资源助手"
         Dim sa As String
         If Environment.Is64BitOperatingSystem = True Then
@@ -44,8 +80,10 @@ Public Class AboutForm
         Else
             st = "（登录下载模式）"
         End If
+        AppBuildPETime = GetPe32Time(Application.ExecutablePath)
         Label3.Text = "版本 " & My.Application.Info.Version.ToString & " (" & MainForm.AppBuildTime & ") " & MainForm.MyArch & " " & MainForm.AppBuildChannel & " " & st
         Label6.Text = "系统信息 " & My.Computer.Info.OSFullName & " " & sa & " " & GetOSVersion()
+        Label8.Text = "编译时间 " & Format(AppBuildPETime, "yyyy-MM-dd HH:mm:ss")
     End Sub
     '获取系统版本函数
     Function GetOSVersion() As String
@@ -83,7 +121,7 @@ Public Class AboutForm
         System.Diagnostics.Process.Start("https://github.com/cjhdevact/FlyEduDownloader")
     End Sub
 
-    Private Sub LinkLabel5_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel5.LinkClicked
+    Private Sub LinkLabel5_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel5.LinkClicked
         LicenseForm.ShowDialog()
     End Sub
 

@@ -24,7 +24,6 @@ Partial Class MainForm
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.BookNameLabel = New System.Windows.Forms.Label()
         Me.BookIDLabel = New System.Windows.Forms.Label()
         Me.BookTagLabel = New System.Windows.Forms.Label()
@@ -55,17 +54,19 @@ Partial Class MainForm
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.aboutm = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Button5 = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.Button3 = New FlyEduDownloader.CustButtom()
+        Me.Button2 = New FlyEduDownloader.CustButtom()
+        Me.Button4 = New FlyEduDownloader.CustButtom()
+        Me.Button5 = New FlyEduDownloader.CustButtom()
+        Me.Button1 = New FlyEduDownloader.CustButtom()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -83,30 +84,19 @@ Partial Class MainForm
         Me.TextBox1.Size = New System.Drawing.Size(529, 25)
         Me.TextBox1.TabIndex = 0
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(550, 52)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(117, 36)
-        Me.Button1.TabIndex = 1
-        Me.Button1.Text = "获取信息"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'BookNameLabel
         '
-        Me.BookNameLabel.AutoSize = True
-        Me.BookNameLabel.Location = New System.Drawing.Point(14, 122)
+        Me.BookNameLabel.Location = New System.Drawing.Point(10, 148)
         Me.BookNameLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.BookNameLabel.Name = "BookNameLabel"
-        Me.BookNameLabel.Size = New System.Drawing.Size(74, 19)
+        Me.BookNameLabel.Size = New System.Drawing.Size(376, 46)
         Me.BookNameLabel.TabIndex = 2
         Me.BookNameLabel.Text = "书籍名称："
         '
         'BookIDLabel
         '
         Me.BookIDLabel.AutoSize = True
-        Me.BookIDLabel.Location = New System.Drawing.Point(14, 157)
+        Me.BookIDLabel.Location = New System.Drawing.Point(9, 211)
         Me.BookIDLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.BookIDLabel.Name = "BookIDLabel"
         Me.BookIDLabel.Size = New System.Drawing.Size(62, 19)
@@ -115,7 +105,7 @@ Partial Class MainForm
         '
         'BookTagLabel
         '
-        Me.BookTagLabel.Location = New System.Drawing.Point(14, 191)
+        Me.BookTagLabel.Location = New System.Drawing.Point(10, 236)
         Me.BookTagLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.BookTagLabel.Name = "BookTagLabel"
         Me.BookTagLabel.Size = New System.Drawing.Size(376, 154)
@@ -129,7 +119,7 @@ Partial Class MainForm
         Me.Label1.Location = New System.Drawing.Point(18, 0)
         Me.Label1.Margin = New System.Windows.Forms.Padding(0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(647, 26)
+        Me.Label1.Size = New System.Drawing.Size(647, 19)
         Me.Label1.TabIndex = 5
         Me.Label1.Text = "下载链接：（可能存在多个下载链接，选择一个能用的即可）"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -139,13 +129,13 @@ Partial Class MainForm
         Me.TextBox2.BackColor = System.Drawing.Color.WhiteSmoke
         Me.TextBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TextBox2.ForeColor = System.Drawing.Color.Black
-        Me.TextBox2.Location = New System.Drawing.Point(18, 26)
+        Me.TextBox2.Location = New System.Drawing.Point(18, 19)
         Me.TextBox2.Margin = New System.Windows.Forms.Padding(0)
         Me.TextBox2.Multiline = True
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.ReadOnly = True
         Me.TextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox2.Size = New System.Drawing.Size(647, 133)
+        Me.TextBox2.Size = New System.Drawing.Size(647, 140)
         Me.TextBox2.TabIndex = 6
         Me.TextBox2.WordWrap = False
         '
@@ -303,42 +293,12 @@ Partial Class MainForm
         'PictureBox1
         '
         Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PictureBox1.Location = New System.Drawing.Point(487, 122)
+        Me.PictureBox1.Location = New System.Drawing.Point(487, 138)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(180, 240)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 9
         Me.PictureBox1.TabStop = False
-        '
-        'Button2
-        '
-        Me.Button2.Enabled = False
-        Me.Button2.Location = New System.Drawing.Point(424, 3)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(107, 31)
-        Me.Button2.TabIndex = 10
-        Me.Button2.Text = "保存书籍信息"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Button3
-        '
-        Me.Button3.Enabled = False
-        Me.Button3.Location = New System.Drawing.Point(537, 3)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(107, 31)
-        Me.Button3.TabIndex = 11
-        Me.Button3.Text = "保存电子书"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button4
-        '
-        Me.Button4.Enabled = False
-        Me.Button4.Location = New System.Drawing.Point(311, 3)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(107, 31)
-        Me.Button4.TabIndex = 12
-        Me.Button4.Text = "保存封面"
-        Me.Button4.UseVisualStyleBackColor = True
         '
         'SaveFileDialog1
         '
@@ -347,22 +307,12 @@ Partial Class MainForm
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(14, 93)
+        Me.Label3.Location = New System.Drawing.Point(9, 116)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(595, 19)
         Me.Label3.TabIndex = 13
         Me.Label3.Text = "如果登录状态失效（下载提示401）或者X-Nd-Auth信息错误，可以在""设置登录信息""菜单重新登录。"
-        '
-        'Button5
-        '
-        Me.Button5.Enabled = False
-        Me.Button5.Location = New System.Drawing.Point(198, 3)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(107, 31)
-        Me.Button5.TabIndex = 14
-        Me.Button5.Text = "保存Json信息"
-        Me.Button5.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel1
         '
@@ -374,11 +324,11 @@ Partial Class MainForm
         Me.TableLayoutPanel1.Controls.Add(Me.TextBox2, 1, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel1, 1, 2)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 378)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 414)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(683, 199)
@@ -416,31 +366,102 @@ Partial Class MainForm
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(539, 28)
+        Me.CheckBox1.Location = New System.Drawing.Point(12, 90)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(132, 23)
+        Me.CheckBox1.Size = New System.Drawing.Size(197, 23)
         Me.CheckBox1.TabIndex = 18
-        Me.CheckBox1.Text = "尝试获取旧版教材"
+        Me.CheckBox1.Text = "强制获取旧版教材（如果有）"
         Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Location = New System.Drawing.Point(215, 90)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(210, 23)
+        Me.CheckBox2.TabIndex = 19
+        Me.CheckBox2.Text = "教材仅下载听力资源（新课标）"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button3.Enabled = False
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.Location = New System.Drawing.Point(537, 3)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(107, 31)
+        Me.Button3.TabIndex = 11
+        Me.Button3.Text = "保存电子书"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button2.Enabled = False
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.Location = New System.Drawing.Point(424, 3)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(107, 31)
+        Me.Button2.TabIndex = 10
+        Me.Button2.Text = "保存书籍信息"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button4
+        '
+        Me.Button4.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button4.Enabled = False
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button4.Location = New System.Drawing.Point(311, 3)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(107, 31)
+        Me.Button4.TabIndex = 12
+        Me.Button4.Text = "保存封面"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Button5
+        '
+        Me.Button5.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button5.Enabled = False
+        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button5.Location = New System.Drawing.Point(198, 3)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(107, 31)
+        Me.Button5.TabIndex = 14
+        Me.Button5.Text = "保存Json信息"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.Location = New System.Drawing.Point(550, 52)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(117, 36)
+        Me.Button1.TabIndex = 1
+        Me.Button1.Text = "获取信息"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(683, 577)
+        Me.ClientSize = New System.Drawing.Size(683, 613)
+        Me.Controls.Add(Me.CheckBox2)
         Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.BookIDLabel)
-        Me.Controls.Add(Me.BookNameLabel)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.BookTagLabel)
+        Me.Controls.Add(Me.BookIDLabel)
+        Me.Controls.Add(Me.BookNameLabel)
         Me.Font = New System.Drawing.Font("微软雅黑", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -463,7 +484,7 @@ Partial Class MainForm
 
     End Sub
     Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Button1 As CustButtom
     Friend WithEvents BookNameLabel As System.Windows.Forms.Label
     Friend WithEvents BookIDLabel As System.Windows.Forms.Label
     Friend WithEvents BookTagLabel As System.Windows.Forms.Label
@@ -473,9 +494,9 @@ Partial Class MainForm
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents FindBooksRes As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
-    Friend WithEvents Button4 As System.Windows.Forms.Button
+    Friend WithEvents Button2 As CustButtom
+    Friend WithEvents Button3 As CustButtom
+    Friend WithEvents Button4 As CustButtom
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
     Friend WithEvents toolm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents readmm As System.Windows.Forms.ToolStripMenuItem
@@ -488,7 +509,7 @@ Partial Class MainForm
     Friend WithEvents txtspm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Fbooksm As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents findlessm As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents Button5 As CustButtom
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents PDFToPicm As ToolStripMenuItem
@@ -505,4 +526,5 @@ Partial Class MainForm
     Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
 End Class
