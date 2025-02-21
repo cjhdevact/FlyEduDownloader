@@ -64,9 +64,9 @@ Public Class MainForm
 
     '程序版本信息
     Public MyArch As String
-    Public Const AppBuildTime As String = "20250215"
+    Public Const AppBuildTime As String = "20250221"
     Public Const AppBuildChannel As String = "Official"
-    Public Const AppBuildNumber As Integer = 3
+    Public Const AppBuildNumber As Integer = 4
  
     '初始化
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -985,6 +985,7 @@ Public Class MainForm
         'https://r1-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/bdc00134-465d-454b-a541-dcd0cec4d86e.pkg/pdf.pdf
         'https://r2-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/bdc00134-465d-454b-a541-dcd0cec4d86e.pkg/pdf.pdf
         'https://r3-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/bdc00134-465d-454b-a541-dcd0cec4d86e.pkg/pdf.pdf
+        'https://r1-ndr-doc-private.ykt.cbern.com.cn/edu_product/esp/assets/11446212-4b7b-4094-afe3-bd5b4f2b3f0c.pkg/义务教育教科书 道德与法治 七年级 上册_1725097530934.pdf
         '解析链接
         Dim k As Integer
         k = InStr(BookLink, "contentId=")
@@ -1049,18 +1050,50 @@ Public Class MainForm
                 End If
             Next
 
+
+
             '获取下载链接（程序下载）
             Dim DownBookLinkPri As String = ""
-            If CheckBox1.Checked = True Then '强制获取旧版教材
-                DownBookLinkPri = "https://r1-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/pdf.pdf"
-            Else
-                For i = 0 To BookItemsObject.Count - 1
-                    If BookItemsObject(i)("ti_format") = "pdf" Then
-                        DownBookLinkPri = CStr((BookItemsObject(i)("ti_storages"))(0)) '获取官方教材链接
-                        Exit For
-                    End If
-                Next
+            For i = 0 To BookItemsObject.Count - 1
+                If BookItemsObject(i)("ti_format") = "pdf" Then
+                    DownBookLinkPri = CStr((BookItemsObject(i)("ti_storages"))(0)) '获取官方教材链接
+                    Exit For
+                End If
+            Next
+            Dim bb() As String
+            bb = Split(DownBookLinkPri, "/")
+            If CheckBox1.Checked = True Then '强制获取老版教材
+                bb(bb.Length - 1) = "pdf.pdf"
             End If
+
+            If CheckBox3.Checked = True Then '强制获取旧链接教材
+                DownBookLinkPri = "https://r1-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/" & bb(bb.Length - 1)
+            Else
+                DownBookLinkPri = Join(bb, "/")
+            End If
+
+            'If CheckBox1.Checked = True And CheckBox3.Checked = True Then '强制获取老版教材
+            '    DownBookLinkPri = "https://r1-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/pdf.pdf"
+            'ElseIf CheckBox1.Checked = True And CheckBox3.Checked = False Then '强制获取旧链接教材
+            '    Dim aa As String = ""
+            '    For i = 0 To BookItemsObject.Count - 1
+            '        If BookItemsObject(i)("ti_format") = "pdf" Then
+            '            aa = CStr((BookItemsObject(i)("ti_storages"))(0)) '获取官方教材链接
+            '            Exit For
+            '        End If
+            '    Next
+            '    Dim bb() As String
+            '    bb = Split(aa, "/")
+            '    DownBookLinkPri = "https://r1-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/" & bb(bb.Length - 1)
+            'Else
+            '    For i = 0 To BookItemsObject.Count - 1
+            '        If BookItemsObject(i)("ti_format") = "pdf" Then
+            '            DownBookLinkPri = CStr((BookItemsObject(i)("ti_storages"))(0)) '获取官方教材链接
+            '            Exit For
+            '        End If
+            '    Next
+            'End If
+
 
             If DownloadMode = 1 Then
                 DownBookLink = Replace(DownBookLinkPri, "ndr-private.ykt.cbern.com.cn", "ndr.ykt.cbern.com.cn")
@@ -1090,9 +1123,23 @@ Public Class MainForm
                 GetOlds = 0
             End If
 
+
+
+
             If CheckBox1.Checked = True Then '强制获取旧版教材
                 For i = 0 To BookDownLinkPriArr.Count - 1
-                    BookDownLinkPriArr(i) = "https://r" & i + 1 & "-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/pdf.pdf"
+                    'BookDownLinkPriArr(i) = "https://r" & i + 1 & "-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/pdf.pdf"
+                    Dim cc() As String
+                    cc = Split(BookDownLinkPriArr(i), "/")
+                    If CheckBox1.Checked = True Then '强制获取老版教材
+                        cc(cc.Length - 1) = "pdf.pdf"
+                    End If
+
+                    If CheckBox3.Checked = True Then '强制获取旧链接教材
+                        BookDownLinkPriArr(i) = "https://r" & i + 1 & "-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/" & bb(bb.Length - 1)
+                    Else
+                        BookDownLinkPriArr(i) = Join(cc, "/")
+                    End If
                 Next
             End If
 
@@ -1529,7 +1576,7 @@ Public Class MainForm
     '（免）登录模式切换
     Private Sub logmm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles logmm.Click
         If DownloadMode = 0 Then
-            If MessageBox.Show("免登录模式只能下载旧版教材或课程，即勾选了强制获取旧版教材选项，如果要下载最新教材，请使用登录模式下载。" & vbCrLf & "如果免登录模式无法下载，请使用登录模式下载。" & vbCrLf & "是否要使用免登录模式？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
+            If MessageBox.Show("免登录模式只能下载旧版链接教材或课程，即勾选了强制使用旧版链接选项，如果要下载最新教材，请使用登录模式下载。" & vbCrLf & "如果免登录模式无法下载，请使用登录模式下载。" & vbCrLf & "是否要使用免登录模式？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
                 '运行自己加参数
                 System.Diagnostics.Process.Start(Application.ExecutablePath, "/unloginmode /noupdates")
                 Me.Close()
@@ -1686,5 +1733,24 @@ Public Class MainForm
     '帮助
     Private Sub PictureBox2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PictureBox2.Click
         MessageBox.Show("你可以直接粘贴教材或资源包链接来解析，也可以通过输入ID的方式来下载。输入ID的方式是资源包输入""courseid=""或""activityid=""或""lessonid=""+资源包ID，教材输入""contentid=""+教材ID（没有引号，如果四个同时有，activityid>courseid>lessonid>contentid优先级），当教材页面的教材暂时下架，可以使用ID来下载。", "帮助", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
+    '使用旧版教材下载选项
+    Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox1.CheckedChanged
+        If CheckBox1.CheckState = CheckState.Checked Then
+            If CheckBox3.Checked = CheckState.Unchecked Then
+                CheckBox3.Checked = CheckState.Checked
+            End If
+        End If
+    End Sub
+
+    '使用旧版教材下载选项
+    Private Sub CheckBox3_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox3.CheckedChanged
+        If CheckBox1.CheckState = CheckState.Checked And CheckBox3.CheckState = CheckState.Unchecked Then
+            If MessageBox.Show("如果取消强制使用旧版链接，将无法下载老版本教材。" & vbCrLf & "是否取消强制使用旧版链接？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
+                CheckBox1.Checked = CheckState.Unchecked
+            Else
+                CheckBox3.Checked = CheckState.Checked
+            End If
+        End If
     End Sub
 End Class

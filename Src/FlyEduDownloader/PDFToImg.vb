@@ -74,7 +74,7 @@ Public Class PDFToImg
                     'Label3.Text = “正在转换（" & ak & "%）”
                 End If
                 Dim pageImage As System.Drawing.Bitmap = pdfFile.GetPageImage(i - 1, 56 * CInt(definition))
-                pageImage.Save("{imagePath}{imageName}-{i}{imagePathFormat}", imageFormat)
+                pageImage.Save(imagePath & imageName & "-" & i & imagePathFormat, imageFormat)
                 pageImage.Dispose()
             Next
             pdfFile.Dispose()

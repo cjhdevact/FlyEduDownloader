@@ -197,7 +197,7 @@ Public Class UpdateForm
         End If
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button2.Click
         If Me.Button2.Text = "退出" Then
             End
         Else

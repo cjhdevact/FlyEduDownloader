@@ -4,7 +4,7 @@
   <a href="https://github.com/cjhdevact/FlyEduDownloader">飞翔教学资源助手</a>
 </h1>
 
-<p align="center">如果你觉得这个项目对你有帮助，请给我们点一个 Star</p>
+<p align="center">如果您觉得这个项目对你有帮助，请给我们点一个 Star</p>
 
 <p align="center">
   <a href="https://github.com/cjhdevact/FlyEduDownloader/releases/latest"><img src="https://img.shields.io/github/downloads/cjhdevact/FlyEduDownloader/total?color=%239F7AEA" alt="下载发行版"></a>
@@ -30,17 +30,17 @@
 >
 > 1.当前平台的课件均只能获取到pdf格式，可编辑格式只有平台的专有格式（用PPT软件无法打开的），而且无法直接获取下载链接。如果要可编辑格式，请自行登录平台，在课件预览的右下角点击全屏授课，再点右上角的另存副本，在线编辑。
 >
-> 2.视频下载:由于本软件没有添加ffmreg支持（主要考虑软件体积大小）,所以没有实现这个功能。但本软件可以下载M3U8列表文件，你可以手动通过其它方式通过该文件手动下载视频。
+> 2.视频下载：由于本软件没有添加ffmreg支持（主要考虑软件体积大小），所以没有实现这个功能。但本软件可以下载M3U8列表文件，你可以手动通过其它方式通过该文件手动下载视频。
 
 ## 功能说明
 
 本程序支持的功能及优点有：
 
-- [x] 获取智慧教育平台电子教材、课程资源信息以及下载链接（支持2022新课标教材）
+- [x] 获取智慧教育平台教材栏目的所有教材、教材英语听力音频、课程资源信息以及下载链接（支持2022新课标教材）
 - [x] 免登录、登录下载智慧教育平台电子教材和课程资源
-- [x] 批量解析和下载智慧教育平台电子教材链接
-- [x] 其他一些小工具（如文本处理，批量下载文件（可以使用X-Nd-Auth标头批量下载获取到的教材以及课程资源PDF文件链接）...）
-- [x] 体积小（程序核心＜3MB），运行内存占用少，兼容性好，支持 Windows XP/Vista/7/8/10/11 及更高版本，老旧电脑都可以运行。
+- [x] 支持批量解析
+- [x] 一些小工具如文本处理，批量下载平台私域地址（-private）链接，PDF转图片
+- [x] 体积小（程序核心＜3MB），运行内存占用少，兼容性好，老旧电脑都可以运行，支持 Windows XP/Vista/7/8/10/11 及更高版本。
 - [x] 100％开源。欢迎提出改进建议。
 
 ## 程序截图
@@ -91,11 +91,14 @@ Key Type: md5RSA
 
 #### 解析接口：
 
-普通教材动态解析，解析里面的PDF文件和标题，但是要带上X-Nd-Auth标头：
+普通教材：
 `https://s-file-2.ykt.cbern.com.cn/zxx/ndrv2/resources/tch_material/details/（教材contentId）.json`
 
 资源包教材：
 `https://s-file-1.ykt.cbern.com.cn/zxx/ndrs/special_edu/thematic_course/（教材contentId）/resources/list.json`
+
+英语听力：
+`https://s-file-1.ykt.cbern.com.cn/zxx/ndrs/resources/（教材contentId）/relation_audios.json`
 
 #### 示例网页链接
 
@@ -163,4 +166,4 @@ AnyTextbookDownloader - 参考了部分教材下载思路。
 ------------
 
 
-本程序基于 `GPL-3.0` 授权。
+本程序基于 `GPL-3.0` 协议授权。

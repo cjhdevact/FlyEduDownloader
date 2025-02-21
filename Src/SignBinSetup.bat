@@ -1,12 +1,13 @@
 ::Tips Set the CSIGNCERT as your path.
 @echo off
 path D:\ProjectsTmp\SignPack;%path%
-echo 任意键签名 飞翔教学资源助手（FlyEduDownloader）...
+echo 任意键签名 飞翔教学资源助手安装程序（FlyEduDownloader Setup）...
 pause > nul
-cmd.exe /c signcmd.cmd "%CSIGNCERT%" "%~dp0FlyEduDownloader\bin\Release\FlyEduDownloader.exe"
-cmd.exe /c signcmd.cmd "%CSIGNCERT%" "%~dp0FlyEduDownloader\bin\Release\Miniblink.NetLib.dll"
-cmd.exe /c signcmd.cmd "%CSIGNCERT%" "%~dp0FlyEduDownloader\bin\Release\x64\FlyEduDownloader.exe"
-cmd.exe /c signcmd.cmd "%CSIGNCERT%" "%~dp0FlyEduDownloader\bin\Release\x64\Miniblink.NetLib.dll"
+Set apver=1.0.8.25022
+cmd.exe /c signcmd.cmd "%CSIGNCERT%" "%~dp0FlyEduDownloader\setupbin\release\fed-%apver%-x64-up.exe"
+cmd.exe /c signcmd.cmd "%CSIGNCERT%" "%~dp0FlyEduDownloader\setupbin\release\fed-%apver%-x86-up.exe"
+cmd.exe /c signcmd.cmd "%CSIGNCERT%" "%~dp0FlyEduDownloader\setupbin\release\FlyEduDownloader_%apver%_x64_setup.exe"
+cmd.exe /c signcmd.cmd "%CSIGNCERT%" "%~dp0FlyEduDownloader\setupbin\release\FlyEduDownloader_%apver%_x86_setup.exe"
 echo.
 echo 完成！
 echo 任意键退出...

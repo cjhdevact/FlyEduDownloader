@@ -48,6 +48,7 @@ Public Class WebLoginForm
         Webb.LoadURL("https://auth.smartedu.cn/uias/login")
         'Webb.LoadURL("https://www.smartedu.cn/")
         Xda = ""
+        Webb.SetUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36")
     End Sub
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
@@ -55,6 +56,7 @@ Public Class WebLoginForm
             Webb.StopLoading()
             Panel1.Visible = False
             Label1.Visible = True
+            Me.ControlBox = False
             'Me.Hide()
             AddHandler Webb.OnLoadUrlBegin, AddressOf OnLoadUrlBegin
             'AddHandler Webb.OnLoadUrlEnd, AddressOf OnLoadUrlEnd

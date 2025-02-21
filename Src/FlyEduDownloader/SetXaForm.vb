@@ -94,7 +94,7 @@ Public Class SetXaForm
     End Sub
 
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
-        If MessageBox.Show("免登录模式只能下载旧版教材或课程，即勾选了强制获取旧版教材选项，如果要下载最新教材，请使用登录模式下载。" & vbCrLf & "如果免登录模式无法下载，请使用登录模式下载。" & vbCrLf & "是否要使用免登录模式？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
+        If MessageBox.Show("免登录模式只能下载旧版链接教材或课程，即勾选了强制使用旧版链接选项，如果要下载最新教材，请使用登录模式下载。" & vbCrLf & "如果免登录模式无法下载，请使用登录模式下载。" & vbCrLf & "是否要使用免登录模式？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
             '运行自己加参数
             System.Diagnostics.Process.Start(Application.ExecutablePath, "/unloginmode")
             'Application.Exit()

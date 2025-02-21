@@ -62,6 +62,7 @@ Partial Class MainForm
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.Button3 = New FlyEduDownloader.CustButtom()
         Me.Button2 = New FlyEduDownloader.CustButtom()
         Me.Button4 = New FlyEduDownloader.CustButtom()
@@ -368,20 +369,30 @@ Partial Class MainForm
         Me.CheckBox1.AutoSize = True
         Me.CheckBox1.Location = New System.Drawing.Point(12, 90)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(197, 23)
+        Me.CheckBox1.Size = New System.Drawing.Size(132, 23)
         Me.CheckBox1.TabIndex = 18
-        Me.CheckBox1.Text = "强制获取旧版教材（如果有）"
+        Me.CheckBox1.Text = "强制获取老版教材"
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'CheckBox2
         '
         Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(215, 90)
+        Me.CheckBox2.Location = New System.Drawing.Point(288, 90)
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(210, 23)
         Me.CheckBox2.TabIndex = 19
         Me.CheckBox2.Text = "教材仅下载听力资源（新课标）"
         Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'CheckBox3
+        '
+        Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.Location = New System.Drawing.Point(150, 90)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(132, 23)
+        Me.CheckBox3.TabIndex = 20
+        Me.CheckBox3.Text = "强制使用旧版链接"
+        Me.CheckBox3.UseVisualStyleBackColor = True
         '
         'Button3
         '
@@ -449,6 +460,7 @@ Partial Class MainForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(683, 613)
+        Me.Controls.Add(Me.CheckBox3)
         Me.Controls.Add(Me.CheckBox2)
         Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.PictureBox2)
@@ -527,4 +539,5 @@ Partial Class MainForm
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
     Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
+    Friend WithEvents CheckBox3 As System.Windows.Forms.CheckBox
 End Class

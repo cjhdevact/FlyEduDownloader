@@ -25,11 +25,11 @@ Partial Class PDFToImg
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PDFToImg))
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.Button1 = New CustButtom()
+        Me.Button1 = New FlyEduDownloader.CustButtom()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Button2 = New CustButtom()
+        Me.Button2 = New FlyEduDownloader.CustButtom()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.Button3 = New CustButtom()
+        Me.Button3 = New FlyEduDownloader.CustButtom()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -50,9 +50,11 @@ Partial Class PDFToImg
         '
         'Button1
         '
+        Me.Button1.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Location = New System.Drawing.Point(12, 12)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(89, 26)
+        Me.Button1.Size = New System.Drawing.Size(103, 26)
         Me.Button1.TabIndex = 0
         Me.Button1.Text = "打开PDF文件"
         Me.Button1.UseVisualStyleBackColor = True
@@ -60,17 +62,19 @@ Partial Class PDFToImg
         'TextBox1
         '
         Me.TextBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(235, Byte), Integer), CType(CType(235, Byte), Integer))
-        Me.TextBox1.Location = New System.Drawing.Point(107, 15)
+        Me.TextBox1.Location = New System.Drawing.Point(121, 15)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(406, 23)
+        Me.TextBox1.Size = New System.Drawing.Size(392, 23)
         Me.TextBox1.TabIndex = 1
         '
         'Button2
         '
+        Me.Button2.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.Location = New System.Drawing.Point(12, 54)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(89, 26)
+        Me.Button2.Size = New System.Drawing.Size(103, 26)
         Me.Button2.TabIndex = 2
         Me.Button2.Text = "选择保存目录"
         Me.Button2.UseVisualStyleBackColor = True
@@ -78,14 +82,16 @@ Partial Class PDFToImg
         'TextBox2
         '
         Me.TextBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(235, Byte), Integer), CType(CType(235, Byte), Integer))
-        Me.TextBox2.Location = New System.Drawing.Point(107, 57)
+        Me.TextBox2.Location = New System.Drawing.Point(121, 57)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.ReadOnly = True
-        Me.TextBox2.Size = New System.Drawing.Size(406, 23)
+        Me.TextBox2.Size = New System.Drawing.Size(392, 23)
         Me.TextBox2.TabIndex = 3
         '
         'Button3
         '
+        Me.Button3.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button3.Location = New System.Drawing.Point(211, 239)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(104, 37)
@@ -184,15 +190,15 @@ Partial Class PDFToImg
 
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
-    Friend WithEvents Button1 As Button
     Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents Button2 As Button
     Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents Button3 As Button
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents ComboBox2 As ComboBox
     Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents Label3 As Label
+    Friend WithEvents Button1 As FlyEduDownloader.CustButtom
+    Friend WithEvents Button2 As FlyEduDownloader.CustButtom
+    Friend WithEvents Button3 As FlyEduDownloader.CustButtom
 End Class

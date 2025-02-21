@@ -25,20 +25,21 @@ Partial Class DownFormvb
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DownFormvb))
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Button1 = New CustButtom()
+        Me.Button1 = New FlyEduDownloader.CustButtom()
         Me.SuspendLayout()
         '
         'ProgressBar1
         '
         Me.ProgressBar1.Location = New System.Drawing.Point(23, 12)
         Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(482, 20)
+        Me.ProgressBar1.Size = New System.Drawing.Size(472, 20)
         Me.ProgressBar1.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(19, 35)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(3, 0, 19, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(161, 57)
         Me.Label1.TabIndex = 1
@@ -46,7 +47,9 @@ Partial Class DownFormvb
         '
         'Button1
         '
+        Me.Button1.BackColor = System.Drawing.Color.Gainsboro
         Me.Button1.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Location = New System.Drawing.Point(225, 107)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(88, 29)
