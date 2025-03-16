@@ -118,7 +118,37 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AppBuildChannel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\apis\AppBuildChannel.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="IssueA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\apis\IssueA.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="IssueG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\apis\IssueG.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="IssueT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\apis\IssueT.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
   <data name="license" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\license.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="NoticeMsg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\apis\NoticeMsg.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="UpdateInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\apis\UpdateInfo.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="UpdateInfoSp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\apis\UpdateInfoSp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="UpdateVer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\apis\UpdateVer.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="UpdateVerSp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\apis\UpdateVerSp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="AppBuildBranch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\apis\AppBuildBranch.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
 </root>

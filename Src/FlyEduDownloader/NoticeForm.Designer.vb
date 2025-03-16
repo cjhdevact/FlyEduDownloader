@@ -25,7 +25,7 @@ Partial Class NoticeForm
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(NoticeForm))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Button3 = New CustButtom()
+        Me.Button3 = New FlyEduDownloader.CustButtom()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
@@ -43,7 +43,7 @@ Partial Class NoticeForm
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(884, 600)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(641, 432)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'FlowLayoutPanel1
@@ -51,14 +51,16 @@ Partial Class NoticeForm
         Me.FlowLayoutPanel1.Controls.Add(Me.Button3)
         Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(3, 558)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(3, 390)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(878, 39)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(635, 39)
         Me.FlowLayoutPanel1.TabIndex = 0
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(767, 2)
+        Me.Button3.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.Location = New System.Drawing.Point(524, 2)
         Me.Button3.Margin = New System.Windows.Forms.Padding(2)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(109, 34)
@@ -77,7 +79,7 @@ Partial Class NoticeForm
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal
-        Me.TextBox1.Size = New System.Drawing.Size(878, 549)
+        Me.TextBox1.Size = New System.Drawing.Size(635, 381)
         Me.TextBox1.TabIndex = 1
         '
         'NoticeForm
@@ -86,7 +88,7 @@ Partial Class NoticeForm
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(884, 600)
+        Me.ClientSize = New System.Drawing.Size(641, 432)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.ForeColor = System.Drawing.Color.Black

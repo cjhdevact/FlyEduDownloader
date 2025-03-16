@@ -23,8 +23,8 @@ Partial Class MDownForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MDownForm))
-        Me.Button1 = New CustButtom()
-        Me.Button2 = New CustButtom()
+        Me.Button1 = New FlyEduDownloader.CustButtom()
+        Me.Button2 = New FlyEduDownloader.CustButtom()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
@@ -32,17 +32,19 @@ Partial Class MDownForm
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Button3 = New CustButtom()
-        Me.Button4 = New CustButtom()
+        Me.Button3 = New FlyEduDownloader.CustButtom()
+        Me.Button4 = New FlyEduDownloader.CustButtom()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
         '
+        Me.Button1.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Location = New System.Drawing.Point(668, 5)
         Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button1.Name = "Button1"
@@ -53,6 +55,8 @@ Partial Class MDownForm
         '
         'Button2
         '
+        Me.Button2.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.Location = New System.Drawing.Point(560, 5)
         Me.Button2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button2.Name = "Button2"
@@ -164,6 +168,8 @@ Partial Class MDownForm
         '
         'Button3
         '
+        Me.Button3.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button3.Location = New System.Drawing.Point(452, 5)
         Me.Button3.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button3.Name = "Button3"
@@ -174,6 +180,8 @@ Partial Class MDownForm
         '
         'Button4
         '
+        Me.Button4.BackColor = System.Drawing.Color.Gainsboro
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button4.Location = New System.Drawing.Point(344, 5)
         Me.Button4.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button4.Name = "Button4"
@@ -185,6 +193,8 @@ Partial Class MDownForm
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Checked = True
+        Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CheckBox1.Location = New System.Drawing.Point(218, 12)
         Me.CheckBox1.Margin = New System.Windows.Forms.Padding(3, 12, 3, 3)
         Me.CheckBox1.Name = "CheckBox1"
@@ -192,10 +202,6 @@ Partial Class MDownForm
         Me.CheckBox1.TabIndex = 4
         Me.CheckBox1.Text = "使用多线程下载"
         Me.CheckBox1.UseVisualStyleBackColor = True
-        '
-        'FolderBrowserDialog1
-        '
-        Me.FolderBrowserDialog1.Description = "请选择电子书下载目录："
         '
         'CheckBox2
         '
@@ -207,6 +213,10 @@ Partial Class MDownForm
         Me.CheckBox2.TabIndex = 5
         Me.CheckBox2.Text = "强制获取旧版教材"
         Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'FolderBrowserDialog1
+        '
+        Me.FolderBrowserDialog1.Description = "请选择电子书下载目录："
         '
         'MDownForm
         '

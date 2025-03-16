@@ -61,12 +61,104 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  查找类似 main_feddev
+        ''' 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property AppBuildBranch() As String
+            Get
+                Return ResourceManager.GetString("AppBuildBranch", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似 main_feddev.250316-1839
+        ''' 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property AppBuildChannel() As String
+            Get
+                Return ResourceManager.GetString("AppBuildChannel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似 https://cjhdevact.github.io/otherprojects/FlyEduDownloader/feedbacklink.json 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property IssueA() As String
+            Get
+                Return ResourceManager.GetString("IssueA", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似 https://github.com/cjhdevact/FlyEduDownloader/issues 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property IssueG() As String
+            Get
+                Return ResourceManager.GetString("IssueG", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似 https://cjhdevact.github.io/otherprojects/FlyEduDownloader/feedbacklink.html 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property IssueT() As String
+            Get
+                Return ResourceManager.GetString("IssueT", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  查找类似 {\rtf1\adeflang1025\ansi\ansicpg936\uc2\adeff0\deff0\stshfdbch31505\stshfloch31506\stshfhich31506\stshfbi0\deflang1033\deflangfe2052\themelang1033\themelangfe2052\themelangcs0{\fonttbl{\f0\fbidi \froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f34\fbidi \froman\fcharset0\fprq2{\*\panose 02040503050406030204}Cambria Math;}
         '''{\f36\fbidi \fnil\fcharset134\fprq2{\*\panose 02010600030101010101}\&apos;b5\&apos;c8\&apos;cf\&apos;df{\*\falt DengXian};}{\f44\fbidi \fswiss\fcharset134\fprq2{\*\panose 000000000000 [字符串的其余部分被截断]&quot;; 的本地化字符串。
         '''</summary>
         Friend ReadOnly Property license() As String
             Get
                 Return ResourceManager.GetString("license", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似 https://cjhdevact.github.io/otherprojects/FlyEduDownloader/noticemsg2.json 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property NoticeMsg() As String
+            Get
+                Return ResourceManager.GetString("NoticeMsg", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似 https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upinfo.json 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property UpdateInfo() As String
+            Get
+                Return ResourceManager.GetString("UpdateInfo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似 https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upinfosup.json 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property UpdateInfoSp() As String
+            Get
+                Return ResourceManager.GetString("UpdateInfoSp", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似 https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upver.json 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property UpdateVer() As String
+            Get
+                Return ResourceManager.GetString("UpdateVer", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似 https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upversup.json 的本地化字符串。
+        '''</summary>
+        Friend ReadOnly Property UpdateVerSp() As String
+            Get
+                Return ResourceManager.GetString("UpdateVerSp", resourceCulture)
             End Get
         End Property
     End Module

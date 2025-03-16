@@ -17,8 +17,8 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{85F3616B-7A4C-4EED-B00B-DF6866141220}
 AppName=飞翔教学资源助手
-AppVersion=1.0.8.25022
-;AppVerName=FlyEduDownloader 1.0.8.25022
+AppVersion=1.0.9.25031
+;AppVerName=FlyEduDownloader 1.0.9.25031
 AppPublisher=CJH
 DefaultDirName={pf}\CJH\FlyEduDownloader\x64
 DefaultGroupName=飞翔教学资源助手
@@ -27,16 +27,16 @@ LicenseFile=..\License
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=.\FlyEduDownloader\setupbin\release
-OutputBaseFilename=FlyEduDownloader_1.0.8.25022_x64_setup
+OutputBaseFilename=FlyEduDownloader_1.0.9.25031_x64_setup
 SetupIconFile=.\FlyEduDownloader\res\FlyEduDownloader.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 
 VersionInfoCopyright=Copyright © 2024-2025 CJH. All Rights Reserved.
-VersionInfoVersion=1.0.8.25022
-VersionInfoProductName=FlyEduDownloader 1.0.8.25022
-VersionInfoProductVersion=1.0.8.25022
+VersionInfoVersion=1.0.9.25031
+VersionInfoProductName=FlyEduDownloader 1.0.9.25031
+VersionInfoProductVersion=1.0.9.25031
 VersionInfoCompany=CJH
 VersionInfoDescription=FlyEduDownloader Setup
 
@@ -44,7 +44,7 @@ WizardImageFile=WizModernImage.bmp
 WizardSmallImageFile=WizModernSmallImage.bmp
 
 ;UninstallDisplayIcon=.\FlyEduDownloader\FlyEduDownloader.ico
-UninstallDisplayName=飞翔教学资源助手 1.0.8.25022 (x64)
+UninstallDisplayName=飞翔教学资源助手 1.0.9.25031 (x64)
 
 ; "ArchitecturesAllowed=x64" specifies that Setup cannot run on
 ; anything but x64.
@@ -142,7 +142,7 @@ NewFolderName=新建文件夹
 
 ; *** “欢迎”向导页
 WelcomeLabel1=欢迎安装 飞翔教学资源助手！
-WelcomeLabel2=现在将安装 飞翔教学资源助手 到您的电脑中。%n%n推荐您在继续安装前关闭所有其它应用程序。%n%n编译日期：2025-2-21。%n%n版本：1.0.8.25022
+WelcomeLabel2=现在将安装 飞翔教学资源助手 到您的电脑中。%n%n推荐您在继续安装前关闭所有其它应用程序。%n%n编译日期：2025-3-16。%n%n版本：1.0.9.25031
 
 ; *** “许可协议”向导页
 WizardLicense=许可协议
@@ -287,7 +287,7 @@ SubKeyName :=  'Software\Microsoft\Windows\CurrentVersion\Uninstall\{85F3616B-7A
 if (IsWin64()) then begin
 //自己的appID
 SubKeyName :=  'Software\Microsoft\Windows\CurrentVersion\Uninstall\{85F3616B-7A4C-4EED-B00B-DF6866141220}_is1';
-    RegWriteStringValue(HKLM,SubKeyName,'DisplayName','飞翔教学资源助手 1.0.8.25022 (x64)');
+    RegWriteStringValue(HKLM,SubKeyName,'DisplayName','飞翔教学资源助手 1.0.9.25031 (x64)');
   end;
 end;
 

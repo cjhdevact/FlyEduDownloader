@@ -1,10 +1,14 @@
 /Src/.vs/
 
-/Src/*.suo
+/Src/FlyEduDownloader.suo
 
-/Src/TimeControl-bin/
+/Src/FlyEduDownloader-bin/
 
 /Src/FlyEduDownloader/bin/
+
+/Src/FlyEduDownloader/apis/
+
+/Src/FlyEduDownloader/prebuild/setbuildc.bat
 
 /Src/FlyEduDownloader/setupbin/
 

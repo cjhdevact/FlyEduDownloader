@@ -3,7 +3,7 @@
 path D:\ProjectsTmp\SignPack;%path%
 echo 任意键签名 飞翔教学资源助手安装程序（FlyEduDownloader Setup）...
 pause > nul
-Set apver=1.0.8.25022
+Set apver=1.0.9.25031
 cmd.exe /c signcmd.cmd "%CSIGNCERT%" "%~dp0FlyEduDownloader\setupbin\release\fed-%apver%-x64-up.exe"
 cmd.exe /c signcmd.cmd "%CSIGNCERT%" "%~dp0FlyEduDownloader\setupbin\release\fed-%apver%-x86-up.exe"
 cmd.exe /c signcmd.cmd "%CSIGNCERT%" "%~dp0FlyEduDownloader\setupbin\release\FlyEduDownloader_%apver%_x64_setup.exe"

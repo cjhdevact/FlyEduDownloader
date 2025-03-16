@@ -64,9 +64,9 @@ Public Class MainForm
 
     '程序版本信息
     Public MyArch As String
-    Public Const AppBuildTime As String = "20250221"
-    Public Const AppBuildChannel As String = "Official"
-    Public Const AppBuildNumber As Integer = 4
+    Public Const AppBuildTime As String = "20250316"
+    Public AppBuildChannel As String = My.Resources.AppBuildChannel
+    Public Const AppBuildNumber As Integer = 5
  
     '初始化
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -305,7 +305,7 @@ Public Class MainForm
     Sub GetNotice()
         Try
             Dim ntic As String
-            ntic = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/noticemsg2.json")
+            ntic = GetSource(My.Resources.NoticeMsg)
             Dim reget As String = ""
             Try
                 Dim NoticeObject As JObject = JObject.Parse(ntic)
@@ -360,9 +360,9 @@ Public Class MainForm
         Dim verstr As String = ""
         Dim vernum As Integer
         If System.Environment.OSVersion.Version.Major >= 6 And System.Environment.OSVersion.Version.Minor >= 1 Then
-            verf = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upver.json")
+            verf = GetSource(My.Resources.UpdateVer)
         Else
-            verf = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upversup.json")
+            verf = GetSource(My.Resources.UpdateVerSp)
         End If
         If verf = "" Then
             Return (2)
@@ -384,9 +384,9 @@ Public Class MainForm
         If needupt = True Then
             Dim veri As String
             If System.Environment.OSVersion.Version.Major >= 6 And System.Environment.OSVersion.Version.Minor >= 1 Then
-                veri = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upinfo.json")
+                veri = GetSource(My.Resources.UpdateInfo)
             Else
-                veri = GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/upinfosup.json")
+                veri = GetSource(My.Resources.UpdateInfoSp)
             End If
             If veri = "" Then
                 Return (2)
@@ -638,16 +638,20 @@ Public Class MainForm
                         Dim dfn As String
                         dfn = TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1)
                         '处理文件名，去除非法字符\/:*?"<>|
-                        dfn = Replace(dfn, "\", "_")
-                        dfn = Replace(dfn, "/", "_")
-                        dfn = Replace(dfn, ":", "-")
-                        dfn = Replace(dfn, "*", "-")
-                        dfn = Replace(dfn, "?", "")
-                        dfn = Replace(dfn, """", "")
-                        dfn = Replace(dfn, "<", "")
-                        dfn = Replace(dfn, ">", "")
-                        dfn = Replace(dfn, "|", "_")
-                        dfn = EnsureValidFileName(dfn)
+                        Dim ffn() As String
+                        ffn = Split(dfn, "\")
+                        ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "\", "_")
+                        ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "/", "_")
+                        ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), ":", "-")
+                        ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "*", "-")
+                        ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "?", "")
+                        ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), """", "")
+                        ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "<", "")
+                        ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), ">", "")
+                        ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "|", "_")
+                        ffn(ffn.Length - 1) = EnsureValidFileName(ffn(ffn.Length - 1))
+                        dfn = Join(ffn, "\")
+                        'fn = MainForm.EnsureValidFileName(fn)
                         DownloadClient.DownloadFileAsync(New Uri(DownBookAudioLinks(item)), FolderBrowserDialog1.SelectedPath & "\" & dfn, ii & "/" & TagsSet.ListBox1.CheckedIndices.Count & " " & TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1))
                     Catch ex As Exception
                         DownFormvb.Label1.Text = ex.Message
@@ -1124,25 +1128,19 @@ Public Class MainForm
             End If
 
 
-
-
-            If CheckBox1.Checked = True Then '强制获取旧版教材
-                For i = 0 To BookDownLinkPriArr.Count - 1
-                    'BookDownLinkPriArr(i) = "https://r" & i + 1 & "-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/pdf.pdf"
-                    Dim cc() As String
-                    cc = Split(BookDownLinkPriArr(i), "/")
-                    If CheckBox1.Checked = True Then '强制获取老版教材
-                        cc(cc.Length - 1) = "pdf.pdf"
-                    End If
-
-                    If CheckBox3.Checked = True Then '强制获取旧链接教材
-                        BookDownLinkPriArr(i) = "https://r" & i + 1 & "-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/" & bb(bb.Length - 1)
-                    Else
-                        BookDownLinkPriArr(i) = Join(cc, "/")
-                    End If
-                Next
-            End If
-
+            For i = 0 To BookDownLinkPriArr.Count - 1
+                Dim cc() As String
+                cc = Split(BookDownLinkPriArr(i), "/")
+                'BookDownLinkPriArr(i) = "https://r" & i + 1 & "-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/pdf.pdf"
+                If CheckBox1.Checked = True Then '强制获取老版教材
+                    cc(cc.Length - 1) = "pdf.pdf"
+                End If
+                If CheckBox3.Checked = True Then '强制获取旧链接教材
+                    BookDownLinkPriArr(i) = "https://r" & i + 1 & "-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/" & bookid & ".pkg/" & bb(bb.Length - 1)
+                Else
+                    BookDownLinkPriArr(i) = Join(cc, "/")
+                End If
+            Next
             '获取下载链接显示
             For i = 0 To BookDownLinkPriArr.Count - 1
                 'Dim ad As String()
@@ -1307,16 +1305,20 @@ Public Class MainForm
             Dim dfn As String
             dfn = DownBookName
             '处理文件名，去除非法字符\/:*?"<>|
-            dfn = Replace(dfn, "\", "_")
-            dfn = Replace(dfn, "/", "_")
-            dfn = Replace(dfn, ":", "-")
-            dfn = Replace(dfn, "*", "-")
-            dfn = Replace(dfn, "?", "")
-            dfn = Replace(dfn, """", "")
-            dfn = Replace(dfn, "<", "")
-            dfn = Replace(dfn, ">", "")
-            dfn = Replace(dfn, "|", "_")
-            dfn = EnsureValidFileName(dfn)
+            Dim ffn() As String
+            ffn = Split(dfn, "\")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "\", "_")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "/", "_")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), ":", "-")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "*", "-")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "?", "")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), """", "")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "<", "")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), ">", "")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "|", "_")
+            ffn(ffn.Length - 1) = EnsureValidFileName(ffn(ffn.Length - 1))
+            dfn = Join(ffn, "\")
+            'fn = MainForm.EnsureValidFileName(fn)
             SaveFileDialog1.FileName = dfn & ".pdf"
             If SaveFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
                 '初始化下载器
@@ -1329,7 +1331,7 @@ Public Class MainForm
                 If DownloadMode = 0 Then
                     DownloadClient.Headers.Set("x-nd-auth", XNdAuth)
                 End If
-                
+
                 '开始下载
                 Try
                     DownloadClient.DownloadFileAsync(New Uri(DownBookLink), SaveFileDialog1.FileName, DownBookName)
@@ -1387,16 +1389,20 @@ Public Class MainForm
                             Dim dfn As String
                             dfn = TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1)
                             '处理文件名，去除非法字符\/:*?"<>|
-                            dfn = Replace(dfn, "\", "_")
-                            dfn = Replace(dfn, "/", "_")
-                            dfn = Replace(dfn, ":", "-")
-                            dfn = Replace(dfn, "*", "-")
-                            dfn = Replace(dfn, "?", "")
-                            dfn = Replace(dfn, """", "")
-                            dfn = Replace(dfn, "<", "")
-                            dfn = Replace(dfn, ">", "")
-                            dfn = Replace(dfn, "|", "_")
-                            dfn = EnsureValidFileName(dfn)
+                            Dim ffn() As String
+                            ffn = Split(dfn, "\")
+                            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "\", "_")
+                            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "/", "_")
+                            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), ":", "-")
+                            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "*", "-")
+                            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "?", "")
+                            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), """", "")
+                            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "<", "")
+                            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), ">", "")
+                            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "|", "_")
+                            ffn(ffn.Length - 1) = EnsureValidFileName(ffn(ffn.Length - 1))
+                            dfn = Join(ffn, "\")
+                            'fn = MainForm.EnsureValidFileName(fn)
                             'DownloadClient.DownloadFileAsync(New Uri(DownBookLinks(TagsSet.ListBox1.SelectedIndex)), SaveFileDialog1.FileName)
                             DownloadClient.DownloadFileAsync(New Uri(DownBookLinks(item)), FolderBrowserDialog1.SelectedPath & "\" & dfn, ii & "/" & TagsSet.ListBox1.CheckedIndices.Count & " " & TagsSet.ListBox1.Items(item).ToString & "." & fn2(fn2.Count - 1))
                         Catch ex As Exception

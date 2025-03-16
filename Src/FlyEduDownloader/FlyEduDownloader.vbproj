@@ -369,6 +369,16 @@
     <None Include="res\license.rtf" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="apis\AppBuildChannel.txt" />
+    <None Include="apis\UpdateInfo.txt" />
+    <None Include="apis\UpdateInfoSp.txt" />
+    <None Include="apis\UpdateVer.txt" />
+    <None Include="apis\UpdateVerSp.txt" />
+    <None Include="apis\NoticeMsg.txt" />
+    <None Include="apis\IssueA.txt" />
+    <None Include="apis\IssueG.txt" />
+    <None Include="apis\IssueT.txt" />
+    <None Include="apis\AppBuildBranch.txt" />
     <Content Include="res\FlyEduDownloader.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +407,9 @@
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>cmd.exe /c "$(ProjectDir)prebuild\setbuild.bat"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

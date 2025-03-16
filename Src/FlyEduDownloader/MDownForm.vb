@@ -61,7 +61,7 @@ Public Class MDownForm
         ServicePointManager.SecurityProtocol = CType(192, SecurityProtocolType) Or CType(768, SecurityProtocolType) Or CType(3072, SecurityProtocolType)
         st = 0
         mld = 1
-        CheckBox1.Checked = True
+        'CheckBox1.Checked = False
         DownloadClient.Timeout = 30000
         'AddHandler DownloadClient.DownloadProgressChanged, AddressOf DownloadClient_DownloadProgressChanged
         AddHandler DownloadClient.DownloadFileCompleted, AddressOf DownloadClient_DownloadFileCompleted
@@ -92,6 +92,7 @@ Public Class MDownForm
         Button3.Enabled = False
         Button4.Enabled = False
         CheckBox1.Enabled = False
+        CheckBox2.Enabled = False
         DownLinks = Split(TextBox1.Text, vbCrLf)
         Dim iu As Integer
         iu = DownLinks.Length
@@ -117,6 +118,7 @@ Public Class MDownForm
         Button3.Enabled = True
         Button4.Enabled = True
         CheckBox1.Enabled = True
+        CheckBox2.Enabled = True
         st = 0
     End Sub
 
@@ -199,16 +201,20 @@ Public Class MDownForm
             fn = fn & ".pdf"
 
             '处理文件名，去除非法字符\/:*?"<>|
-            fn = Replace(fn, "\", "_")
-            fn = Replace(fn, "/", "_")
-            fn = Replace(fn, ":", "-")
-            fn = Replace(fn, "*", "-")
-            fn = Replace(fn, "?", "")
-            fn = Replace(fn, """", "")
-            fn = Replace(fn, "<", "")
-            fn = Replace(fn, ">", "")
-            fn = Replace(fn, "|", "_")
-            fn = MainForm.EnsureValidFileName(fn)
+            Dim ffn() As String
+            ffn = Split(fn, "\")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "\", "_")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "/", "_")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), ":", "-")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "*", "-")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "?", "")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), """", "")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "<", "")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), ">", "")
+            ffn(ffn.Length - 1) = Replace(ffn(ffn.Length - 1), "|", "_")
+            ffn(ffn.Length - 1) = MainForm.EnsureValidFileName(ffn(ffn.Length - 1))
+            fn = Join(ffn, "\")
+            'fn = MainForm.EnsureValidFileName(fn)
             If IO.File.Exists(fn) Then
                 Try
                     IO.File.Delete(fn)
@@ -283,6 +289,14 @@ Public Class MDownForm
             mld = 1
         Else
             mld = 0
+        End If
+    End Sub
+
+    Private Sub CheckBox1_CheckStateChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckBox1.CheckStateChanged
+        If CheckBox1.CheckState = CheckState.Checked Then
+            If MessageBox.Show("使用多线程下载可能会导致性能问题，虽然多线程下载可以一次下载多个文件，且在处理少量链接下可以避免界面卡死，但如果处理大量链接时，可能会出现程序卡死现象。如果你要使用该模式，请确保你的电脑性能可以支持该模式，并且不要一次性下载过多的链接。" & vbCrLf & "是否使用多线程下载模式？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then
+                CheckBox1.Checked = CheckState.Unchecked
+            End If
         End If
     End Sub
 End Class

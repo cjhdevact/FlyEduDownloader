@@ -35,7 +35,7 @@ Public Class FeedBackForm
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         MessageBox.Show("使用Github反馈需要先登录GitHub账号，因此我们更建议你使用问卷反馈。如果使用Github反馈请在反馈内容后附上程序生成的反馈报告。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        System.Diagnostics.Process.Start("https://github.com/cjhdevact/FlyEduDownloader/issues")
+        System.Diagnostics.Process.Start(My.Resources.IssueG)
     End Sub
     '获取系统版本函数
     Function GetOSVersion() As String
@@ -57,16 +57,15 @@ Public Class FeedBackForm
 
     Private Sub FeedBackForm_Loads(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim feedbacklink As String
-        feedbacklink = MainForm.GetSource("https://cjhdevact.github.io/otherprojects/FlyEduDownloader/feedbacklink.json")
+        feedbacklink = MainForm.GetSource(My.Resources.IssueA)
         Try
             Dim NoticeObject As JObject = JObject.Parse(feedbacklink)
             MyFeedLink = CStr(NoticeObject("link"))
         Catch ex As Exception
-            'MyFeedLink = "https://wj.qq.com/s2/15810944/9589/"
-            MyFeedLink = "https://cjhdevact.github.io/otherprojects/FlyEduDownloader/feedbacklink.html"
+            MyFeedLink = My.Resources.IssueT
         End Try
         If MyFeedLink = "" Then
-            MyFeedLink = "https://cjhdevact.github.io/otherprojects/FlyEduDownloader/feedbacklink.html"
+            MyFeedLink = My.Resources.IssueT
         End If
 
         Dim sa As String
