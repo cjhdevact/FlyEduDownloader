@@ -12,6 +12,15 @@ if not exist "%~dp0setbuildc.bat" set bdbh=Github-TestBuild
 if exist "%~dp0setbuildc.bat" set "buildid=%bdbh%.%bdtime%"
 if not exist "%~dp0setbuildc.bat" set "buildid=%bdbh%.%computername%.%username%.%bdtime%"
 
+if not exist "%~dp0..\apis\IssueA.txt" echo.>"%~dp0..\apis\IssueA.txt"
+if not exist "%~dp0..\apis\IssueG.txt" echo.>"%~dp0..\apis\IssueG.txt"
+if not exist "%~dp0..\apis\IssueT.txt" echo.>"%~dp0..\apis\IssueT.txt"
+if not exist "%~dp0..\apis\NoticeMsg.txt" echo.>"%~dp0..\apis\NoticeMsg.txt"
+if not exist "%~dp0..\apis\UpdateInfo.txt" echo.>"%~dp0..\apis\UpdateInfo.txt"
+if not exist "%~dp0..\apis\UpdateInfoSp.txt" echo.>"%~dp0..\apis\UpdateInfoSp.txt"
+if not exist "%~dp0..\apis\UpdateVer.txt" echo.>"%~dp0..\apis\UpdateVer.txt"
+if not exist "%~dp0..\apis\UpdateVerSp.txt" echo.>"%~dp0..\apis\UpdateVerSp.txt"
+
 echo %buildid%>"%~dp0..\apis\AppBuildChannel.txt"
 echo %bdbh%>"%~dp0..\apis\AppBuildBranch.txt"
 
