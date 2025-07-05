@@ -27,14 +27,14 @@ Partial Class FeedBackForm
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Button1 = New FlyEduDownloader.CustButtom()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Button3 = New FlyEduDownloader.CustButtom()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Button4 = New FlyEduDownloader.CustButtom()
+        Me.Button4 = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -102,7 +102,7 @@ Partial Class FeedBackForm
         'Button1
         '
         Me.Button1.BackColor = System.Drawing.Color.Gainsboro
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.Button1.Location = New System.Drawing.Point(591, 3)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(92, 31)
@@ -157,7 +157,7 @@ Partial Class FeedBackForm
         'Button3
         '
         Me.Button3.BackColor = System.Drawing.Color.Gainsboro
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.Button3.Location = New System.Drawing.Point(12, 29)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(135, 31)
@@ -177,7 +177,7 @@ Partial Class FeedBackForm
         'Button4
         '
         Me.Button4.BackColor = System.Drawing.Color.Gainsboro
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.Button4.Location = New System.Drawing.Point(153, 29)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(92, 31)
@@ -222,7 +222,7 @@ Partial Class FeedBackForm
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents Button1 As FlyEduDownloader.CustButtom
-    Friend WithEvents Button3 As FlyEduDownloader.CustButtom
-    Friend WithEvents Button4 As FlyEduDownloader.CustButtom
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents Button4 As System.Windows.Forms.Button
 End Class

@@ -24,8 +24,8 @@ Partial Class LicenseForm
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(LicenseForm))
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Button1 = New CustButtom()
-        Me.Button3 = New CustButtom()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.FlowLayoutPanel1.SuspendLayout()
@@ -118,8 +118,8 @@ Partial Class LicenseForm
 
     End Sub
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents Button1 As CustButtom
+    Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents RichTextBox1 As System.Windows.Forms.RichTextBox
-    Friend WithEvents Button3 As CustButtom
+    Friend WithEvents Button3 As System.Windows.Forms.Button
 End Class

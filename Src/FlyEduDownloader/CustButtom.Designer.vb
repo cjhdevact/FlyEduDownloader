@@ -1,7 +1,7 @@
 ﻿'==========================================
 '项目：FlyEduDownloader
 '作者：CJH
-'文件：CustButtom.Designer.vb
+'文件：System.Windows.Forms.Button.Designer.vb
 '描述：自定义按钮
 'License：
 'FlyEduDownloader
@@ -21,7 +21,7 @@
 'along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '==========================================
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class CustButtom
+Partial Class System.Windows.Forms.Button
     Inherits System.Windows.Forms.Button
 
     'UserControl 重写 Dispose，以清理组件列表。

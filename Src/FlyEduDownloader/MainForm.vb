@@ -64,9 +64,9 @@ Public Class MainForm
 
     '程序版本信息
     Public MyArch As String
-    Public Const AppBuildTime As String = "20250316"
+    Public Const AppBuildTime As String = "2025705"
     Public AppBuildChannel As String = My.Resources.AppBuildChannel
-    Public Const AppBuildNumber As Integer = 5
+    Public Const AppBuildNumber As Integer = 6
  
     '初始化
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load

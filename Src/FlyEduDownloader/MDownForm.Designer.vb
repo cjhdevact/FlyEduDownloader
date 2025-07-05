@@ -23,8 +23,8 @@ Partial Class MDownForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MDownForm))
-        Me.Button1 = New FlyEduDownloader.CustButtom()
-        Me.Button2 = New FlyEduDownloader.CustButtom()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
@@ -32,8 +32,8 @@ Partial Class MDownForm
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Button3 = New FlyEduDownloader.CustButtom()
-        Me.Button4 = New FlyEduDownloader.CustButtom()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
@@ -44,7 +44,7 @@ Partial Class MDownForm
         'Button1
         '
         Me.Button1.BackColor = System.Drawing.Color.Gainsboro
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.Button1.Location = New System.Drawing.Point(668, 5)
         Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button1.Name = "Button1"
@@ -56,7 +56,7 @@ Partial Class MDownForm
         'Button2
         '
         Me.Button2.BackColor = System.Drawing.Color.Gainsboro
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.Button2.Location = New System.Drawing.Point(560, 5)
         Me.Button2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button2.Name = "Button2"
@@ -169,7 +169,7 @@ Partial Class MDownForm
         'Button3
         '
         Me.Button3.BackColor = System.Drawing.Color.Gainsboro
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.Button3.Location = New System.Drawing.Point(452, 5)
         Me.Button3.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button3.Name = "Button3"
@@ -181,7 +181,7 @@ Partial Class MDownForm
         'Button4
         '
         Me.Button4.BackColor = System.Drawing.Color.Gainsboro
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.Button4.Location = New System.Drawing.Point(344, 5)
         Me.Button4.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button4.Name = "Button4"
@@ -240,8 +240,8 @@ Partial Class MDownForm
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents Button1 As CustButtom
-    Friend WithEvents Button2 As CustButtom
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
@@ -249,9 +249,9 @@ Partial Class MDownForm
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Button3 As CustButtom
+    Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
-    Friend WithEvents Button4 As CustButtom
+    Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
     Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
 End Class

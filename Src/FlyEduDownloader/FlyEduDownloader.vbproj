@@ -148,7 +148,6 @@
     <Compile Include="AboutForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustButtom.Designer.vb" />
     <Compile Include="DownFormvb.Designer.vb">
       <DependentUpon>DownFormvb.vb</DependentUpon>
     </Compile>

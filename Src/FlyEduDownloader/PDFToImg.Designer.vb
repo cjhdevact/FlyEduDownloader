@@ -25,11 +25,11 @@ Partial Class PDFToImg
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PDFToImg))
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.Button1 = New FlyEduDownloader.CustButtom()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Button2 = New FlyEduDownloader.CustButtom()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.Button3 = New FlyEduDownloader.CustButtom()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -51,7 +51,7 @@ Partial Class PDFToImg
         'Button1
         '
         Me.Button1.BackColor = System.Drawing.Color.Gainsboro
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.Button1.Location = New System.Drawing.Point(12, 12)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(103, 26)
@@ -71,7 +71,7 @@ Partial Class PDFToImg
         'Button2
         '
         Me.Button2.BackColor = System.Drawing.Color.Gainsboro
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.Button2.Location = New System.Drawing.Point(12, 54)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(103, 26)
@@ -91,7 +91,7 @@ Partial Class PDFToImg
         'Button3
         '
         Me.Button3.BackColor = System.Drawing.Color.Gainsboro
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Standard
         Me.Button3.Location = New System.Drawing.Point(211, 239)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(104, 37)
@@ -198,7 +198,7 @@ Partial Class PDFToImg
     Friend WithEvents ComboBox2 As ComboBox
     Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents Label3 As Label
-    Friend WithEvents Button1 As FlyEduDownloader.CustButtom
-    Friend WithEvents Button2 As FlyEduDownloader.CustButtom
-    Friend WithEvents Button3 As FlyEduDownloader.CustButtom
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents Button3 As System.Windows.Forms.Button
 End Class
