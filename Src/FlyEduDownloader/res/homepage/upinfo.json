@@ -1,1 +1,1 @@
-{"up32":"https://gitee.com/cjhdevact/fedsrv/releases/download/5/fed32.exe","up64":"https://gitee.com/cjhdevact/fedsrv/releases/download/5/fed64.exe","uf":0,"rurl":"","upt":["1.修复下载路径问题","2.修复无法获取新课标教材旧链接问题","3.界面和功能优化","强烈建议更新新版本。"]}
+{"up32":"https://gitee.com/cjhdevact/fedsrv/releases/download/6/fed32.exe","up64":"https://gitee.com/cjhdevact/fedsrv/releases/download/6/fed64.exe","uf":0,"rurl":"","upt":["1.修复卡登录问题（感谢52beijixing/smartedu-download项目的x-nd-auth生成思路）","2.界面和功能优化"]}

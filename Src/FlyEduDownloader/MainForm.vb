@@ -64,7 +64,7 @@ Public Class MainForm
 
     '程序版本信息
     Public MyArch As String
-    Public Const AppBuildTime As String = "2025705"
+    Public Const AppBuildTime As String = "20250706"
     Public AppBuildChannel As String = My.Resources.AppBuildChannel
     Public Const AppBuildNumber As Integer = 6
  
@@ -222,14 +222,14 @@ Public Class MainForm
             Me.Text = "飞翔教学资源助手 " & My.Application.Info.Version.ToString & " (" & AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （免登录下载模式）"
             DownloadMode = 1
             sxam.Visible = False
-            logmm.Text = "使用登录模式下载(&L)"
+            logmm.Text = "使用登录模式(&M)"
             Label3.Visible = False
             'sett = 1
         Else
             Me.Text = "飞翔教学资源助手 " & My.Application.Info.Version.ToString & " (" & AppBuildTime & ") " & MyArch & " " & AppBuildChannel & " （登录下载模式）"
             DownloadMode = 0
             sxam.Visible = True
-            logmm.Text = "使用免登录模式下载(&L)"
+            logmm.Text = "使用免登录模式(&M)"
             Label3.Visible = True
             Label1.Text = "下载链接：（可能存在多个下载链接，如果手动下载选择一个能用的粘贴到的实用工具-下载链接菜单下载即可）"
             If xndent <> "" Then

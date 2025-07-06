@@ -180,14 +180,14 @@ Partial Class MainForm
         'logmm
         '
         Me.logmm.Name = "logmm"
-        Me.logmm.Size = New System.Drawing.Size(130, 21)
-        Me.logmm.Text = "使用登录模式下载(&L)"
+        Me.logmm.Size = New System.Drawing.Size(112, 21)
+        Me.logmm.Text = "使用登录模式(&M)"
         '
         'sxam
         '
         Me.sxam.Name = "sxam"
-        Me.sxam.Size = New System.Drawing.Size(107, 21)
-        Me.sxam.Text = "设置登录信息(&S)"
+        Me.sxam.Size = New System.Drawing.Size(58, 21)
+        Me.sxam.Text = "登录(&L)"
         '
         'toolm
         '
@@ -311,9 +311,9 @@ Partial Class MainForm
         Me.Label3.Location = New System.Drawing.Point(9, 116)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(595, 19)
+        Me.Label3.Size = New System.Drawing.Size(500, 19)
         Me.Label3.TabIndex = 13
-        Me.Label3.Text = "如果登录状态失效（下载提示401）或者X-Nd-Auth信息错误，可以在""设置登录信息""菜单重新登录。"
+        Me.Label3.Text = "如果登录状态失效（下载提示401）或者登录信息错误，可以在""登录""菜单重新登录。"
         '
         'TableLayoutPanel1
         '

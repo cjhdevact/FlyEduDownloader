@@ -51,7 +51,7 @@ Partial Class SetXaForm
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(230, 30)
         Me.Button1.TabIndex = 0
-        Me.Button1.Text = "手动设置信息"
+        Me.Button1.Text = "手动设置登录信息"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Button3
@@ -92,7 +92,7 @@ Partial Class SetXaForm
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(134, 34)
         Me.Button5.TabIndex = 5
-        Me.Button5.Text = "免登录下载模式"
+        Me.Button5.Text = "免登录模式"
         Me.Button5.UseVisualStyleBackColor = True
         '
         'CheckBox1
@@ -114,7 +114,7 @@ Partial Class SetXaForm
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(228, 30)
         Me.Button6.TabIndex = 15
-        Me.Button6.Text = "登录（建议）"
+        Me.Button6.Text = "网页登录（建议）"
         Me.Button6.UseVisualStyleBackColor = True
         '
         'Label6
